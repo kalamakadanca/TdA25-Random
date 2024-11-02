@@ -36,4 +36,4 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d -p 80:80 student-cyber-games
+        docker run -d -p 80:80 tda25/student-cyber-games
