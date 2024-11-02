@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,3 +29,8 @@ jobs:
           team_token: ${{ secrets.TEAM_TOKEN }}
           image_name: tda-generic
           image_path: /tmp/tda-generic.tar
+
+      - name: Test Deployment
+        run: |
+          sleep 10  # Počkejte pár sekund, aby se aplikace stihla spustit
+          curl -f https://ca3512f4.app.deploy.tourde.app || echo "App is not reachable"
