@@ -16,9 +16,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: List files
-      run: ls -al
-
     - name: Set up .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -31,7 +28,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Publish the project
-      run: dotnet publish --configuration Release ./publish
+      run: dotnet publish --configuration Release -o ./publish
 
     - name: Build Docker image
       run: |
