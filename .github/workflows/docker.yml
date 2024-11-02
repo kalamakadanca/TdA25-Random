@@ -36,4 +36,4 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d -p 80:80 your-docker-image-name
+        docker run -d -p 80:80 student-cyber-games
