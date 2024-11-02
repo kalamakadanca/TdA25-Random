@@ -16,7 +16,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up .NET
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '8.0.x'
@@ -32,10 +35,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t your-docker-image-name .
-        # Nahraďte your-docker-image-name názvem, který chcete použít pro váš Docker image
+        docker build -t tda25/student-cyber-games .
 
     - name: Run Docker container
       run: |
         docker run -d -p 80:80 your-docker-image-name
-        # Toto mapuje port 80 kontejneru na port 80 hostitelského stroje
