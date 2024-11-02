@@ -14,12 +14,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Setup .NET
+    - name: Set up .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '8.0.x'
@@ -31,7 +31,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Publish the project
-      run: dotnet publish --configuration Release ./publish
+      run: dotnet publish --configuration Release -o ./publish
 
     - name: Build Docker image
       run: |
