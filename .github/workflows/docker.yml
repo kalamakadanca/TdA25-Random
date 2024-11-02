@@ -1,0 +1,41 @@
+name: Build and Deploy Docker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build the project
+      run: dotnet build --configuration Release
+
+    - name: Publish the project
+      run: dotnet publish --configuration Release --output ./publish
+
+    - name: Build Docker image
+      run: |
+        docker build -t your-docker-image-name .
+        # Nahraďte your-docker-image-name názvem, který chcete použít pro váš Docker image
+
+    - name: Run Docker container
+      run: |
+        docker run -d -p 80:80 your-docker-image-name
+        # Toto mapuje port 80 kontejneru na port 80 hostitelského stroje
