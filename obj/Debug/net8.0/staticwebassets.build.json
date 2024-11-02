@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "cUlidQSZL+CuSTzTaKMbLX81TE6xqTYgvCo9osofeRU=",
+  "Source": "TdA25-Random",
+  "BasePath": "_content/TdA25-Random",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "TdA25-Random\\wwwroot",
+      "Source": "TdA25-Random",
+      "ContentRoot": "c:\\Users\\Elik2\\TdA25-Random\\wwwroot\\",
+      "BasePath": "_content/TdA25-Random",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "c:\\Users\\Elik2\\TdA25-Random\\wwwroot\\index.html",
+      "SourceId": "TdA25-Random",
+      "SourceType": "Discovered",
+      "ContentRoot": "c:\\Users\\Elik2\\TdA25-Random\\wwwroot\\",
+      "BasePath": "_content/TdA25-Random",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
+}
