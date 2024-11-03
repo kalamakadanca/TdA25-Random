@@ -6,7 +6,7 @@ builder.Services.AddSwaggerGen();
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(80);
+    options.Listen(System.Net.IPAddress.Any, 80);
 
     if (builder.Environment.IsDevelopment())
     {
