@@ -1,20 +1,27 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Přidejte služby pro controllers a Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80);
+
+    if (builder.Environment.IsDevelopment())
+    {
+        options.ListenAnyIP(5067);
+    }
+});
+
 var app = builder.Build();
 
-// Použijte Swagger v režimu vývoje
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Mapování rout pro controllers
 app.MapControllers();
 
 app.Run();
