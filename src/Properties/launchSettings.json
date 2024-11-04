@@ -34,7 +34,7 @@
       },
       "dockerOptions": {
         "dockerfilePath": "Dockerfile",
-        "context": "${workspaceFolder}/src/Dockerfile"
+        "context": "${workspaceFolder}/src"
       }
     }
   },
