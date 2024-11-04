@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj": {}
+    "e:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj": {}
   },
   "projects": {
-    "E:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj": {
+    "e:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj",
+        "projectUniqueName": "e:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj",
         "projectName": "TourDeApp",
-        "projectPath": "E:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj",
+        "projectPath": "e:\\Programování\\Učení\\TdA25-Random\\TourDeApp.csproj",
         "packagesPath": "C:\\Users\\Kuba\\.nuget\\packages\\",
-        "outputPath": "E:\\Programování\\Učení\\TdA25-Random\\obj\\",
+        "outputPath": "e:\\Programování\\Učení\\TdA25-Random\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
