@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GIvjQJX/Auc=",
+  "dgSpecHash": "+KXUrZW35t4=",
   "success": true,
-  "projectFilePath": "E:\\Programování\\Učení\\TdA25-Random\\src\\TourDeApp.csproj",
+  "projectFilePath": "e:\\Programování\\Učení\\TdA25-Random\\src\\TourDeApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kuba\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.21.0\\microsoft.visualstudio.azure.containers.tools.targets.1.21.0.nupkg.sha512"
   ],

@@ -7,14 +7,14 @@ EXPOSE 5001
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/TourDeApp.csproj", "src/"]
-RUN dotnet restore "src/TourDeApp.csproj"
+COPY ["src/TourDeApp.csproj", "./"]
+RUN dotnet restore "./TourDeApp.csproj"
 COPY src/ .
-RUN dotnet build "src/TourDeApp.csproj" -c Release -o /app/build
+RUN dotnet build "./TourDeApp.csproj" -c Release -o /app/build
 
 # Publish stage
 FROM build AS publish
-RUN dotnet publish "src/TourDeApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./TourDeApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Final stage
 FROM base AS final
