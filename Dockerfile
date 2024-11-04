@@ -11,16 +11,16 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["source/TourDeApp.csproj", "source/"]
-RUN dotnet restore "./source/TourDeApp.csproj"
+COPY ["TourDeApp.csproj", "./"]
+RUN dotnet restore "./TourDeApp.csproj"
 COPY . .
 WORKDIR "/src"
-RUN dotnet build "./source/TourDeApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./TourDeApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./source/TourDeApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./TourDeApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
