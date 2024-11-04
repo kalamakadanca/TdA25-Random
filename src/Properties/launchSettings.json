@@ -33,7 +33,7 @@
         "ASPNETCORE_HTTPS_PORTS": "8081"
       },
       "dockerOptions": {
-        "dockerfilePath": "Dockerfile",
+        "dockerfilePath": "src/Dockerfile",
         "context": "${workspaceFolder}/src"
       }
     }
