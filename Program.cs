@@ -22,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+Console.WriteLine("Idk co delam");
+
 app.MapControllers();
 
 app.Run();
