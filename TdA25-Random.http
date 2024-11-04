@@ -1,6 +1,0 @@
-@TdA25_Random_HostAddress = http://localhost:80
-<!--5067-->
-GET {{TdA25_Random_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
