@@ -1,32 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using TourDeApp.Models;
 
-namespace TourDeApp.Controllers
+namespace aspnetapp.Controllers
 {
-	public class HomeController : Controller
-	{
-		private readonly ILogger<HomeController> _logger;
+    public class ApiController : Controller
+    {
+        [HttpGet]
+        [Route("api")]
+        public IActionResult Api()
+        {
+            return Json(new Secret());
+        }
+    }
 
-		public HomeController(ILogger<HomeController> logger)
-		{
-			_logger = logger;
-		}
-
-		public IActionResult Index()
-		{
-			return View();
-		}
-
-		public IActionResult Privacy()
-		{
-			return View();
-		}
-
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-	}
+    public class Secret
+    {
+        public string organization { get; set; } = "Student Cyber Game";
+    }
 }
