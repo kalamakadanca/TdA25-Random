@@ -18,7 +18,8 @@ jobs:
       - name: Build
         uses: docker/build-push-action@v6.8.0
         with:
-          context: ./
+          context: ./src
+          file: ./src/Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: tda-generic:latest
