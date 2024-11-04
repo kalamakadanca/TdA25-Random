@@ -10,7 +10,7 @@ builder.WebHost.ConfigureKestrel(options =>
 
     if (builder.Environment.IsDevelopment())
     {
-        options.ListenAnyIP(5067);
+        options.ListenAnyIP(80); //
     }
 });
 
