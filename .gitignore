@@ -1,3 +1,6 @@
+# Moje vlastní
+bin/
+
 # Visual Studio files
 .vs/
 *.suo
