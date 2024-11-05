@@ -2,7 +2,21 @@
 @namespace TourDeApp.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    Layout = "_Layout";
+    Layout = null;
 }
 
-<component type="typeof(App)" render-mode="ServerPrerendered" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>TourDeApp</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="wwwroot/css/site.css" />
+    <link rel="stylesheet" href="TourDeApp.styles.css" />
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

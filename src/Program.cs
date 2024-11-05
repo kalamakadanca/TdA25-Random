@@ -1,7 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+// Remove MVC services
+// builder.Services.AddControllersWithViews();
 builder.Services.AddRazorComponents(); // Add Blazor services
 
 var app = builder.Build();
@@ -9,7 +10,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error"); // Update error handling
     app.UseHsts();
 }
 
@@ -20,11 +21,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+// Remove MVC route mapping
+// app.MapControllerRoute(
+//     name: "default",
+//     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapBlazorHub(); // Map Blazor Hub
-app.MapFallbackToPage("/_Host"); // Fallback to Blazor
+app.MapFallbackToPage("/_Host"); // Map fallback to Blazor
 
 app.Run();
