@@ -1,22 +1,21 @@
-# Base stage
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
 WORKDIR /app
-EXPOSE 5000
-EXPOSE 5001
+EXPOSE 80
 
-# Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/TourDeApp.csproj", "./"]
-RUN dotnet restore "./TourDeApp.csproj"
-COPY src/ .
-RUN dotnet build "./TourDeApp.csproj" -c Release -o /app/build
+COPY ["TourDeApp.csproj", "./"]
+RUN dotnet restore "TourDeApp.csproj"
+COPY . .
+WORKDIR "/src/"
+RUN dotnet build "TourDeApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Publish stage
 FROM build AS publish
-RUN dotnet publish "./TourDeApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "TourDeApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Final stage
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
