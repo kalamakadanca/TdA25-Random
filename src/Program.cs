@@ -3,9 +3,8 @@ using TourDeApp;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Remove MVC services
-// builder.Services.AddControllersWithViews();
 builder.Services.AddRazorComponents(); // Add Blazor services
+builder.Services.AddControllers(); // Add API controllers
 
 // Add anti-forgery services
 builder.Services.AddAntiforgery();
@@ -27,11 +26,10 @@ app.UseRouting();
 // Add anti-forgery middleware
 app.UseAntiforgery();
 
-// Remove authorization and MVC route mapping
-// app.UseAuthorization();
-// app.MapControllerRoute(
-//     name: "default",
-//     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseAuthorization();
+
+// Map API controllers
+app.MapControllers();
 
 // Map Razor components for Blazor Server
 app.MapRazorComponents<App>();
