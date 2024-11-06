@@ -1,5 +1,17 @@
 @page "/"
 @page "/index"
 
-<h1>This is blazor!!!</h1>
+<h1>This is Index.razor!!!</h1>
 <p>Hello TdA</p>
+
+<button @onclick="ButtonClick">@buttonText</button>
+
+@code {
+    private string buttonText = "Původní text";
+
+    private string tst = "Test";
+
+    private void ButtonClick(){
+        buttonText = tst;
+    }
+}
