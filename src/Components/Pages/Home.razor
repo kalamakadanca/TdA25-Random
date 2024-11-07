@@ -2,6 +2,18 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Hello TdA</h1>
 
-Welcome to your new app.
+<p>@message</p>
+
+<button @onclick="ChangeText">Click me!</button>
+
+@code {
+    private string message = "Welcome";
+
+    private void ChangeText()
+    {
+        message = "Hello TdA";
+        Console.WriteLine("ChangeText method called. message: " + message);
+    }
+}
