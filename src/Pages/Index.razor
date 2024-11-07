@@ -1,18 +1,20 @@
 @page "/"
 @page "/index"
 
-<h1>This is Index.razor!!!</h1>
-<p>Hello TdA</p>
-
-<button @onclick="ButtonClick">@buttonText</button>
+<html>
+    <head>
+        <title>Ahoj</title>
+    </head>
+    <body>
+        <h1>Hello TdA/>
+        <button @onclick="ChangeText">@nazev</button>
+    </body>
+</html>
 
 @code {
-    private string buttonText = "Původní text";
-
-    private string tst = "Test";
-
-    private void ButtonClick(){
-        buttonText = tst;
-        StateHasChanged();
+    private string nazev = "Prvni nazev"
+    private void onclick()
+    {
+        nazev = "Druhy nazev"
     }
 }
