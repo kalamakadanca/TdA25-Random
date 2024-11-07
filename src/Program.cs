@@ -1,38 +1,31 @@
-using TourDeApp;
+using TourDeApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddRazorComponents(); // Add Blazor services
-builder.Services.AddControllers(); // Add API controllers
+builder.Services.AddRazorComponents()
+	.AddInteractiveServerComponents();
 
-// Add anti-forgery services
-builder.Services.AddAntiforgery();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error"); // Update error handling
-    app.UseHsts();
+	app.UseExceptionHandler("/Error", createScopeForErrors: true);
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
-
-app.UseRouting();
-
-// Add anti-forgery middleware
 app.UseAntiforgery();
 
-app.UseAuthorization();
-
-// Map API controllers
 app.MapControllers();
 
-// Map Razor components for Blazor Server
-app.MapRazorComponents<App>();
+app.MapRazorComponents<App>()
+	.AddInteractiveServerRenderMode();
 
 app.Run();

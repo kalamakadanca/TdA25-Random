@@ -1,0 +1,19 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello TdA</h1>
+
+<p>@message</p>
+
+<button @onclick="ChangeText">Click me!</button>
+
+@code {
+    private string message = "Welcome";
+
+    private void ChangeText()
+    {
+        message = "Hello TdA";
+        Console.WriteLine("ChangeText method called. message: " + message);
+    }
+}
