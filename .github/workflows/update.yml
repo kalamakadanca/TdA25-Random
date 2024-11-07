@@ -2,7 +2,7 @@ name: Build and push to TdA
 on:
   push:
     branches:
-      - main
+      - mvc
 
 jobs:
   build:
