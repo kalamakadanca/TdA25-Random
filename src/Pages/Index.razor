@@ -1,21 +1,22 @@
- @page "/secondpage"
- @* you can also add the following reference in the _Imports.razor page. *@
- @using static Microsoft.AspNetCore.Components.Web.RenderMode
+@page "/"
+@page "/index"
+@* you can also add the following reference in the _Imports.razor page. *@
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
 
- @rendermode InteractiveServer
+@rendermode InteractiveServer
 
- <div class="my-component">
-     This component is defined in the <strong>RazorClassLibrary3</strong> library.
- </div>
+<div class="my-component">
+    This component is defined in the <strong>RazorClassLibrary3</strong> library.
+</div>
 
- <button @onclick="UpdateMessage">Click</button>
- <div>
-     @message
- </div>
- @code {
-     public string message = "initial data";
-     public void UpdateMessage()
-     {
-         message = "Hello";
-     }
- }
+<button @onclick="UpdateMessage">Click</button>
+<div>
+    @message
+</div>
+@code {
+    public string message = "initial data";
+    public void UpdateMessage()
+    {
+        message = "Hello";
+    }
+}
