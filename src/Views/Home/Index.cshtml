@@ -1,8 +1,18 @@
-﻿<html>
-    <head>
-        <title>TURDEAP</title>
-    </head>
-    <body>
-        <h1>Hello TdA</h1>
-    </body>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Text on Button Click</title>
+</head>
+<body>
+    <p id="text">Original Text</p>
+    <button onclick="changeText()">Change Text</button>
+
+    <script>
+        function changeText() {
+            document.getElementById("text").textContent = "Text has been changed!";
+        }
+    </script>
+</body>
 </html>
