@@ -1,39 +1,21 @@
-@page "/"
-@page "/index"
+ @page "/secondpage"
+ @* you can also add the following reference in the _Imports.razor page. *@
+ @using static Microsoft.AspNetCore.Components.Web.RenderMode
 
-<h1>Hello TdA</h1>
-<button>@nazev</button>
+ @rendermode InteractiveServer
 
-@code {
-    private string nazev = "Starting count...";
-    private int count = 0;
-    private System.Threading.Timer? _timer;
+ <div class="my-component">
+     This component is defined in the <strong>RazorClassLibrary3</strong> library.
+ </div>
 
-    protected override void OnInitialized()
-    {
-        // Initialize the timer to call UpdateText every 1000ms (1 second)
-        _timer = new System.Threading.Timer(UpdateText, null, 0, 1000);
-    }
-
-    private void UpdateText(object? state)
-    {
-        // Increment the count and update the button text
-        if (count < 10)
-        {
-            nazev = $"Counting: {count}";
-            count++;
-            InvokeAsync(StateHasChanged); // Manually trigger a re-render
-        }
-        else
-        {
-            nazev = "Done counting!";
-            _timer?.Dispose(); // Stop the timer once it reaches 10
-            InvokeAsync(StateHasChanged); // Manually trigger a re-render
-        }
-    }
-
-    public void Dispose()
-    {
-        _timer?.Dispose(); // Clean up timer when component is disposed
-    }
-}
+ <button @onclick="UpdateMessage">Click</button>
+ <div>
+     @message
+ </div>
+ @code {
+     public string message = "initial data";
+     public void UpdateMessage()
+     {
+         message = "Hello";
+     }
+ }
