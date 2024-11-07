@@ -6,15 +6,16 @@
         <title>Ahoj</title>
     </head>
     <body>
-        <h1>Hello TdA/>
+        <h1>Hello TdA</h1>
         <button @onclick="ChangeText">@nazev</button>
     </body>
 </html>
 
 @code {
-    private string nazev = "Prvni nazev"
-    private void onclick()
+    private string nazev = "Prvni nazev";
+
+    private void ChangeText()
     {
-        nazev = "Druhy nazev"
+        nazev = "Druhy nazev";
     }
 }
