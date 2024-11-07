@@ -1,21 +1,39 @@
 @page "/"
 @page "/index"
 
-<html>
-    <head>
-        <title>Ahoj</title>
-    </head>
-    <body>
-        <h1>Hello TdA</h1>
-        <button @onclick="ChangeText">@nazev</button>
-    </body>
-</html>
+<h1>Hello TdA</h1>
+<button>@nazev</button>
 
 @code {
-    private string nazev = "Prvni nazev";
+    private string nazev = "Starting count...";
+    private int count = 0;
+    private System.Threading.Timer? _timer;
 
-    private void ChangeText()
+    protected override void OnInitialized()
     {
-        nazev = "Druhy nazev";
+        // Initialize the timer to call UpdateText every 1000ms (1 second)
+        _timer = new System.Threading.Timer(UpdateText, null, 0, 1000);
+    }
+
+    private void UpdateText(object? state)
+    {
+        // Increment the count and update the button text
+        if (count < 10)
+        {
+            nazev = $"Counting: {count}";
+            count++;
+            InvokeAsync(StateHasChanged); // Manually trigger a re-render
+        }
+        else
+        {
+            nazev = "Done counting!";
+            _timer?.Dispose(); // Stop the timer once it reaches 10
+            InvokeAsync(StateHasChanged); // Manually trigger a re-render
+        }
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose(); // Clean up timer when component is disposed
     }
 }
