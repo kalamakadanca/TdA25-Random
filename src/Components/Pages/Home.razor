@@ -1,20 +1,18 @@
 ﻿@page "/"
 @rendermode InteractiveServer
-
+@inject NavigationManager navigationManager
 <PageTitle>Home</PageTitle>
 
 <h1>Hello TdA</h1>
 
-<p>@message</p>
+<button @onclick="Play">Hrát</button>
 
-<button @onclick="ChangeText">Click me!</button>
 
-@code {
-    private string message = "Welcome";
+@code
+{
 
-    private void ChangeText()
+    private void Play(MouseEventArgs obj)
     {
-        message = "Hello TdA";
-        Console.WriteLine("ChangeText method called. message: " + message);
+        navigationManager.NavigateTo("/game");
     }
 }

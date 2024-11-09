@@ -1,0 +1,22 @@
+﻿@page "/game"
+
+<h3>Game</h3>
+
+<!-- Create playing a 15x15 field-->
+<div class="game_field">
+    <table class="table">
+        @for (int row = 0; row < 15; row++)
+        {
+            <tr>
+                @for (int col = 0; col < 15; col++)
+                {
+                    <td class="game_cell">
+                        <div>
+                            @col, @row
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>

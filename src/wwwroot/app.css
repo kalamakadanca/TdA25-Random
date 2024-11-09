@@ -27,3 +27,15 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+
+.game_cell {
+    border: 1px solid gray;
+}
+
+.game_field {
+    width: 750px;
+    height: 750px;
+    border: 2px solid black;
+    margin: 5%;
+}
