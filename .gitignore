@@ -1,3 +1,5 @@
+.dockerignore
+
 # User-specific files
 *.suo
 *.user
