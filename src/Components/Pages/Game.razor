@@ -1,5 +1,7 @@
 ﻿@page "/game"
 @rendermode InteractiveServer
+@inject NavigationManager navigationManager
+
 
 <!-- Create a 15x15 game field -->
 <div class="game">
@@ -23,3 +25,12 @@
         </table>
     </div>
 </div>
+
+
+@code
+{
+    private void Title()
+    {
+        navigationManager.NavigateTo("/");
+    }
+}
