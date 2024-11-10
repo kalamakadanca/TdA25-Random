@@ -27,3 +27,41 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.game {
+    display:flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.game_field {
+    border: 2px solid black;
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+}
+
+.table {
+    border-spacing: 0px;
+}
+
+.game_cell {
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+.icon_div {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    width: 80%;
+}

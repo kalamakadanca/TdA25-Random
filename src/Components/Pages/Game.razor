@@ -1,0 +1,25 @@
+﻿@page "/game"
+@rendermode InteractiveServer
+
+<!-- Create a 15x15 game field -->
+<div class="game">
+    <div class="game_field">
+        <table class="table">
+            <tbody>
+                @for (int row = 0; row < 15; row++)
+                {
+                    <tr class="row">
+                        @for (int i = 0; i < 15; i++)
+                        {
+                            <td class="game_cell">
+                                <div class="icon_div">
+                                    <img src="/TdA_Ikonky/PNG/O/O_cerne.png" class="icon"/>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
