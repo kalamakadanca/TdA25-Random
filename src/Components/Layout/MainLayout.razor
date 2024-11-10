@@ -1,6 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<div class="main layout">
+    <header>
+        <div>
+            <nav>
+                <NavLink href="" Match="NavLinkMatch.All">TdA</NavLink>
+                <NavLink href="game">Hrát</NavLink>
+            </nav>
+        </div>
+    </header>
+    <div class="page">
+        <main>
+            @Body
+        </main>
+    </div>
+</div>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
