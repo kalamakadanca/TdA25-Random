@@ -16,7 +16,7 @@ namespace TourDeApp.Controllers.API_V1.Games
         [HttpPost]
         public IActionResult Post() 
         {
-            // TODO: 
+            // TODO: Creates a game
 
             return StatusCode(200);
         }
