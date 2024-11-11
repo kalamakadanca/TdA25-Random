@@ -11,10 +11,12 @@
             <tbody>
                 @for (int row = 0; row < _game.Board.Size; row++)
                 {
-                    @for (int i = 0; i < _game.Board.Size; i++)
-                    {
-                        <Cell ID="GetID(row, i)"></Cell>
-                    }
+                    <tr>
+                        @for (int i = 0; i < _game.Board.Size; i++)
+                        {
+                            <Cell ID="GetID(row, i)"></Cell>
+                        }
+                    </tr>
                 }
             </tbody>
         </table>
