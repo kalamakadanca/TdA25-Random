@@ -1,6 +1,8 @@
 using TourDeApp.Components.Models;
 using TourDeApp.Components.Models.Schemas;
 
+
+// Toto je dočasně dokud Viktor neudělá controller
 namespace TourDeApp.Components.Services
 {
     public class GameService
@@ -9,12 +11,17 @@ namespace TourDeApp.Components.Services
 
         public GameService()
         {
-            _game = new Game("Default game", Difficulty.Easy);
+            _game = new Game("Default game", DifficultyType.easy);
         }
 
         public Game GetGame()
         {
             return _game;
+        }
+
+        public GameBoard GetBoard(Game game)
+        {
+            return game.Board;
         }
     }
 }

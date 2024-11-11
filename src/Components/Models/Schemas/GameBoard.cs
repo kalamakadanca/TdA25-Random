@@ -2,8 +2,15 @@
 {
     public class GameBoard
     {
-        public int[,] Board { get; set; } = new int[15, 15];
+        public int Size { get; set; }
 
 
+        public Cell[,] Board { get; set; }
+
+        public GameBoard(int size = 15)
+        {
+            Size = size;
+            Board = new Cell[Size, Size];
+        }
     }
 }
