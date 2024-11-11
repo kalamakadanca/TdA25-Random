@@ -4,13 +4,13 @@ namespace TourDeApp.Components.Models
 {
     public class Game
     {
-        public required string Uuid { get; set; }
-        public required string Name { get; set; }
-        public required Difficulty Difficulty { get; set; }
-        public required GameState GameState { get; set; }
-        public required DateTime CreatedAt { get; set; }
-        public required DateTime UpdatedAt { get; set; }
-        public required GameBoard Board { get; set; }
+        public string Uuid { get; set; }
+        public string Name { get; set; }
+        public Difficulty Difficulty { get; set; }
+        public GameState GameState { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public GameBoard Board { get; set; }
 
         public Game(string name, Difficulty difficulty)
         {

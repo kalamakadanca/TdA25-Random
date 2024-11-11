@@ -9,7 +9,7 @@ namespace TourDeApp.Components.Services
 
         public GameService()
         {
-            _game = new Game("Nazev xdd", Difficulty.Easy);
+            _game = new Game("Default game", Difficulty.Easy);
         }
 
         public Game GetGame()
