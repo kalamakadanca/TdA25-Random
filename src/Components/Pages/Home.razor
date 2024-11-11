@@ -1,6 +1,8 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 @inject NavigationManager navigationManager
+@using TourDeApp.Components.Models
+@using TourDeApp.Components.Models.Schemas
 
 <PageTitle>Home</PageTitle>
 
@@ -8,14 +10,27 @@
     <button class="nazev_tlacitko" @onclick="Play">Hrát</button>
 </div>
 
-
 <h1>Hello TdA</h1>
+
+<h2>@GetName()</h2>
 
 @code
 {
+    private Game game;
+
+    protected override void OnInitialized()
+    {
+        // Initialize the game object in OnInitialized lifecycle method
+        game = new Game("nazev hry xdxd", Difficulty.Easy);
+    }
 
     private void Play(MouseEventArgs obj)
     {
         navigationManager.NavigateTo("/game");
+    }
+
+    private string GetName()
+    {
+        return game?.Name ?? "No game initialized";
     }
 }
