@@ -4,43 +4,13 @@
 @inject GameService gameService
 @using TourDeApp.Components.Pages.Shared
 
-<!-- Create a 15x15 game field -->
+
 <div class="game">
-    <div class="game_field">
-        <table class="table">
-            <tbody>
-                @for (int row = 0; row < _game.Board.Size; row++)
-                {
-                    <tr>
-                        @for (int i = 0; i < _game.Board.Size; i++)
-                        {
-                            <Cell ID="GetID(row, i)"></Cell>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <GameField></GameField>
 </div>
 
 
 @code
 {
-    private TourDeApp.Components.Models.Game _game;
 
-    protected override void OnInitialized()
-    {
-        _game = gameService.GetGame();
-    }
-
-    private void Title()
-    {
-        navigationManager.NavigateTo("/");
-    }
-
-    private int[] GetID(int row, int column)
-    {
-        int[] id = new int[] { row, column };
-        return id;
-    }
 }
