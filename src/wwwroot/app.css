@@ -1,13 +1,18 @@
 body {
-    background-color: #111111;
+    background-color: #1a1a1a;
 }
 .nazev {
+    flex-grow: 1;
     font-size: 48px;
     text-align: center;
     font-weight: bold;
     color:aliceblue;
-    margin: 20px; /* mezera kolem nadpisu */
+    margin-right: 275px; /* odsazení - velikost loga */
 }
+
+
+
+
 .nazev_tlacitko {
     text-align: center;
     width: 125px;
@@ -19,10 +24,28 @@ body {
     cursor: pointer; /* kurzor */
 }
 .container {
-    display:grid;
+    display: flex;
     justify-content: center;
     height: 100vh;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    width: 275px;
+    height: auto;
+    margin-top: 15px;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+
+
 
 
 
