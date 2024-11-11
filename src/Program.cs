@@ -1,4 +1,5 @@
 using TourDeApp.Components;
+using TourDeApp.Components.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents();
 
+
 builder.Services.AddControllers();
+builder.Services.AddSingleton<GameService>();
 
 var app = builder.Build();
 
