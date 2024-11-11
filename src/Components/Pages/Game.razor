@@ -1,4 +1,4 @@
-﻿@page "/game"
+﻿@page "/game/"
 @rendermode InteractiveServer
 @inject NavigationManager navigationManager
 @inject GameService gameService
@@ -8,10 +8,10 @@
     <div class="game_field">
         <table class="table">
             <tbody>
-                @for (int row = 0; row < 15; row++)
+                @for (int row = 0; row < _game.Board.Size; row++)
                 {
                     <tr class="row">
-                        @for (int i = 0; i < 15; i++)
+                        @for (int i = 0; i < _game.Board.Size; i++)
                         {
                             <td class="game_cell">
                                 <div class="icon_div">

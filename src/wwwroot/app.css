@@ -1,5 +1,5 @@
 body {
-    background-color: #111111;
+    background-color: #111111; /* jenom pro testovani */
 }
 .nazev {
     font-size: 48px;
@@ -62,7 +62,8 @@ h1:focus {
     display:flex;
     height: 100vh;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 5%
 }
 
 .game_field {
