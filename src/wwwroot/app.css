@@ -1,3 +1,33 @@
+body {
+    background-color: #111111;
+}
+.nazev {
+    font-size: 48px;
+    text-align: center;
+    font-weight: bold;
+    color:aliceblue;
+    margin: 20px; /* mezera kolem nadpisu */
+}
+.nazev_tlacitko {
+    text-align: center;
+    width: 125px;
+    height: 250px;
+    background-color: #444444;
+    color: white; /* barva textu */
+    border: #929292; /* barva ohraničení */
+    border-radius: 8px; /* zaoblení rohů */
+    cursor: pointer; /* kurzor */
+}
+.container {
+    display:grid;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+
+
+
 h1:focus {
     outline: none;
 }
@@ -48,7 +78,7 @@ h1:focus {
 }
 
 .game_cell {
-    border: 1px solid black;
+    border: 1px solid white;
     width: 50px;
     height: 50px;
     margin: 0;
