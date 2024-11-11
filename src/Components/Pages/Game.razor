@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 @inject NavigationManager navigationManager
 @inject GameService gameService
+@using TourDeApp.Components.Pages.Shared
 
 <!-- Create a 15x15 game field -->
 <div class="game">
@@ -10,16 +11,10 @@
             <tbody>
                 @for (int row = 0; row < _game.Board.Size; row++)
                 {
-                    <tr class="row">
-                        @for (int i = 0; i < _game.Board.Size; i++)
-                        {
-                            <td class="game_cell">
-                                <div class="icon_div">
-                                    @_game.Board.Board[row, i].ID
-                                </div>
-                            </td>
-                        }
-                    </tr>
+                    @for (int i = 0; i < _game.Board.Size; i++)
+                    {
+                        <Cell ID="GetID(row, i)"></Cell>
+                    }
                 }
             </tbody>
         </table>
@@ -39,5 +34,11 @@
     private void Title()
     {
         navigationManager.NavigateTo("/");
+    }
+
+    private int[] GetID(int row, int column)
+    {
+        int[] id = new int[] { row, column };
+        return id;
     }
 }
