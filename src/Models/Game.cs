@@ -1,4 +1,5 @@
-﻿using TourDeApp.Models.Schemas;
+﻿using TourDeApp.Models.DataBaseModels;
+using TourDeApp.Models.Schemas;
 
 namespace TourDeApp.Models
 {
