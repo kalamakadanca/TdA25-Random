@@ -19,9 +19,9 @@ namespace TourDeApp.Components.Services
             return _game;
         }
 
-        public GameBoard GetBoard(Game game)
+        public BoardState GetBoard(Game game)
         {
-            return game.Board;
+            return game.BoardState;
         }
     }
 }

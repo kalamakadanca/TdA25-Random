@@ -9,7 +9,7 @@ public abstract class CellListToCellArrayTypeConvertor : ITypeConverter<GameDb, 
 { 
     public Game Convert(GameDb source, Game destination, ResolutionContext context)
     {
-        foreach (CellDb cell in source.GameBoard.Board) destination.Board.Board[cell.Row, cell.Column].State = cell.State;
+        foreach (CellDb cell in source.GameBoard.Board) destination.BoardState.Board[cell.Row, cell.Column].State = cell.State;
 
         return destination;
     }

@@ -11,7 +11,7 @@ namespace TourDeApp.Models
         public GameState GameState { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public GameBoard Board { get; set; }
+        public BoardState BoardState { get; set; }
 
         public Game(string name, DifficultyType difficulty)
         {
@@ -21,7 +21,7 @@ namespace TourDeApp.Models
             GameState = GameState.Beginning;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
-            Board = new GameBoard();
+            BoardState = new BoardState();
         }
     }
 }
