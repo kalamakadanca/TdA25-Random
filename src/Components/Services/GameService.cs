@@ -1,5 +1,5 @@
-using TourDeApp.Components.Models;
-using TourDeApp.Components.Models.Schemas;
+using TourDeApp.Models;
+using TourDeApp.Models.Schemas;
 
 
 // Toto je dočasně dokud Viktor neudělá controller

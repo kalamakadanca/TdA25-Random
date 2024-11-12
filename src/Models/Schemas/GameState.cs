@@ -1,4 +1,4 @@
-﻿namespace TourDeApp.Components.Models.Schemas
+﻿namespace TourDeApp.Models.Schemas
 {
     public enum GameState
     {

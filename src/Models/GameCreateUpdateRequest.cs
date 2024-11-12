@@ -1,4 +1,4 @@
-﻿namespace TourDeApp.Components.Models
+﻿namespace TourDeApp.Models
 {
     public class GameCreateUpdateRequest
     {

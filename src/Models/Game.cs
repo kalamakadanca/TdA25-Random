@@ -1,6 +1,6 @@
-﻿using TourDeApp.Components.Models.Schemas;
+﻿using TourDeApp.Models.Schemas;
 
-namespace TourDeApp.Components.Models
+namespace TourDeApp.Models
 {
     public class Game
     {
