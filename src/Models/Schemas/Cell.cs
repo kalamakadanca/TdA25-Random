@@ -6,7 +6,7 @@
 
         public Cell()
         {
-            State = CellState.empty;
+            State = CellState.Empty;
         }
     }
 }

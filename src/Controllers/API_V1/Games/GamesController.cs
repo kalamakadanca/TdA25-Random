@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TourDeApp.Controllers.API_V1.Games
 {
     [Route("/api/v1/games")]
-    public class GamesController : Controller
+    public class GamesController(DatabaseContext context, IMapper mapper) : Controller
     {
         [HttpGet]
         public IActionResult Get()
@@ -21,7 +22,7 @@ namespace TourDeApp.Controllers.API_V1.Games
             return StatusCode(200);
         }
 
-        [HttpGet]
+        [HttpGet("{uuid}")]
         public IActionResult Get(string uuid)
         {
             // TODO: Returns a game with defined uuid or a 404 NotFound if it is not in DB.
@@ -29,7 +30,7 @@ namespace TourDeApp.Controllers.API_V1.Games
             return StatusCode(200);
         }
 
-        [HttpPut]
+        [HttpPut("{uuid}")]
         public IActionResult Put(string uuid)
         {
             // TODO: Updates a game
@@ -37,7 +38,7 @@ namespace TourDeApp.Controllers.API_V1.Games
             return StatusCode(200);
         }
 
-        [HttpDelete]
+        [HttpDelete("{uuid}")]
         public IActionResult Delete(string uuid)
         {
             // TODO: Deletes a game

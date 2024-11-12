@@ -2,6 +2,6 @@
 {
     public enum DifficultyType
     {
-        begginer, easy, medium, hard, extreme
+        Beginner, Easy, Medium, Hard, Extreme
     }
 }

@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using TourDeApp;
 using TourDeApp.Components;
 using TourDeApp.Components.Services;
 
@@ -7,7 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 builder.Services.AddSingleton<GameService>();
 

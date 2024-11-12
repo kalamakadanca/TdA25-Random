@@ -5,19 +5,17 @@ namespace TourDeApp.Models.DataBaseModels
 {
     public class GameDb
     {
+        public int Id { get; set; }
         [Required]
         public string Uuid { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
         public DifficultyType Difficulty { get; set; }
-        [Required]
         public GameState GameState { get; set; }
-        [Required]
         public DateTime CreatedAt { get; set; }
-        [Required]
         public DateTime UpdatedAt { get; set; }
-        [Required]
-        public GameBoard Board { get; set; }
+
+        public int GameBoardId { get; set; }
+        public GameBoardDb GameBoard { get; set; } = new();
     }
 }

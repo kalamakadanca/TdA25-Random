@@ -18,7 +18,7 @@ namespace TourDeApp.Models
             Uuid = Guid.NewGuid().ToString();
             Name = name;
             Difficulty = difficulty;
-            GameState = GameState.beginning;
+            GameState = GameState.Beginning;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
             Board = new GameBoard();

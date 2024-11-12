@@ -11,7 +11,7 @@ namespace TourDeApp.Components.Services
 
         public GameService()
         {
-            _game = new Game("Default game", DifficultyType.easy);
+            _game = new Game("Default game", DifficultyType.Easy);
         }
 
         public Game GetGame()

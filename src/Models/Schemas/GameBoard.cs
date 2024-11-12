@@ -3,8 +3,6 @@
     public class GameBoard
     {
         public int Size { get; set; }
-
-
         public Cell[,] Board { get; set; }
 
         public GameBoard(int size = 15)
