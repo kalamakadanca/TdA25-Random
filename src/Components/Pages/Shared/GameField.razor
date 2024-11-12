@@ -21,11 +21,11 @@
 
 @code {
 
-    private TourDeApp.Models.Game _game;
+    private TourDeApp.Models.Game game;
 
     protected override void OnInitialized()
     {
-        _game = gameService.GetGame();
+        game = gameService.GetGame();
     }
 
     private int[] GetID(int row, int column)
