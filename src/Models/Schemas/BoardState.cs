@@ -2,13 +2,21 @@
 {
     public class BoardState
     {
-        private int _size { get; set; }
-        public Cell[,] Board { get; set; }
+        public string[,] Board { get; set; }
+
 
         public BoardState(int size = 15)
         {
-            _size = size;
-            Board = new Cell[_size, _size];
+            Board = new string[size, size];
+
+            // Nastaví všechny hodnoty na nic (those who know)
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Board[i, j] = "";
+                }
+            }
         }
     }
 }
