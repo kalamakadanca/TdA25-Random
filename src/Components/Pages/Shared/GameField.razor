@@ -28,29 +28,17 @@
     public BoardState BoardState
     {
         get => _boardState;
-        set
-        {
-            if (value != null) BoardStateSet();
-            else
-            {
-                _boardState = new BoardState();
-            }
-        }
+        set { _boardState = value; }
     }
     
     protected override void OnInitialized()
     {
-        Console.WriteLine("GameField initialized");
-    }
-
-    private void BoardStateSet()
-    {
-        Console.WriteLine("The board state has been set and is NOT null!");
     }
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
         Console.WriteLine($"Cell {cell.CellID[0]}, {cell.CellID[1]} has been clicked");
-        StateHasChanged();
+
+        _boardState.Board[cell.CellID[0], cell.CellID[1]].State = CellState.Cross;
     }
 }

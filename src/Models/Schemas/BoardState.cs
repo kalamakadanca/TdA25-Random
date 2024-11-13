@@ -19,5 +19,10 @@
                 }
             }
         }
+
+        public void UpdateCell(Cell cell)
+        {
+            Board[cell.CellID[0], cell.CellID[1]].State = CellState.Circle;
+        }
     }
 }
