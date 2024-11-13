@@ -1,16 +1,21 @@
 ﻿@page "/game/"
 @rendermode InteractiveServer
-@inject NavigationManager navigationManager
-@inject GameService gameService
+@inject NavigationManager NavigationManager
+@inject GameService GameService
 @using TourDeApp.Components.Pages.Shared
 
 
 <div class="game">
-    <GameField></GameField>
+    <GameField BoardState="_game.BoardState"></GameField>
 </div>
 
 
 @code
 {
+    private TourDeApp.Models.Game _game { get; set; }
 
+    protected override void OnInitialized()
+    {
+        _game = GameService.GetGame();
+    }
 }

@@ -4,10 +4,20 @@
     {
         public Cell[,] Board { get; set; }
 
-
+        public int Size { get; set; }
         public BoardState(int size = 15)
         {
-            Board = new Cell[size, size];
+            Size = size;
+            Board = new Cell[Size, Size];
+
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    Board[i, j] = new Cell();
+                    Board[i, j].CellID = new int[] {i, j};
+                }
+            }
         }
     }
 }

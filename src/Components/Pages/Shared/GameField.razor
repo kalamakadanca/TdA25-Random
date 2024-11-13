@@ -1,38 +1,56 @@
-﻿@inject GameService gameService
+﻿@using TourDeApp.Models
+@using TourDeApp.Models.Schemas
+@inject GameService GameService
 
-<!-- Create a 15x15 game field -->
-<div class="game_field">
+<!-- TODO Implement logic -->
+<span class="game_field">
     <table class="table">
         <tbody>
-        @for (int row = 0; row < 15; row++)
-        {
-            <tr class="row">
-                @for (int i = 0; i < 15; i++)
-                {
-                    <td class="game_cell">
-                        <!-- Pass the row and column indices to the Cell component -->
-                        <Cell ID="GetID(row, i)" OnClick="PrintClicked"></Cell>
-                    </td>
-                }
-            </tr>
-        }
+            @for (int row = 0; row < _boardState.Size; row++)
+            {
+                <tr>
+                    @for (int column = 0; column < _boardState.Size; column++)
+                    {
+                        <td class="game_cell">
+                            <Cell CellInstance="_boardState.Board[row, column]" OnClick="ChangeCellState"></Cell>
+                        </td>
+                    }
+                </tr>
+            }
         </tbody>
     </table>
-</div>
+</span>
 
 @code {
+    private BoardState _boardState = new BoardState();
+
+    [Parameter, EditorRequired]
+    public BoardState BoardState
+    {
+        get => _boardState;
+        set
+        {
+            if (value != null) BoardStateSet();
+            else
+            {
+                _boardState = new BoardState();
+            }
+        }
+    }
+    
     protected override void OnInitialized()
     {
         Console.WriteLine("GameField initialized");
     }
 
-    private int[] GetID(int row, int column)
+    private void BoardStateSet()
     {
-        return new int[] { row, column };
+        Console.WriteLine("The board state has been set and is NOT null!");
     }
 
-    private void PrintClicked(int[] ID)
+    private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        Console.WriteLine($"The cell {ID[0]}, {ID[1]} has been clicked (from GameField.razor)");
+        Console.WriteLine($"Cell {cell.CellID[0]}, {cell.CellID[1]} has been clicked");
+        StateHasChanged();
     }
 }
