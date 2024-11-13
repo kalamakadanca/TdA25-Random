@@ -11,7 +11,7 @@
                 {
                     <td class="game_cell">
                         <!-- Pass the row and column indices to the Cell component -->
-                        <Cell ID="GetID(row, i)"></Cell>
+                        <Cell ID="GetID(row, i)" OnClick="PrintClicked"></Cell>
                     </td>
                 }
             </tr>
@@ -31,8 +31,8 @@
         return new int[] { row, column };
     }
 
-    private void PrintClicked()
+    private void PrintClicked(int[] ID)
     {
-        Console.WriteLine("The cell has been clicked");
+        Console.WriteLine($"The cell {ID[0]}, {ID[1]} has been clicked (from GameField.razor)");
     }
 }
