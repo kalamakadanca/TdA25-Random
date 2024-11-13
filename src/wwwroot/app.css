@@ -10,26 +10,18 @@ body {
     margin-right: 275px; /* odsazení - velikost loga */
 }
 
-#tlac_1 {
-    background-color: #E31837;
-}
-#tlac_2 {
-    background-color: #0070BB;
-}
+
 
 
 .nazev_tlacitko {
-    font-family: 'Dosis', sans-serif;
-    font-size: 24px;
     text-align: center;
     width: 125px;
     height: 250px;
-    color: white;
-    cursor: pointer;
+    background-color: #444444;
+    color: white; /* barva textu */
+    border: #929292; /* barva ohraničení */
     border-radius: 8px; /* zaoblení rohů */
-    margin: 10px; /* mezera mezi tlačítky */
-    position: relative;
-    z-index: 10;
+    cursor: pointer; /* kurzor */
 }
 .container {
     display: flex;
@@ -128,21 +120,4 @@ h1:focus {
 
 .icon {
     width: 80%;
-}
-
-
-
-/*# FONTY */
-@font-face {
-    font-family: 'Dosis';
-    src: url('TdA_Fonty/static/Dosis-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Dosis';
-    src: url('TdA_Fonty/static/Dosis-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
 }
