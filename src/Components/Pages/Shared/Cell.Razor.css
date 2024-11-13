@@ -1,7 +1,8 @@
 ﻿body {
 }
 
-.icon-div {
-    color: white;
-    text-align: center
+.cell {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
 }

@@ -4,33 +4,35 @@
 <div class="game_field">
     <table class="table">
         <tbody>
-            @for (int row = 0; row < 15; row++)
-            {
-                <tr class="row">
-                    @for (int i = 0; i < 15; i++)
-                    {
-                        <td class="game_cell">
-                            <Cell ID="GetID(row, i)"></Cell>
-                        </td>
-                    }
-                </tr>
-            }
+        @for (int row = 0; row < 15; row++)
+        {
+            <tr class="row">
+                @for (int i = 0; i < 15; i++)
+                {
+                    <td class="game_cell">
+                        <!-- Pass the row and column indices to the Cell component -->
+                        <Cell ID="GetID(row, i)"></Cell>
+                    </td>
+                }
+            </tr>
+        }
         </tbody>
     </table>
 </div>
 
 @code {
-
-    private TourDeApp.Models.Game game;
-
     protected override void OnInitialized()
     {
-        game = gameService.GetGame();
+        Console.WriteLine("GameField initialized");
     }
 
     private int[] GetID(int row, int column)
     {
-        int[] id = new int[] { row, column };
-        return id;
+        return new int[] { row, column };
+    }
+
+    private void PrintClicked()
+    {
+        Console.WriteLine("The cell has been clicked");
     }
 }

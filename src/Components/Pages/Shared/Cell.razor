@@ -1,9 +1,12 @@
-﻿
-@code {
+﻿@code {
     [Parameter]
-    public int[] ID { get; set; }
+    public int[]? ID { get; set; }
+
+    private void HandleClick()
+    {
+        if (ID != null) Console.WriteLine($"Cell ID: {ID[0]}, {ID[1]} has been clicked");
+    }
 }
 
-    <div class="icon-div">
-        @ID[0], @ID[1]
-    </div>
+<span @onclick="HandleClick" class="cell">
+</span>
