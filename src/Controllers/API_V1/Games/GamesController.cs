@@ -15,11 +15,19 @@ namespace TourDeApp.Controllers.API_V1.Games
         }
 
         [HttpPost]
-        public IActionResult Post() 
+        public IActionResult Post([FromBody] Models.GameCreateUpdateRequest game) 
         {
-            // TODO: Creates a game
+            // Creates a game
 
-            return StatusCode(200);
+            Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(new Models.Game(game.name, game.difficulty)
+            {
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                GameState = new Models.Schemas.GameState(),
+                Uuid = Guid.NewGuid().ToString()
+            });
+
+            return Ok(gameDb);
         }
 
         [HttpGet("{uuid}")]
