@@ -1,6 +1,9 @@
 ﻿@using TourDeApp.Models.Schemas
+
+
 @code {
     [Parameter] public EventCallback<TourDeApp.Models.Schemas.Cell> OnClick { get; set; }
+    
     [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
         
     private async Task HandleClick()
@@ -9,5 +12,17 @@
     }
 }
 
+<!-- TODO: Display images instead of text -->
 <span @onclick="HandleClick" class="cell">
+    @if (CellInstance.State != CellState.Empty)
+    {
+        if(CellInstance.State == CellState.Cross) 
+        {
+            <img class="icon_div" src="/TdA_Ikonky/PNG/X/X_cerne.png"/>
+        }
+        else 
+        {
+            <img class="icon_div" src="/TdA_Ikonky/PNG/O/O_cerne.png"/>
+        }
+    }
 </span>
