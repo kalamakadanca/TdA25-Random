@@ -15,16 +15,9 @@
                 for (int j = 0; j < Size; j++)
                 {
                     Board[i, j] = new Cell();
-                    Board[i, j].CellID = new int[] {i, j};
+                    Board[i, j].CellID = [i, j];
                 }
             }
-        }
-
-
-        public enum NextState
-        {
-            Cross,
-            Circle
         }
     }
 }
