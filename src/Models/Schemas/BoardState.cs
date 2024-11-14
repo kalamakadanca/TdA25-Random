@@ -4,7 +4,7 @@
     {
         public Cell[,] Board { get; set; }
 
-        // Sets the cross the be the first and then is used to determine who's turn it is
+        // Sets the cross to be the first and then is used to determine who's turn it is
         private CellState next { get; set; } = CellState.Cross;
 
         public int Size { get; set; }
