@@ -20,9 +20,11 @@
             }
         }
 
-        public void UpdateCell(Cell cell)
+        public Cell UpdateCell(Cell cell, CellState state)
         {
-            Board[cell.CellID[0], cell.CellID[1]].State = CellState.Circle;
+            Board[cell.CellID[0], cell.CellID[1]].State = state;
+
+            return Board[cell.CellID[0], cell.CellID[1]];
         }
     }
 }
