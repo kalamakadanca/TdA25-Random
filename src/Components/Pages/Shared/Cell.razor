@@ -1,4 +1,6 @@
 ﻿@using TourDeApp.Models.Schemas
+
+
 @code {
     [Parameter] public EventCallback<TourDeApp.Models.Schemas.Cell> OnClick { get; set; }
     
@@ -10,6 +12,7 @@
     }
 }
 
+<!-- TODO: Display images instead of text -->
 <span @onclick="HandleClick" class="cell">
     @CellInstance.State.ToString()
 </span>

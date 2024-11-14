@@ -2,7 +2,6 @@
 @using TourDeApp.Models.Schemas
 @inject GameService GameService
 
-<!-- TODO Implement logic -->
 <span class="game_field">
     <table class="table">
         <tbody>
@@ -37,7 +36,7 @@
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        _boardState.Board[cell.CellID[0], cell.CellID[1]] = _boardState.UpdateCell(cell, CellState.Cross);
+        _boardState.Board[cell.CellID[0], cell.CellID[1]] = _boardState.UpdateCell(cell);
         Console.WriteLine($"Cell {cell.CellID[0]}, {cell.CellID[1]} has been clicked and its state is {cell.State}");
     }
 }
