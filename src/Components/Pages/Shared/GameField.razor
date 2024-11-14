@@ -2,7 +2,6 @@
 @using TourDeApp.Models.Schemas
 @inject GameService GameService
 
-<!-- TODO Implement logic -->
 <span class="game_field">
     <table class="table">
         <tbody>
@@ -28,29 +27,16 @@
     public BoardState BoardState
     {
         get => _boardState;
-        set
-        {
-            if (value != null) BoardStateSet();
-            else
-            {
-                _boardState = new BoardState();
-            }
-        }
-    }
-    
-    protected override void OnInitialized()
-    {
-        Console.WriteLine("GameField initialized");
+        set { _boardState = value; }
     }
 
-    private void BoardStateSet()
+    protected override void OnInitialized()
     {
-        Console.WriteLine("The board state has been set and is NOT null!");
     }
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        Console.WriteLine($"Cell {cell.CellID[0]}, {cell.CellID[1]} has been clicked");
-        StateHasChanged();
+        _boardState.Board[cell.CellID[0], cell.CellID[1]] = _boardState.UpdateCell(cell);
+        Console.WriteLine($"Cell {cell.CellID[0]}, {cell.CellID[1]} has been clicked and its state is {cell.State}");
     }
 }
