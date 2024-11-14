@@ -1,17 +1,16 @@
 ﻿@using TourDeApp.Models
-@using TourDeApp.Models.Schemas
 @inject GameService GameService
 
 <span class="game_field">
     <table class="table">
         <tbody>
-            @for (int row = 0; row < _boardState.Size; row++)
+            @for (int row = 0; row < Game.BoardState.Size; row++)
             {
                 <tr>
-                    @for (int column = 0; column < _boardState.Size; column++)
+                    @for (int column = 0; column < Game.BoardState.Size; column++)
                     {
                         <td class="game_cell">
-                            <Cell CellInstance="_boardState.Board[row, column]" OnClick="ChangeCellState"></Cell>
+                            <Cell CellInstance="Game.BoardState.Board[row, column]" OnClick="ChangeCellState"></Cell>
                         </td>
                     }
                 </tr>
@@ -21,13 +20,12 @@
 </span>
 
 @code {
-    private BoardState _boardState = new BoardState();
-
-    [Parameter, EditorRequired]
-    public BoardState BoardState
+    private Game _game;
+    
+    [Parameter, EditorRequired] public Game Game
     {
-        get => _boardState;
-        set { _boardState = value; }
+        get => _game;
+        set => _game = value;
     }
 
     protected override void OnInitialized()
@@ -37,7 +35,6 @@
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        _boardState.Board[cell.CellID[0], cell.CellID[1]] = _boardState.UpdateCell(cell);
-        Console.WriteLine($"Cell {cell.CellID[0]}, {cell.CellID[1]} has been clicked and its state is {cell.State}");
+        _game.UpdateBoard(cell);
     }
 }

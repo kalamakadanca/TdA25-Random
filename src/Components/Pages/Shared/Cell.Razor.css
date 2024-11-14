@@ -2,12 +2,14 @@
 }
 
 .cell {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
 }
 
-.icon_div {
+.icon {
     width: 80%;
     height: 80%;
     margin: 0;

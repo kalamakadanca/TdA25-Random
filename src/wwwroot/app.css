@@ -139,7 +139,7 @@ h1:focus {
     padding: 0;
 }
 
-.icon_div {
+.icon {
     display: flex;
     height: 100%;
     justify-content: center;

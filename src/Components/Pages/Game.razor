@@ -6,14 +6,16 @@
 
 <PageTitle>Game</PageTitle>
 
-<div class="game">
-    <GameField BoardState="_game.BoardState"></GameField>
-</div>
-
+@if (_game != null)
+{
+    <div class="game">
+        <GameField Game="_game"></GameField>
+    </div>
+}
 
 @code
 {
-    private TourDeApp.Models.Game _game { get; set; }
+    private TourDeApp.Models.Game? _game { get; set; }
 
     protected override void OnInitialized()
     {
