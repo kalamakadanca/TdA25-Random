@@ -14,5 +14,15 @@
 
 <!-- TODO: Display images instead of text -->
 <span @onclick="HandleClick" class="cell">
-    @CellInstance.State.ToString()
+    @if (CellInstance.State != CellState.Empty)
+    {
+        if(CellInstance.State == CellState.Cross) 
+        {
+            <img class="icon_div" src="/TdA_Ikonky/PNG/X/X_cerne.png"/>
+        }
+        else 
+        {
+            <img class="icon_div" src="/TdA_Ikonky/PNG/O/O_cerne.png"/>
+        }
+    }
 </span>
