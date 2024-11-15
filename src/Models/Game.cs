@@ -36,16 +36,17 @@ namespace TourDeApp.Models
             if (_next == CellState.Cross) _next = CellState.Circle;
             else _next = CellState.Cross;
             
-            // I will later implement this to get called when the BoardState.Board is changed
-            CheckWin();
+            CheckWin(); // I will later probably implement this to get called when the BoardState.Board is changed
         }
 
         // Checks if there are 5 pieces next to each other horizontally
         public void CheckWin()
         {
-            if (GameFinished) return;
-            // TODO: Make it work vertically, diagonally and improve, make more readable
-            for (int row = 0; row < BoardState.Size; row++)
+            if (GameFinished) return; // Checks whether the game has been won beforehand
+            
+            // TODO: 
+            for (int row = 0; row < BoardState.Size; row++) // Checks for win horizontally
+
             {
                 int piecesInRow = 0;
                 CellState previousState = CellState.Empty;
@@ -67,6 +68,40 @@ namespace TourDeApp.Models
                         piecesInRow = 0;
                         previousState = CellState.Empty;
                     }
+
+                    if (piecesInRow >= 5 && previousState != CellState.Empty)
+                    {
+                        Console.WriteLine("Game has been won");
+                        GameFinished = true;
+                    }
+                }
+
+                if (GameFinished == true) break;
+            }
+            
+            for (int row = 0; row < BoardState.Size; row++) // Checks for win vertically
+
+            {
+                int piecesInRow = 0;
+                CellState previousState = CellState.Empty;
+
+                for (int column = 0; column < BoardState.Size; column++)
+                {
+                    if (BoardState.Board[column, row].State != CellState.Empty &&
+                        BoardState.Board[column, row].State == previousState)
+                    {
+                        piecesInRow++;
+                    }
+                    else if (BoardState.Board[column, row].State != CellState.Empty)
+                    {
+                        piecesInRow = 1;
+                        previousState = BoardState.Board[column, row].State;
+                    }
+                    else
+                    {
+                        piecesInRow = 0;
+                        previousState = CellState.Empty;
+}
 
                     if (piecesInRow >= 5 && previousState != CellState.Empty)
                     {
