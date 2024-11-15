@@ -13,8 +13,8 @@ namespace TourDeApp.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public BoardState BoardState { get; set; }
-        
-        private CellState next { get; set; } = CellState.Cross;
+        public bool GameFinished { get; set; }
+        private CellState _next { get; set; } = CellState.Cross;
         
         public Game(string name, DifficultyType difficulty)
         {
@@ -24,60 +24,56 @@ namespace TourDeApp.Models
             GameState = GameState.Beginning;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
-            BoardState = new BoardState();
+            BoardState = new BoardState();          
+            GameFinished = false;
         }
         
         public void UpdateBoard(Cell cell)
         {
-            this.BoardState.Board[cell.CellID[0], cell.CellID[1]].State = next;
+            this.BoardState.Board[cell.CellID[0], cell.CellID[1]].State = _next;
 
-            if (next == CellState.Cross) next = CellState.Circle;
-            else next = CellState.Cross;
+            if (_next == CellState.Cross) _next = CellState.Circle;
+            else _next = CellState.Cross;
             
+            // I will later implement this to get called when the BoardState.Board is changed
             CheckWin();
         }
 
-        // TODO: Make it work vertically, diagonally and improve, make more readable
+        // Checks if there are 5 pieces next to each other horizontally
         public void CheckWin()
         {
-            // Checks if there are 5 pieces next to each other horizontally
+            // TODO: Make it work vertically, diagonally and improve, make more readable
             for (int row = 0; row < BoardState.Size; row++)
             {
-                int pieces_in_row = 0;
-                CellState lastState = CellState.Empty;
+                int piecesInRow = 0;
+                CellState previousState = CellState.Empty;
 
                 for (int column = 0; column < BoardState.Size; column++)
                 {
                     if (BoardState.Board[row, column].State != CellState.Empty &&
-                        BoardState.Board[row, column].State == lastState)
+                        BoardState.Board[row, column].State == previousState)
                     {
-                        pieces_in_row++;
+                        piecesInRow++;
                     }
                     else if (BoardState.Board[row, column].State != CellState.Empty)
                     {
-                        pieces_in_row = 1; // reset count but account for the current piece
-                        lastState = BoardState.Board[row, column].State;
+                        piecesInRow = 1;
+                        previousState = BoardState.Board[row, column].State;
                     }
                     else
                     {
-                        pieces_in_row = 0;
-                        lastState = CellState.Empty;
+                        piecesInRow = 0;
+                        previousState = CellState.Empty;
                     }
 
-                    if (pieces_in_row >= 5 && lastState != CellState.Empty)
+                    if (piecesInRow >= 5 && previousState != CellState.Empty)
                     {
-                        Console.WriteLine($"{lastState.ToString()} has won the game!");
-                        // Consider adding logic here to handle the win scenario
-                        break;
+                        GameFinished = true;
                     }
                 }
-            }
-        }
 
-        // TODO: Create
-        public void Win()
-        {
-            
+                if (GameFinished) break;
+            }
         }
     }
 }
