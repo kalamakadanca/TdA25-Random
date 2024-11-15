@@ -17,25 +17,6 @@ body {
     background-color: #0070BB;
 }
 
-/* mřížka */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(3, 100px); /* Tři sloupce, každý 100px široký */
-    grid-template-rows: repeat(2, 100px);    /* Dva řádky, každý 100px vysoký */
-    gap: 0px;                               /* Mezera mezi položkami */
-}
-.grid-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1a1a1a;
-    border: #f6f6f6 2px solid;
-    color: #f6f6f6;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 8px;
-}
-
 
 .nazev_tlacitko {
     font-family: 'Dosis', sans-serif;
@@ -56,8 +37,10 @@ body {
     height: 100vh;
 }
 a:any-link {
+    font-family:'Dosis-ExtraBold', sans-serif;
     text-decoration: none;
     color: white;
+
 }
 .header {
     display: flex;
@@ -161,10 +144,15 @@ h1:focus {
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
-    font-family: 'Dosis';
+    font-family: 'Dosis-Bold';
     src: url('TdA_Fonty/static/Dosis-Bold.ttf') format('truetype');
     font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dosis-ExtraBold';
+    src: url(TdA_Fonty/static/Dosis-ExtraBold.ttf) format('truetype');
+    font-weight: 800;
     font-style: normal;
 }
