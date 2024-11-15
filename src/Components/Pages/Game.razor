@@ -6,7 +6,8 @@
 
 <PageTitle>Game</PageTitle>
 
-@if (_game != null)
+<!-- TODO: Display a message saying who has won, how many rounds, etc. -->
+@if (_game != null && _game.GameFinished != true)
 {
     <div class="game">
         <GameField Game="_game"></GameField>

@@ -20,13 +20,8 @@
 </span>
 
 @code {
-    private Game _game;
-    
-    [Parameter, EditorRequired] public Game Game
-    {
-        get => _game;
-        set => _game = value;
-    }
+
+    [Parameter, EditorRequired] public Game Game { get; set; }
 
     protected override void OnInitialized()
     {
@@ -35,6 +30,6 @@
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        _game.UpdateBoard(cell);
+        Game.UpdateBoard(cell);
     }
 }

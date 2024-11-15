@@ -30,6 +30,7 @@ namespace TourDeApp.Models
         
         public void UpdateBoard(Cell cell)
         {
+            if (GameFinished) return;
             this.BoardState.Board[cell.CellID[0], cell.CellID[1]].State = _next;
 
             if (_next == CellState.Cross) _next = CellState.Circle;
@@ -42,6 +43,7 @@ namespace TourDeApp.Models
         // Checks if there are 5 pieces next to each other horizontally
         public void CheckWin()
         {
+            if (GameFinished) return;
             // TODO: Make it work vertically, diagonally and improve, make more readable
             for (int row = 0; row < BoardState.Size; row++)
             {
@@ -68,11 +70,12 @@ namespace TourDeApp.Models
 
                     if (piecesInRow >= 5 && previousState != CellState.Empty)
                     {
+                        Console.WriteLine("Game has been won");
                         GameFinished = true;
                     }
                 }
 
-                if (GameFinished) break;
+                if (GameFinished == true) break;
             }
         }
     }
