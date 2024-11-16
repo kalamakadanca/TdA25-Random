@@ -41,7 +41,7 @@ namespace TourDeApp.Models
         }
 
         // Checks if there are 5 pieces next to each other
-        public void CheckWin()
+        private void CheckWin()
         {
             if (GameFinished) return; // Checks whether the game has been won
             
@@ -102,7 +102,7 @@ namespace TourDeApp.Models
                     {
                         piecesInRow = 0;
                         previousState = CellState.Empty;
-}
+                    }
 
                     if (piecesInRow >= 5 && previousState != CellState.Empty)
                     {
