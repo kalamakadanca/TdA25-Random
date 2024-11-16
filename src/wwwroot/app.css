@@ -63,7 +63,7 @@ body {
 
 
 .game {
-    display:flex;
+    display: flex;
     height: 100vh;
     justify-content: center;
     align-items: flex-start;
@@ -112,13 +112,7 @@ h1:focus {
     width: fit-content;
     margin: 0;
     padding: 0;
-
 }
-
-.table {
-    border-collapse: collapse;
-}
-
 .game_cell {
     border: 1px solid white;
     width: 50px;
@@ -126,6 +120,11 @@ h1:focus {
     margin: 0;
     padding: 0;
 }
+.table {
+    border-collapse: collapse;
+}
+
+
 
 .icon {
     display: flex;
