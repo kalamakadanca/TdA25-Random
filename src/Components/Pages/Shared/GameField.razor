@@ -1,4 +1,5 @@
 ﻿@using TourDeApp.Models
+@using TourDeApp.Models.Schemas
 @inject GameService GameService
 
 <span class="game_field">
@@ -30,6 +31,6 @@
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        Game.UpdateBoard(cell);
+        if (cell.State == CellState.Empty) Game.UpdateBoard(cell);
     }
 }
