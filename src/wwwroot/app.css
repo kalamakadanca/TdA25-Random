@@ -1,14 +1,43 @@
 body {
     background-color: #1a1a1a;
 }
+
 .nazev {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     flex-grow: 1;
     font-size: 48px;
-    text-align: center;
     font-weight: bold;
     color:aliceblue;
-    margin-right: 275px; /* odsazení - velikost loga */
+    text-align: center;
+    font-family: 'Dosis-ExtraBold', sans-serif;
+
 }
+.header {
+    display: flex;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.logo {
+    width: 275px;
+    height: auto;
+    margin-top: 15px;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+
+
+
+
 
 #tlac_1 {
     background-color: #E31837;
@@ -16,8 +45,6 @@ body {
 #tlac_2 {
     background-color: #0070BB;
 }
-
-
 .nazev_tlacitko {
     font-family: 'Dosis', sans-serif;
     font-size: 24px;
@@ -31,34 +58,17 @@ body {
     position: relative;
     z-index: 10;
 }
-.container {
-    display: flex;
-    justify-content: center;
+
+
+
+
+.game {
+    display:flex;
     height: 100vh;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
 }
-a:any-link {
-    font-family:'Dosis-ExtraBold', sans-serif;
-    text-decoration: none;
-    color: white;
-
-}
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.logo {
-    width: 275px;
-    height: auto;
-    margin-top: 15px;
-    margin-left: 15px;
-    flex-shrink: 0;
-}
-
-
-
 
 
 
@@ -94,24 +104,19 @@ h1:focus {
     border-color: #929292;
 }
 
-.game {
-    display:flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 5%
-}
+
 
 .game_field {
-    border: 2px solid black;
+    border: 2px solid black; /* ramecek */
+    height: fit-content;
     width: fit-content;
     margin: 0;
     padding: 0;
-    height: fit-content;
+
 }
 
 .table {
-    border-spacing: 0px;
+    border-collapse: collapse;
 }
 
 .game_cell {
@@ -128,10 +133,7 @@ h1:focus {
     justify-content: center;
     align-items: center;
     color: white;
-    text-align: center
-}
-
-.icon {
+    text-align: center;
     width: 80%;
 }
 
