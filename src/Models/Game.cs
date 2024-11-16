@@ -14,6 +14,7 @@ namespace TourDeApp.Models
         public DateTime UpdatedAt { get; set; }
         public BoardState BoardState { get; set; }
         public bool GameFinished { get; set; }
+        public CellState? Winner { get; set; }
         private CellState _next { get; set; } = CellState.Cross;
         
         public Game(string name, DifficultyType difficulty)
@@ -39,12 +40,12 @@ namespace TourDeApp.Models
             CheckWin(); // I will later probably implement this to get called when the BoardState.Board is changed
         }
 
-        // Checks if there are 5 pieces next to each other horizontally
+        // Checks if there are 5 pieces next to each other
         public void CheckWin()
         {
-            if (GameFinished) return; // Checks whether the game has been won beforehand
+            if (GameFinished) return; // Checks whether the game has been won
             
-            // TODO: 
+            // TODO: Make more readable
             for (int row = 0; row < BoardState.Size; row++) // Checks for win horizontally
 
             {
@@ -73,10 +74,10 @@ namespace TourDeApp.Models
                     {
                         Console.WriteLine("Game has been won");
                         GameFinished = true;
+                        Winner = BoardState.Board[row, column].State;
+                        return;
                     }
                 }
-
-                if (GameFinished == true) break;
             }
             
             for (int row = 0; row < BoardState.Size; row++) // Checks for win vertically
@@ -107,10 +108,10 @@ namespace TourDeApp.Models
                     {
                         Console.WriteLine("Game has been won");
                         GameFinished = true;
+                        Winner = BoardState.Board[column, row].State;
+                        return;
                     }
                 }
-
-                if (GameFinished == true) break;
             }
         }
     }
