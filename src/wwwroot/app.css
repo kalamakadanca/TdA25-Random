@@ -7,8 +7,15 @@ body {
     text-align: center;
     font-weight: bold;
     color:aliceblue;
-    margin-right: 275px; /* odsazení - velikost loga */
 }
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
 
 #tlac_1 {
     background-color: #E31837;
@@ -34,19 +41,13 @@ body {
 .container {
     display: flex;
     justify-content: center;
-    height: 100vh;
+
 }
 a:any-link {
     font-family:'Dosis-ExtraBold', sans-serif;
     text-decoration: none;
     color: white;
 
-}
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
 }
 
 .logo {
@@ -103,15 +104,16 @@ h1:focus {
 }
 
 .game_field {
-    border: 2px solid black;
+    border: 2px solid black; /* ramecek */
+    height: fit-content;
     width: fit-content;
     margin: 0;
     padding: 0;
-    height: fit-content;
+
 }
 
 .table {
-    border-spacing: 0px;
+    border-collapse: collapse;
 }
 
 .game_cell {
@@ -128,10 +130,7 @@ h1:focus {
     justify-content: center;
     align-items: center;
     color: white;
-    text-align: center
-}
-
-.icon {
+    text-align: center;
     width: 80%;
 }
 
