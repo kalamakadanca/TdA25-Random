@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Components;
+﻿using System.Runtime.CompilerServices;
 using TourDeApp.Models.DataBaseModels;
 using TourDeApp.Models.Schemas;
 

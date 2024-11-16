@@ -23,14 +23,14 @@
 @code {
 
     [Parameter, EditorRequired] public Game Game { get; set; }
-    
 
     protected override void OnInitialized()
     {
+        Console.WriteLine("GameField.razor has been initialized");
     }
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        if (cell.State == CellState.Empty && Game.GameFinished == false) Game.UpdateBoard(cell);
+        if (cell.State == CellState.Empty) Game.UpdateBoard(cell);
     }
 }

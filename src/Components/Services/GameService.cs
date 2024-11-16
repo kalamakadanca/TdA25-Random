@@ -14,17 +14,11 @@ namespace TourDeApp.Components.Services
             _game = new Game("Default game", DifficultyType.Easy);
         }
 
-        public Game CreateGame()
+        public Game GetGame()
         {
-            _game = new Game("Nova hra", DifficultyType.Easy);
             return _game;
         }
 
-        public Game GetCurrentGame()
-        {
-            return _game;
-        }
-        
         public BoardState GetBoard(Game game)
         {
             return game.BoardState;
