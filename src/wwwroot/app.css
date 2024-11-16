@@ -1,19 +1,41 @@
 body {
     background-color: #1a1a1a;
 }
+
 .nazev {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     flex-grow: 1;
     font-size: 48px;
-    text-align: center;
     font-weight: bold;
     color:aliceblue;
+    text-align: center;
+    font-family: 'Dosis-ExtraBold', sans-serif;
+
 }
 .header {
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.logo {
+    width: 275px;
+    height: auto;
+    margin-top: 15px;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+
+
 
 
 
@@ -23,8 +45,6 @@ body {
 #tlac_2 {
     background-color: #0070BB;
 }
-
-
 .nazev_tlacitko {
     font-family: 'Dosis', sans-serif;
     font-size: 24px;
@@ -38,28 +58,17 @@ body {
     position: relative;
     z-index: 10;
 }
-.container {
-    display: flex;
+
+
+
+
+.game {
+    display:flex;
+    height: 100vh;
     justify-content: center;
-
+    align-items: flex-start;
+    margin-top: 20px;
 }
-a:any-link {
-    font-family:'Dosis-ExtraBold', sans-serif;
-    text-decoration: none;
-    color: white;
-
-}
-
-.logo {
-    width: 275px;
-    height: auto;
-    margin-top: 15px;
-    margin-left: 15px;
-    flex-shrink: 0;
-}
-
-
-
 
 
 
@@ -95,13 +104,7 @@ h1:focus {
     border-color: #929292;
 }
 
-.game {
-    display:flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 5%
-}
+
 
 .game_field {
     border: 2px solid black; /* ramecek */
