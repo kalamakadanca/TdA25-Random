@@ -12,17 +12,16 @@
     }
 }
 
-<!-- TODO: Display images instead of text -->
 <span @onclick="HandleClick" class="cell">
     @if (CellInstance.State != CellState.Empty)
     {
         if(CellInstance.State == CellState.Cross) 
         {
-            <img class="icon_div" src="/TdA_Ikonky/PNG/X/X_cerne.png"/>
+            <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
         }
         else 
         {
-            <img class="icon_div" src="/TdA_Ikonky/PNG/O/O_cerne.png"/>
+            <img class="icon" src="/TdA_Ikonky/SVG/O/O_modre.svg"/>
         }
     }
 </span>

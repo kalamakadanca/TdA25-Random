@@ -6,14 +6,17 @@
 
 <PageTitle>Game</PageTitle>
 
-<div class="game">
-    <GameField BoardState="_game.BoardState"></GameField>
-</div>
-
+<!-- TODO: Display a message saying who has won, how many rounds, etc. -->
+@if (_game != null && _game.GameFinished != true)
+{
+    <div class="game">
+        <GameField Game="_game"></GameField>
+    </div>
+}
 
 @code
 {
-    private TourDeApp.Models.Game _game { get; set; }
+    private TourDeApp.Models.Game? _game { get; set; }
 
     protected override void OnInitialized()
     {
