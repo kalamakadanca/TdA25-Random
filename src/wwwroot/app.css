@@ -2,6 +2,13 @@ body {
     background-color: #1a1a1a;
 }
 
+h3 {
+    font-family: 'Dosis-Bold', sans-serif;
+    font-size: 24px;
+    margin: 0;
+}
+
+
 .nazev {
     position: absolute;
     left: 50%;
@@ -37,14 +44,21 @@ body {
 
 
 
-
-
+/* barvicky tlac or text */
+#text_1 {
+    color: #E31837;
+}
+#text_2 {
+    color: #0070BB;
+}
 #tlac_1 {
     background-color: #E31837;
 }
 #tlac_2 {
     background-color: #0070BB;
 }
+
+
 .nazev_tlacitko {
     font-family: 'Dosis', sans-serif;
     font-size: 24px;
@@ -138,6 +152,56 @@ h1:focus {
 
 
 
+
+
+
+
+
+
+/* Přihlášení */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-window {
+    width: 150px;
+    height: 300px;
+    border: #f6f6f6 1px solid;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    color: #f6f6f6;
+    padding: 20px;
+    border-radius: 10px;
+    /* z-index: 1001; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Dosis-light', sans-serif;
+    margin: 10px;
+}
+.close-button {
+    background-color: #f6f6f6;
+    color: #1a1a1a;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}   /* hotové */
+.form-group {
+    display: grid;
+    gap: 0.25rem; /* ??? */
+}
+
+
+
 /*# FONTY */
 @font-face {
     font-family: 'Dosis';
@@ -155,5 +219,11 @@ h1:focus {
     font-family: 'Dosis-ExtraBold';
     src: url(TdA_Fonty/static/Dosis-ExtraBold.ttf) format('truetype');
     font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dosis-Light';
+    src: url(TdA_Fonty/static/Dosis-Light.ttf) format('truetype');
+    font-weight: lighter;
     font-style: normal;
 }
