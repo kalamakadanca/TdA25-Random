@@ -1,0 +1,18 @@
+<div class="modal-backdrop" @onclick="Close" style="display: @(IsVisible ? "flex" : "none")">
+    <div class="modal-window" @onclick:stopPropagation>
+        <button class="close-button" @onclick="Close">×</button>
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    public bool IsVisible { get; private set; }
+
+    public void Open() => IsVisible = true;
+    public void Close() {
+        IsVisible = false;
+        OnClose.InvokeAsync();
+    }
+}

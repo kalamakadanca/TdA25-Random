@@ -12,12 +12,44 @@
 
 <h1>Hello TdA</h1>
 
+
+<Modal @ref="ModalRef">
+    <h3 id="text_2">Login</h3>
+    <EditForm Model="@UserModel" OnValidSubmit="HandleValidSubmit">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <InputText id="username" @bind-Value="UserModel.Username"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <InputText type="password" id="password" @bind-Value="UserModel.Password"/>
+        </div>
+        <button type="submit">Submit</button>
+    </EditForm>
+</Modal>
+
+<button @onclick="OpenModal">Přihlásit se</button>
+
+
+
+
 @code
 {
+    private Modal? ModalRef;
+    private UserModal UserModel {get; set; } = new();
 
+    private void OpenModal() => ModalRef?.Open();
+    private void HandleValidSubmit() {
+        ModalRef?.Close();
+    }
 
+    private class UserModal{
+        public string Username {get; set;} = string.Empty;
+        public string Password {get; set;} = string.Empty;
+    }
     private void Play()
     {
         navigationManager.NavigateTo("/game");
     }
+
 }
