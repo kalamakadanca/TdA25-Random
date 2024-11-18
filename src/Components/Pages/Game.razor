@@ -38,6 +38,7 @@ else
             if (_game != null)
             {
                 NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
+                StateHasChanged();
             }
         }
         else
@@ -48,6 +49,7 @@ else
             {
                 _game = GameService.CreateGame();
                 NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
+                StateHasChanged();
             }
         }
     }
