@@ -15,19 +15,26 @@ namespace TourDeApp.Controllers.API_V1.Games
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Models.GameCreateUpdateRequest game)
+        public IActionResult Post([FromBody] Models.GameCreateUpdateRequest requestGame)
         {
-            // Creates a game
-            Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(new Models.Game(game.Name, game.Difficulty)
+            if (!ModelState.IsValid || !requestGame.BindDifficultyType())
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var game = new Models.Game(requestGame.Name, requestGame.EnumDifficulty)
             {
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 GameState = new Models.Schemas.GameState(),
                 Uuid = Guid.NewGuid().ToString(),
-                BoardState = mapper.Map<Models.Schemas.BoardState>(game.BoardState)
-            });
-
-            return Ok(gameDb);
+                BoardState = mapper.Map<Models.Schemas.BoardState>(requestGame.BoardState)
+            };
+            
+            // Creates a game
+            Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
+            
+            return new ObjectResult(gameDb) { StatusCode = 201 };
         }
 
         [HttpGet("{uuid}")]
