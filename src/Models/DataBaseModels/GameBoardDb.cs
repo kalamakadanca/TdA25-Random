@@ -9,5 +9,5 @@ public class GameBoardDb
     public List<CellDb> Board { get; set; } = new();
     
     public int GameId { get; set; }
-    public GameDb Game { get; set; } = new();
+    public GameDb Game { get; set; }
 }

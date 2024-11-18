@@ -2,8 +2,11 @@
 
 namespace TourDeApp.Models.JsonModels
 {
-    public class BoardStateJson : BoardState
+    public class BoardStateJson
     {
-        public new Cell[][] Board { get; set; }
+        public string[][] Board { get; set; }
+        private readonly string[] _boardInputEnum = [" ", "X", "O"];
+
+        public bool IsBoardValid() => Board.All(x => x.All(y => _boardInputEnum.Contains(y)));
     }
 }

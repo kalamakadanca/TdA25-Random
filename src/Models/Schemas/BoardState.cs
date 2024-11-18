@@ -3,7 +3,6 @@
     public class BoardState
     {
         public Cell[,] Board { get; set; }
-
         public int Size { get; set; }
         public BoardState(int size = 15)
         {

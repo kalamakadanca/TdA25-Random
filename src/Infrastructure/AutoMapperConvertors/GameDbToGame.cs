@@ -5,7 +5,7 @@ using TourDeApp.Models.Schemas;
 
 namespace TourDeApp.Infrastructure.AutoMapperConvertors;
 
-public abstract class CellListToCellArrayTypeConvertor : ITypeConverter<GameDb, Game>, AutoMapper.ITypeConverter<GameDb, Game>
+public class GameDbToGame : ITypeConverter<GameDb, Game>, AutoMapper.ITypeConverter<GameDb, Game>
 { 
     public Game Convert(GameDb source, Game destination, ResolutionContext context)
     {
