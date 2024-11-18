@@ -19,7 +19,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
-builder.Services.AddSingleton<GameService>();
+builder.Services.AddScoped<GameService>();
 
 var app = builder.Build();
 
