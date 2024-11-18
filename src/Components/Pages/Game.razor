@@ -1,4 +1,5 @@
-﻿@page "/game/"
+﻿@page "/game"
+@page "/game/{uuid}"
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 @inject GameService GameService
@@ -6,20 +7,53 @@
 
 <PageTitle>Game</PageTitle>
 
-<!-- TODO: Display a message saying who has won, how many rounds, etc. -->
-@if (_game != null && _game.GameFinished != true)
+@if (_game != null && !_game.GameFinished)
 {
     <div class="game">
         <GameField Game="_game"></GameField>
     </div>
 }
+else if (_game.GameFinished == true)
+{
+    <div>
+        @_game.Winner.ToString() has won!
+    </div>
+}
+else
+{
+    <p>Loading game...</p>
+}
 
 @code
 {
+    [Parameter] public string? Uuid { get; set; }
+    
     private TourDeApp.Models.Game? _game { get; set; }
 
     protected override void OnInitialized()
     {
-        _game = GameService.GetGame();
+        if (string.IsNullOrEmpty(Uuid))
+        {
+            _game = GameService.CreateGame();
+            if (_game != null)
+            {
+                NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
+            }
+        }
+        else
+        {
+            _game = GameService.GetCurrentGame();
+
+            if (_game == null || Uuid != _game.Uuid)
+            {
+                _game = GameService.CreateGame();
+                NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
+            }
+        }
+    }
+
+    private void Win()
+    {
+        InvokeAsync(() => StateHasChanged());
     }
 }
