@@ -182,7 +182,6 @@ h1:focus {
     border-radius: 10px;
     /* z-index: 1001; */
     position: relative;
-    display: flex;
     flex-direction: column;
     font-family: 'Dosis-light', sans-serif;
     margin: 10px;
@@ -194,12 +193,26 @@ h1:focus {
     top: 10px;
     right: 10px;
     cursor: pointer;
+    border-radius: 50%;
 }   /* hotové */
 .form-group {
     display: grid;
     gap: 0.25rem; /* ??? */
 }
 
+input {
+    outline: 3px solid #1a1a1a;
+    border-radius: 6px;
+}
+input:not(:placeholder-shown):valid {
+    outline-color: var(--clr-success);
+}
+input:not(:placeholder-shown):invalid {
+    outline-color: var(--clr-error);
+}
+input:focus:invalid {
+    outline-color: var(--clr-warning);
+}
 
 
 /*# FONTY */
