@@ -30,28 +30,30 @@ else
 
     private TourDeApp.Models.Game? _game { get; set; }
 
-    protected override void OnInitialized()
+protected override async Task OnInitializedAsync()
+{
+    if (string.IsNullOrEmpty(Uuid))
     {
-        if (string.IsNullOrEmpty(Uuid))
+        _game = GameService.CreateGame();
+        if (_game != null)
+        {
+            NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+    else
+    {
+        _game = GameService.GetCurrentGame();
+
+        if (_game == null || Uuid != _game.Uuid)
         {
             _game = GameService.CreateGame();
-            if (_game != null)
-            {
-                NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
-                StateHasChanged();
-            }
+            NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
+            await InvokeAsync(StateHasChanged);
         }
-        else
-        {
-            _game = GameService.GetCurrentGame();
+    }
+}
 
-            if (_game == null || Uuid != _game.Uuid)
-            {
-                _game = GameService.CreateGame();
-                NavigationManager.NavigateTo($"/game/{_game.Uuid}", true);
-                StateHasChanged();
-            }
-        }
     }
 
     private void Win()
