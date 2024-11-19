@@ -41,9 +41,9 @@ namespace TourDeApp.Models
         }
 
         // Checks if there are 5 pieces next to each other
-        private void CheckWin()
+        public bool CheckWin()
         {
-            if (GameFinished) return; // Checks whether the game has been won
+            if (GameFinished) return false;
 
             // Horizontal win check
             for (int row = 0; row < BoardState.Size; row++)
@@ -74,7 +74,7 @@ namespace TourDeApp.Models
                         Console.WriteLine("Game has been won horizontally");
                         GameFinished = true;
                         Winner = BoardState.Board[row, column].State;
-                        return;
+                        return true;
                     }
                 }
             }
@@ -108,7 +108,7 @@ namespace TourDeApp.Models
                         Console.WriteLine("Game has been won vertically");
                         GameFinished = true;
                         Winner = BoardState.Board[column, row].State;
-                        return;
+                        return true;
                     }
                 }
             }
@@ -116,16 +116,16 @@ namespace TourDeApp.Models
             // Diagonal win check (top-left to bottom-right)
             for (int row = 0;
                  row < BoardState.Size - 4;
-                 row++) // Only check starting rows where a diagonal of 5 can fit
+                 row++)
             {
                 for (int column = 0;
                      column < BoardState.Size - 4;
-                     column++) // Only check starting columns where a diagonal of 5 can fit
+                     column++)
                 {
                     int piecesInDiagonal = 0;
                     CellState previousState = CellState.Empty;
 
-                    for (int i = 0; i < 5; i++) // Check a diagonal of length 5
+                    for (int i = 0; i < 5; i++)
                     {
                         if (BoardState.Board[row + i, column + i].State != CellState.Empty &&
                             BoardState.Board[row + i, column + i].State == previousState)
@@ -148,25 +148,25 @@ namespace TourDeApp.Models
                             Console.WriteLine("Game has been won diagonally (top-left to bottom-right)");
                             GameFinished = true;
                             Winner = BoardState.Board[row + i, column + i].State;
-                            return;
+                            return true;
                         }
                     }
                 }
             }
 
-            // Diagonal win check (top-right to bottom-left)
+            // Diagonal win check
             for (int row = 0;
                  row < BoardState.Size - 4;
-                 row++) // Only check starting rows where a diagonal of 5 can fit
+                 row++)
             {
                 for (int column = 4;
                      column < BoardState.Size;
-                     column++) // Only check starting columns where a diagonal of 5 can fit
+                     column++)
                 {
                     int piecesInDiagonal = 0;
                     CellState previousState = CellState.Empty;
 
-                    for (int i = 0; i < 5; i++) // Check a diagonal of length 5
+                    for (int i = 0; i < 5; i++)
                     {
                         if (BoardState.Board[row + i, column - i].State != CellState.Empty &&
                             BoardState.Board[row + i, column - i].State == previousState)
@@ -189,11 +189,13 @@ namespace TourDeApp.Models
                             Console.WriteLine("Game has been won diagonally (top-right to bottom-left)");
                             GameFinished = true;
                             Winner = BoardState.Board[row + i, column - i].State;
-                            return;
+                            return true;
                         }
                     }
                 }
             }
+
+            return false;
         }
     }
 }
