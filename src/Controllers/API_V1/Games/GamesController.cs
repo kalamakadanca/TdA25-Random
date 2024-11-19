@@ -10,9 +10,12 @@ namespace TourDeApp.Controllers.API_V1.Games
         [HttpGet]
         public IActionResult Get()
         {
-            // TODO: Create response with all games from db and return with status code 200.
+            var games = context.Games.ToArray();
 
-            return StatusCode(200);
+            return new ObjectResult(games)
+            {
+                StatusCode = 200
+            };
         }
 
         [HttpPost]
@@ -56,6 +59,7 @@ namespace TourDeApp.Controllers.API_V1.Games
             Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
             // Inserting the game in the DB
             await context.Games.AddAsync(gameDb);
+            await context.SaveChangesAsync();
             
             return new ObjectResult(gameDb) { StatusCode = 201 };
         }
