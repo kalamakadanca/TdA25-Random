@@ -9,19 +9,15 @@ namespace TourDeApp.Components.Services
     {
         private Game _game;
 
-        public GameService()
+        public Game CreateGame()
         {
-            _game = new Game("Default game", DifficultyType.Easy);
-        }
-
-        public Game GetGame()
-        {
+            _game = new Game("Nova hra", DifficultyType.Beginner);
             return _game;
         }
 
-        public BoardState GetBoard(Game game)
+        public Game GetCurrentGame()
         {
-            return game.BoardState;
+            return _game;
         }
     }
 }
