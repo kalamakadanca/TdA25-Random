@@ -16,7 +16,7 @@ namespace TourDeApp.Models
         public bool GameFinished { get; set; }
         public CellState? Winner { get; set; }
         private CellState _next { get; set; } = CellState.Cross;
-        
+
         public Game(string name, DifficultyType difficulty)
         {
             Uuid = Guid.NewGuid().ToString();
@@ -25,10 +25,10 @@ namespace TourDeApp.Models
             GameState = GameState.Beginning;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
-            BoardState = new BoardState();          
+            BoardState = new BoardState();
             GameFinished = false;
         }
-        
+
         public void UpdateBoard(Cell cell)
         {
             if (GameFinished) return;
@@ -36,7 +36,7 @@ namespace TourDeApp.Models
 
             if (_next == CellState.Cross) _next = CellState.Circle;
             else _next = CellState.Cross;
-            
+
             CheckWin(); // I will later probably implement this to get called when the BoardState.Board is changed
         }
 
@@ -44,10 +44,9 @@ namespace TourDeApp.Models
         private void CheckWin()
         {
             if (GameFinished) return; // Checks whether the game has been won
-            
-            // TODO: Make more readable
-            for (int row = 0; row < BoardState.Size; row++) // Checks for win horizontally
 
+            // Horizontal win check
+            for (int row = 0; row < BoardState.Size; row++)
             {
                 int piecesInRow = 0;
                 CellState previousState = CellState.Empty;
@@ -72,16 +71,16 @@ namespace TourDeApp.Models
 
                     if (piecesInRow >= 5 && previousState != CellState.Empty)
                     {
-                        Console.WriteLine("Game has been won");
+                        Console.WriteLine("Game has been won horizontally");
                         GameFinished = true;
                         Winner = BoardState.Board[row, column].State;
                         return;
                     }
                 }
             }
-            
-            for (int row = 0; row < BoardState.Size; row++) // Checks for win vertically
 
+            // Vertical win check
+            for (int row = 0; row < BoardState.Size; row++)
             {
                 int piecesInRow = 0;
                 CellState previousState = CellState.Empty;
@@ -106,10 +105,92 @@ namespace TourDeApp.Models
 
                     if (piecesInRow >= 5 && previousState != CellState.Empty)
                     {
-                        Console.WriteLine("Game has been won");
+                        Console.WriteLine("Game has been won vertically");
                         GameFinished = true;
                         Winner = BoardState.Board[column, row].State;
                         return;
+                    }
+                }
+            }
+
+            // Diagonal win check (top-left to bottom-right)
+            for (int row = 0;
+                 row < BoardState.Size - 4;
+                 row++) // Only check starting rows where a diagonal of 5 can fit
+            {
+                for (int column = 0;
+                     column < BoardState.Size - 4;
+                     column++) // Only check starting columns where a diagonal of 5 can fit
+                {
+                    int piecesInDiagonal = 0;
+                    CellState previousState = CellState.Empty;
+
+                    for (int i = 0; i < 5; i++) // Check a diagonal of length 5
+                    {
+                        if (BoardState.Board[row + i, column + i].State != CellState.Empty &&
+                            BoardState.Board[row + i, column + i].State == previousState)
+                        {
+                            piecesInDiagonal++;
+                        }
+                        else if (BoardState.Board[row + i, column + i].State != CellState.Empty)
+                        {
+                            piecesInDiagonal = 1;
+                            previousState = BoardState.Board[row + i, column + i].State;
+                        }
+                        else
+                        {
+                            piecesInDiagonal = 0;
+                            previousState = CellState.Empty;
+                        }
+
+                        if (piecesInDiagonal >= 5 && previousState != CellState.Empty)
+                        {
+                            Console.WriteLine("Game has been won diagonally (top-left to bottom-right)");
+                            GameFinished = true;
+                            Winner = BoardState.Board[row + i, column + i].State;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // Diagonal win check (top-right to bottom-left)
+            for (int row = 0;
+                 row < BoardState.Size - 4;
+                 row++) // Only check starting rows where a diagonal of 5 can fit
+            {
+                for (int column = 4;
+                     column < BoardState.Size;
+                     column++) // Only check starting columns where a diagonal of 5 can fit
+                {
+                    int piecesInDiagonal = 0;
+                    CellState previousState = CellState.Empty;
+
+                    for (int i = 0; i < 5; i++) // Check a diagonal of length 5
+                    {
+                        if (BoardState.Board[row + i, column - i].State != CellState.Empty &&
+                            BoardState.Board[row + i, column - i].State == previousState)
+                        {
+                            piecesInDiagonal++;
+                        }
+                        else if (BoardState.Board[row + i, column - i].State != CellState.Empty)
+                        {
+                            piecesInDiagonal = 1;
+                            previousState = BoardState.Board[row + i, column - i].State;
+                        }
+                        else
+                        {
+                            piecesInDiagonal = 0;
+                            previousState = CellState.Empty;
+                        }
+
+                        if (piecesInDiagonal >= 5 && previousState != CellState.Empty)
+                        {
+                            Console.WriteLine("Game has been won diagonally (top-right to bottom-left)");
+                            GameFinished = true;
+                            Winner = BoardState.Board[row + i, column - i].State;
+                            return;
+                        }
                     }
                 }
             }
