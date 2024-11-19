@@ -9,8 +9,12 @@
 @if (_game != null && _game.GameFinished != true)
 {
     <div class="game">
-        <GameField Game="_game"></GameField>
+        <GameField Game="_game" OnWin="StateHasChanged"></GameField>
     </div>
+}
+else
+{
+    <p>Hra byla vyhrána</p>
 }
 
 @code
