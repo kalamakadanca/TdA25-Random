@@ -1,5 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using TourDeApp.Models.DataBaseModels;
+using TourDeApp.Models.JsonModels;
 using TourDeApp.Models.Schemas;
 
 namespace TourDeApp.Models

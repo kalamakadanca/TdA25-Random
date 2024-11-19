@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using TourDeApp.Models.Schemas;
 
 namespace TourDeApp.Controllers.API_V1.Games
 {
@@ -15,24 +16,46 @@ namespace TourDeApp.Controllers.API_V1.Games
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Models.GameCreateUpdateRequest requestGame)
+        public async Task<IActionResult> Post([FromBody] Models.GameCreateUpdateRequest requestGame)
         {
             if (!ModelState.IsValid || !requestGame.BindDifficultyType())
             {
-                return BadRequest(ModelState);
+                return new ObjectResult(new Error
+                {
+                    Code = 400,
+                    Message = $"Bad request: { ModelState.Values.First().Errors.First().ErrorMessage }"
+                })
+                {
+                    StatusCode = 400
+                };
+            }
+
+            string? error = requestGame.BoardState.IsBoardValid();
+            if (error != null)
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 422,
+                    Message = $"Unprocessable Entity: {error}"
+                })
+                {
+                    StatusCode = 422
+                };
             }
             
             var game = new Models.Game(requestGame.Name, requestGame.EnumDifficulty)
             {
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                GameState = new Models.Schemas.GameState(),
+                GameState = new GameState(),
                 Uuid = Guid.NewGuid().ToString(),
-                BoardState = mapper.Map<Models.Schemas.BoardState>(requestGame.BoardState)
+                BoardState = mapper.Map<BoardState>(requestGame.BoardState)
             };
             
             // Creates a game
             Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
+            // Inserting the game in the DB
+            await context.Games.AddAsync(gameDb);
             
             return new ObjectResult(gameDb) { StatusCode = 201 };
         }

@@ -1,14 +1,12 @@
-﻿namespace TourDeApp.Models.Schemas
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TourDeApp.Models.Schemas
 {
     public class Error
     {
-        public int code { get; set; }
-        public string message { get; set; }
-
-        public Error(int _code = 000, string _message = "No message")
-        {
-            code = _code;
-            message = _message;
-        }
+        [Required]
+        public int Code { get; set; }
+        [Required]
+        public string Message { get; set; }
     }
 }
