@@ -24,13 +24,28 @@
 
     [Parameter, EditorRequired] public Game Game { get; set; }
 
+    [Parameter] public EventCallback OnWin { get; set; }
+
     protected override void OnInitialized()
     {
-        
     }
 
     private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
     {
-        if (cell.State == CellState.Empty) Game.UpdateBoard(cell);
+        if (cell.State != CellState.Empty) return;
+
+        Game.UpdateBoard(cell);
+
+        if (Game.CheckWin())
+        {
+            Console.WriteLine("CheckWin() returned true");
+            Win();
+        }
     }
+
+    private async Task Win()
+    {
+        await OnWin.InvokeAsync();
+    }
+
 }

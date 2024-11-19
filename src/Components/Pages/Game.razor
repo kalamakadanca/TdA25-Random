@@ -5,15 +5,22 @@
 @using TourDeApp.Components.Pages.Shared
 
 <PageTitle>Game</PageTitle>
-<!-- TODO: Display a message saying who has won, how many rounds, etc. -->
+
 @if (_game != null && _game.GameFinished != true)
 {
     <div class="game">
-        <GameField Game="_game"></GameField>
+        <GameField Game="_game" OnWin="StateHasChanged"></GameField>
     </div>
+}
+else
+{
+    <!-- TODO: Display a message saying who has won, how many rounds, etc. -->
 }
 
 @code
+
+
+
 {
     private TourDeApp.Models.Game? _game { get; set; }
 
