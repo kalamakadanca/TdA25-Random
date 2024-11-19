@@ -36,11 +36,8 @@ namespace TourDeApp.Models
 
             if (_next == CellState.Cross) _next = CellState.Circle;
             else _next = CellState.Cross;
-
-            CheckWin(); // I will later probably implement this to get called when the BoardState.Board is changed
         }
 
-        // Checks if there are 5 pieces next to each other
         public bool CheckWin()
         {
             if (GameFinished) return false;
