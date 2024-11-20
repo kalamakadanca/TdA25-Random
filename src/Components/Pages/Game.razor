@@ -4,6 +4,7 @@
 @inject NavigationManager NavigationManager
 @inject GameService GameService
 @using TourDeApp.Components.Pages.Shared
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Game</PageTitle>
 
@@ -43,7 +44,8 @@ else
             // Ensure component is ready before navigation
             await InvokeAsync(async () =>
             {
-                await Task.Delay(1); 
+                await Task.Delay(1);
+                await JSRuntime.InvokeAsync("console.log", $"The game UUID is {_game.Uuid}")
                 NavigationManager.NavigateTo($"/game/{Uuid}", true);
             });
         }
