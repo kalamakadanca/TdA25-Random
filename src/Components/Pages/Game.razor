@@ -33,16 +33,19 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(50); // Allow SignalR connection to fully initialize
         _game = GameService.CreateGame();
 
         if (Uuid == null)
         {
-
             Uuid = _game.Uuid;
 
-            // Small delay to let the component finish initialization
-            await Task.Delay(1000);
-            NavigationManager.NavigateTo($"/game/{Uuid}", true);
+            // Ensure component is ready before navigation
+            await InvokeAsync(async () =>
+            {
+                await Task.Delay(1); 
+                NavigationManager.NavigateTo($"/game/{Uuid}", true);
+            });
         }
         else
         {
@@ -50,4 +53,5 @@ else
             StateHasChanged();
         }
     }
+
 }
