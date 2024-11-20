@@ -45,7 +45,7 @@ else
             await InvokeAsync(async () =>
             {
                 await Task.Delay(1);
-                await JSRuntime.InvokeAsync("console.log", $"The game UUID is {_game.Uuid}")
+                await JSRuntime.InvokeVoidAsync("console.log", "This is a message from Blazor!");
                 NavigationManager.NavigateTo($"/game/{Uuid}", true);
             });
         }
