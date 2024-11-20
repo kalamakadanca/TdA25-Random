@@ -4,7 +4,6 @@
 @inject NavigationManager NavigationManager
 @inject GameService GameService
 @using TourDeApp.Components.Pages.Shared
-@inject IJSRuntime JSRuntime
 
 <PageTitle>Game</PageTitle>
 
@@ -34,20 +33,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(50); // Allow SignalR connection to fully initialize
         _game = GameService.CreateGame();
 
         if (Uuid == null)
         {
+
             Uuid = _game.Uuid;
 
-            // Ensure component is ready before navigation
-            await InvokeAsync(async () =>
-            {
-                await Task.Delay(1);
-                await JSRuntime.InvokeVoidAsync("console.log", "This is a message from Blazor!");
-                NavigationManager.NavigateTo($"/game/{Uuid}", true);
-            });
+            await Task.Delay(10);
+            NavigationManager.NavigateTo($"/game/{Uuid}", true);
+            StateHasChanged();
         }
         else
         {
@@ -55,5 +50,4 @@ else
             StateHasChanged();
         }
     }
-
 }
