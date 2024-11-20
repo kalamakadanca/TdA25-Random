@@ -3,6 +3,6 @@
     public class Cell
     {
         public CellState State { get; set; }
-        public int[] CellID { get; set; }
+        public int[]? CellID { get; set; }
     }
 }

@@ -25,7 +25,9 @@
     [Parameter, EditorRequired] public Game Game { get; set; }
 
     [Parameter] public EventCallback OnWin { get; set; }
-
+    
+    [Parameter] public EventCallback ReRender { get; set; }
+    
     protected override void OnInitialized()
     {
     }
@@ -34,15 +36,23 @@
     {
         if (cell.State != CellState.Empty) return;
 
+        GameState gameState = Game.GameState;
+        
         Game.UpdateBoard(cell);
 
+        if (gameState != Game.GameState) ReRenderParent();
+        
         if (Game.CheckWin())
         {
-            Console.WriteLine("CheckWin() returned true");
             Win();
         }
     }
 
+    private async Task ReRenderParent()
+    {
+        await ReRender.InvokeAsync();
+    }
+    
     private async Task Win()
     {
         await OnWin.InvokeAsync();

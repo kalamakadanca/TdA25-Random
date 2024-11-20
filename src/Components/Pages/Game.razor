@@ -1,17 +1,28 @@
 ﻿@page "/game/"
 @page "/game/{Uuid}"
+@using TourDeApp.Components.Pages.Shared
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 @inject GameService GameService
-@using TourDeApp.Components.Pages.Shared
 
 <PageTitle>Game</PageTitle>
 
 @if (_game != null && _game.GameFinished != true)
 {
     <div class="game">
-        <GameField Game="_game" OnWin="StateHasChanged"></GameField>
+        <GameField Game="_game" OnWin="StateHasChanged" ReRender="StateHasChanged"></GameField>
     </div>
+    
+    <!-- Debug GameState -->
+    <div>
+        <h1>
+            @_game.GameState.ToString();
+        </h1>
+    </div>
+}
+else if (_game == null)
+{
+    <!-- TODO: Show loading screen or spinning circle (will be nice when games are retrieved from database) -->
 }
 else
 {
@@ -20,29 +31,25 @@ else
 
 @code
 
-
-
 {
-    private TourDeApp.Models.Game? _game { get; set; }
+    private Models.Game? _game { get; set; }
     [Parameter] public string Uuid { get; set; }
-    
+
     protected override void OnInitialized()
     {
-
     }
 
     protected override async Task OnInitializedAsync()
     {
         _game = GameService.CreateGame();
+        StateHasChanged(); // Tell blazor that Game should be loaded
 
         if (Uuid == null)
         {
-
             Uuid = _game.Uuid;
 
             await Task.Delay(10);
             NavigationManager.NavigateTo($"/game/{Uuid}", true);
-            StateHasChanged();
         }
         else
         {
