@@ -41,7 +41,7 @@ else
             Uuid = _game.Uuid;
 
             // Small delay to let the component finish initialization
-            await Task.Delay(100);
+            await Task.Delay(1000);
             NavigationManager.NavigateTo($"/game/{Uuid}", true);
         }
         else
