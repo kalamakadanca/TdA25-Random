@@ -1,17 +1,19 @@
-﻿@using TourDeApp.Models
+﻿@using TourDeApp.Infrastructure
+@using TourDeApp.Infrastructure.CustomConverters
+@using TourDeApp.Models
 @using TourDeApp.Models.Schemas
 @inject GameService GameService
 
 <span class="game_field">
     <table class="table">
         <tbody>
-            @for (int row = 0; row < Game.BoardState.Size; row++)
+            @for (int row = 0; row < GlobalSettings.BoardLenght; row++)
             {
                 <tr>
-                    @for (int column = 0; column < Game.BoardState.Size; column++)
+                    @for (int column = 0; column < GlobalSettings.BoardLenght; column++)
                     {
                         <td class="game_cell">
-                            <Cell CellInstance="Game.BoardState.Board[row, column]" OnClick="ChangeCellState"></Cell>
+                            <Cell CellInstance="Game.BoardState[row][column]" OnClick="ChangeCellState"></Cell>
                         </td>
                     }
                 </tr>
@@ -32,9 +34,9 @@
     {
     }
 
-    private void ChangeCellState(TourDeApp.Models.Schemas.Cell cell)
+    private void ChangeCellState(string cell)
     {
-        if (cell.State != CellState.Empty) return;
+        if (CellStateConverter.ToEnum(cell) != CellState.Empty) return;
 
         GameState gameState = Game.GameState;
         

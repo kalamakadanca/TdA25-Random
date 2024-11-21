@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using TourDeApp.Infrastructure;
 
 namespace TourDeApp.Models.JsonModels
 {
@@ -6,8 +7,6 @@ namespace TourDeApp.Models.JsonModels
     {
         public string[][] Board { get; set; }
         
-        [JsonIgnore]
-        private readonly string[] _boardInputEnum = ["", "X", "O"];
         [JsonIgnore]
         private const int _lenght = 15;
         
@@ -19,7 +18,7 @@ namespace TourDeApp.Models.JsonModels
 
             if (Board.Length != _lenght)
                 return "board lenght is not valid";
-            else if (!Board.All(x => x.All(y => _boardInputEnum.Contains(y))))
+            else if (!Board.All(x => x.All(y => GlobalSettings.PossibleBoardContent.Contains(y))))
                 return "board can contain only ' ', 'X' and 'O' characters";
             else
                 return null;

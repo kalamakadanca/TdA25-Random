@@ -9,12 +9,12 @@ public class GameToGameDb : ITypeConverter<Game, GameDb>, AutoMapper.ITypeConver
 {
     public GameDb Convert(Game source, GameDb destination, ResolutionContext context)
     {
-        int lenght = source.BoardState.Board.GetLength(1);
+        int lenght = source.BoardState.GetLength(1);
         destination = new GameDb();
         
         for (int i = 0; i < lenght; i++)
             for (int j = 0; j < lenght; j++)
-                destination.GameBoard.Board.Add(new CellDb { Column = j, Row = i, State = source.BoardState.Board[i, j].State });
+                //destination.GameBoard.Board.Add(new CellDb { Column = j, Row = i, State = source.BoardState[i]j.State });
 
         destination.GameState = source.GameState;
         destination.Difficulty = source.Difficulty;

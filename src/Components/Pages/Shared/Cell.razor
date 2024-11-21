@@ -1,10 +1,11 @@
-﻿@using TourDeApp.Models.Schemas
+﻿@using TourDeApp.Infrastructure.CustomConverters
+@using TourDeApp.Models.Schemas
 
 
 @code {
-    [Parameter] public EventCallback<TourDeApp.Models.Schemas.Cell> OnClick { get; set; }
+    [Parameter] public EventCallback<string> OnClick { get; set; }
     
-    [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
+    [Parameter, EditorRequired] public required string CellInstance { get; set; }
         
     private async Task HandleClick()
     {
@@ -13,9 +14,9 @@
 }
 
 <span @onclick="HandleClick" class="cell">
-    @if (CellInstance.State != CellState.Empty)
+    @if (CellStateConverter.ToEnum(CellInstance) != CellState.Empty)
     {
-        if(CellInstance.State == CellState.Cross) 
+        if(CellInstance == CellState.X.ToString()) 
         {
             <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
         }
