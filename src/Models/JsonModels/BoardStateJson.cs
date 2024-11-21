@@ -7,7 +7,7 @@ namespace TourDeApp.Models.JsonModels
         public string[][] Board { get; set; }
         
         [JsonIgnore]
-        private readonly string[] _boardInputEnum = [" ", "X", "O"];
+        private readonly string[] _boardInputEnum = ["", "X", "O"];
         [JsonIgnore]
         private const int _lenght = 15;
         

@@ -6,7 +6,7 @@ public static class Helper
 {
     public static CellState StrToCellState(string state) => state switch
     {
-        " " => CellState.Empty,
+        "" => CellState.Empty,
         "X" => CellState.Cross,
         "O" => CellState.Circle,
         _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)

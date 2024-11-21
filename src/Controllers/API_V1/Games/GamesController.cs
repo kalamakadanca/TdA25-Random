@@ -34,7 +34,7 @@ namespace TourDeApp.Controllers.API_V1.Games
                 };
             }
 
-            string? error = requestGame.Board.IsBoardValid();
+            string? error = requestGame.BoardState.IsBoardValid();
             if (error != null)
             {
                 return new ObjectResult(new Error
@@ -53,7 +53,7 @@ namespace TourDeApp.Controllers.API_V1.Games
                 UpdatedAt = DateTime.UtcNow,
                 GameState = new GameState(),
                 Uuid = Guid.NewGuid().ToString(),
-                BoardState = mapper.Map<BoardState>(requestGame.Board)
+                BoardState = mapper.Map<BoardState>(requestGame.BoardState)
             };
             
             // Creates a game
