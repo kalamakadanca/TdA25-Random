@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TourDeApp.Models.Schemas;
 
 namespace TourDeApp.Controllers.API_V1.Games
@@ -39,7 +40,7 @@ namespace TourDeApp.Controllers.API_V1.Games
                 return new ObjectResult(new Error
                 {
                     Code = 422,
-                    Message = $"Unprocessable Entity: {error}"
+                    Message = $"Semantic error: {error}"
                 })
                 {
                     StatusCode = 422
@@ -65,11 +66,52 @@ namespace TourDeApp.Controllers.API_V1.Games
         }
 
         [HttpGet("{uuid}")]
-        public IActionResult Get(string uuid)
+        public async Task<IActionResult> Get(string uuid)
         {
             // TODO: Returns a game with defined uuid or a 404 NotFound if it is not in DB.
 
-            return StatusCode(200);
+            if (string.IsNullOrEmpty(uuid))
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 400,
+                    Message = $"Bad request: Cannot to find UUID."
+                })
+                {
+                    StatusCode = 400
+                };
+            }
+
+            if (!Guid.TryParse(uuid, null, out Guid result))
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 422,
+                    Message = $"Semantic error: UUID is invalid"
+                })
+                {
+                    StatusCode = 422
+                };
+            }
+
+            var foundGame = await context.Games.FirstOrDefaultAsync(game => game.Uuid == uuid);
+
+            if (foundGame is null)
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 404,
+                    Message = $"Resource not found"
+                })
+                {
+                    StatusCode = 404
+                };
+            }
+
+            return new ObjectResult(foundGame)
+            {
+                StatusCode = 200
+            };
         }
 
         [HttpPut("{uuid}")]

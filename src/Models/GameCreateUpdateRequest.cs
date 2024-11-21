@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using TourDeApp.Components;
 using TourDeApp.Models.JsonModels;
 using TourDeApp.Models.Schemas;
@@ -14,7 +15,7 @@ namespace TourDeApp.Models
         public BoardStateJson BoardState { get; set; } = new();
         [Required]
         public string Difficulty { get; set; } = String.Empty;
-        [field: NonSerialized]
+        [JsonIgnore]
         public DifficultyType EnumDifficulty { get; set; }
         
         public bool BindDifficultyType()
