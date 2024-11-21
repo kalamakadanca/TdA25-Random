@@ -12,7 +12,7 @@ namespace TourDeApp.Models
         [Required] 
         public string Name { get; set; } = string.Empty;
         [Required] 
-        public BoardStateJson BoardState { get; set; } = new();
+        public BoardStateJson Board { get; set; } = new();
         [Required]
         public string Difficulty { get; set; } = String.Empty;
         [JsonIgnore]
@@ -20,6 +20,8 @@ namespace TourDeApp.Models
         
         public bool BindDifficultyType()
         {
+            Difficulty = Char.ToUpper(Difficulty[0]) + Difficulty.Substring(1).ToLower();
+
             if (Enum.TryParse(typeof(DifficultyType), Difficulty, out var result))
             {
                 EnumDifficulty = (DifficultyType)result;
