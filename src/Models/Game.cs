@@ -78,7 +78,17 @@ namespace TourDeApp.Models
                         }
                         if (count == 4) // TODO: Check if win is actually possible
                         {
-                            GameState = GameState.Endgame;
+                            if (x - stepX >= 0 || y - stepY >= 0 || x + stepX < GlobalSettings.BoardLength || y + stepY < GlobalSettings.BoardLength)
+                            {
+                                if (CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) == CellState.Empty)
+                                {
+                                    GameState = GameState.Endgame;
+                                }
+                                else
+                                {
+                                    GameState = GameState.Midgame;
+                                }
+                            }
                         }
                     }
                     else
