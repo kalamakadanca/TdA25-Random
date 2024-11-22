@@ -7,6 +7,10 @@ h3 {
     font-size: 24px;
     margin: 0;
 }
+img, svg {
+    pointer-events: none;
+    user-select: none;
+}
 
 
 
