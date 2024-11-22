@@ -4,29 +4,41 @@
 @using TourDeApp.Models.Schemas
 @inject GameService GameService
 
-<span class="game_field">
-    <table class="table">
-        <tbody>
-            @for (int row = 0; row < GlobalSettings.BoardLength; row++)
-            {
-                <tr>
-                    @for (int column = 0; column < GlobalSettings.BoardLength; column++)
-                    {
-                        var cell = new TourDeApp.Models.Schemas.Cell()
-                        {
-                            CellID = [row, column],
-                            State = CellStateConverter.ToEnum(Game.BoardState[row][column])
-                        };
+<div class="grid-container">
+    <div class="left">
+        <div class="grid-item">1</div>
+    </div>
 
-                        <td class="game_cell">
-                            <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
-                        </td>
+    <div>
+        <span class="game_field">
+            <table class="table">
+                <tbody>
+                    @for (int row = 0; row < GlobalSettings.BoardLength; row++)
+                    {
+                        <tr>
+                            @for (int column = 0; column < GlobalSettings.BoardLength; column++)
+                            {
+                                var cell = new TourDeApp.Models.Schemas.Cell()
+                                {
+                                    CellID = [row, column],
+                                    State = CellStateConverter.ToEnum(Game.BoardState[row][column])
+                                };
+
+                                <td class="game_cell">
+                                    <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
+                                </td>
+                            }
+                        </tr>
                     }
-                </tr>
-            }
-        </tbody>
-    </table>
-</span>
+                </tbody>
+            </table>
+        </span>
+    </div>
+    <div class="right">
+        <div class="grid-item">3</div>
+    </div>
+
+</div>
 
 @code {
 
