@@ -53,7 +53,7 @@ namespace TourDeApp.Controllers.API_V1.Games
                 UpdatedAt = DateTime.UtcNow,
                 GameState = new GameState(),
                 Uuid = Guid.NewGuid().ToString(),
-                //BoardState = mapper.Map<BoardState>(requestGame.BoardState)
+                BoardState = requestGame.Board
             };
             
             // Creates a game
@@ -62,7 +62,7 @@ namespace TourDeApp.Controllers.API_V1.Games
             await context.Games.AddAsync(gameDb);
             await context.SaveChangesAsync();
             
-            return new ObjectResult(gameDb) { StatusCode = 201 };
+            return new ObjectResult(game) { StatusCode = 201 };
         }
 
         [HttpGet("{uuid}")]

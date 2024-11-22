@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Newtonsoft.Json.Converters;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using TourDeApp.Infrastructure;
 using TourDeApp.Infrastructure.CustomConverters;
@@ -11,16 +13,24 @@ namespace TourDeApp.Models
 {
     public class Game
     {
+        [Required]
         public string Uuid { get; set; }
+        [Required]
         public string Name { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public DifficultyType Difficulty { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public GameState GameState { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string[][] BoardState { get; set; }
+        [JsonIgnore]
         public bool GameFinished { get; set; }
+        [JsonIgnore]
         public CellState? Winner { get; set; }
+        [JsonIgnore]
         public List<Move> History { get; set; }
+        [JsonIgnore]
         private CellState _next { get; set; } = CellState.X;
 
         public Game(string name, DifficultyType difficulty)
