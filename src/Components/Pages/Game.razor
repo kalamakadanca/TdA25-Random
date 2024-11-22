@@ -12,13 +12,6 @@
     <div class="game">
         <GameField Game="_game" OnWin="StateHasChanged" ReRender="StateHasChanged"></GameField>
     </div>
-    
-    <!-- Debug GameState -->
-    <div>
-        <h1>
-            @_game.GameState.ToString();
-        </h1>
-    </div>
 }
 else if (_game == null)
 {
