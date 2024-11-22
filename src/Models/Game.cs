@@ -17,9 +17,9 @@ namespace TourDeApp.Models
         public string Uuid { get; set; }
         [Required]
         public string Name { get; set; }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonConverter(typeof(LowercaseEnumConverter<DifficultyType>))]
         public DifficultyType Difficulty { get; set; }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonConverter(typeof(LowercaseEnumConverter<GameState>))]
         public GameState GameState { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
