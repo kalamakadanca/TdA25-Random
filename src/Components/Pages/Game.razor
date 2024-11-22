@@ -9,8 +9,18 @@
 
 @if (_game != null && _game.GameFinished != true)
 {
-    <div class="game">
-        <GameField Game="_game" OnWin="StateHasChanged" ReRender="StateHasChanged"></GameField>
+    <div class="grid-container">
+        <div class="left">
+            <div class="grid-item">1</div>
+        </div>
+
+        <div class="game">
+            <GameField Game="_game" OnWin="StateHasChanged" ReRender="StateHasChanged"></GameField>
+        </div>
+
+        <div class="right">
+            <div class="grid-item">3</div>
+        </div>
     </div>
 }
 else if (_game == null)

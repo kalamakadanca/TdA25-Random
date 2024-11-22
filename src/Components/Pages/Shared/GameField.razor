@@ -4,41 +4,33 @@
 @using TourDeApp.Models.Schemas
 @inject GameService GameService
 
-<div class="grid-container">
-    <div class="left">
-        <div class="grid-item">1</div>
-    </div>
 
-    <div>
-        <span class="game_field">
-            <table class="table">
-                <tbody>
-                    @for (int row = 0; row < GlobalSettings.BoardLength; row++)
-                    {
-                        <tr>
-                            @for (int column = 0; column < GlobalSettings.BoardLength; column++)
+<div>
+    <span class="game_field">
+        <table class="table">
+            <tbody>
+                @for (int row = 0; row < GlobalSettings.BoardLength; row++)
+                {
+                    <tr>
+                        @for (int column = 0; column < GlobalSettings.BoardLength; column++)
+                        {
+                            var cell = new TourDeApp.Models.Schemas.Cell()
                             {
-                                var cell = new TourDeApp.Models.Schemas.Cell()
-                                {
-                                    CellID = [row, column],
-                                    State = CellStateConverter.ToEnum(Game.BoardState[row][column])
-                                };
+                                CellID = [row, column],
+                                State = CellStateConverter.ToEnum(Game.BoardState[row][column])
+                            };
 
-                                <td class="game_cell">
-                                    <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
-                                </td>
-                            }
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </span>
-    </div>
-    <div class="right">
-        <div class="grid-item">3</div>
-    </div>
-
+                            <td class="game_cell">
+                                <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </span>
 </div>
+
 
 @code {
 
