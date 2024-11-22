@@ -11,6 +11,9 @@ img, svg {
     pointer-events: none;
     user-select: none;
 }
+button {
+    user-select: none;
+}
 
 
 
@@ -97,6 +100,9 @@ img, svg {
 
 
 /* barvicky tlac or text */
+#text_0 {
+    color: white;
+}
 #text_1 {
     color: #E31837;
 }

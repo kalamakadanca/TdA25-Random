@@ -11,8 +11,15 @@
 {
     <div class="grid-container">
         <div class="left">
-            <div class="grid-item">
-                1
+            <div class="grid-item">¨
+                @if (hr_ed)
+                {
+                    <div id="text_0">1</div>
+                }
+                else
+                {
+                    <div id="text_0">2</div>
+                }
             </div>
         </div>
 
@@ -23,9 +30,9 @@
         <div class="right">
             <div class="grid-item">
                 <div class="container_g">
-                    <div class=tlac_g id="tlac_2">Hra</div>
-                    <div>|</div>
-                    <div class=tlac_g id="tlac_1">Editor</div>
+                    <button class=tlac_g id="tlac_2" @onclick="Change_Hr">Hra</button>
+                    <div id="text_0">|</div>
+                    <button class=tlac_g id="tlac_1" @onclick="Change_Ed">Editor</button>
                 </div>
             </div>
         </div>
@@ -43,6 +50,17 @@ else
 @code
 
 {
+    public bool hr_ed = true;
+
+    private void Change_Ed()
+    {
+        hr_ed = false;
+    }
+    private void Change_Hr()
+    {
+        hr_ed = true;
+    }
+
     private Models.Game? _game { get; set; }
     [Parameter] public string Uuid { get; set; }
 
