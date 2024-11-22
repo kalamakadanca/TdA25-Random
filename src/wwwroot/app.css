@@ -9,21 +9,20 @@ h3 {
 }
 
 
+
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr auto 1fr; /* Levý, střední (hra), pravý */
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: 0; /* Odstranění mezer */
-    height: 100vh; /* Výška obrazovky */
-    width: 100vw; /* Šířka obrazovky */
+    gap: 10px;
+    /*height: 100vh;  Výška obrazovky */
 }
 
 .left, .right {
     display: flex;
-    align-items: center;
     justify-content: center;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Pro vizualizaci */
+    /* background-color: rgba(201, 201, 201, 0.5); /* Pro vizualizaci */
 }
 
 .left {
@@ -33,7 +32,26 @@ h3 {
     right: 0;
 }
 
-
+.grid-item {
+    position:fixed;
+}
+.container_g {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+.tlac_g {
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+    width: 150px;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px; /* zaoblení rohů */
+    margin: 10px; /* mezera mezi tlačítky */
+    position: relative;
+    /*z-index: 10; */
+}
 
 
 
@@ -192,7 +210,7 @@ h1:focus {
     color: #f6f6f6;
     padding: 20px;
     border-radius: 10px;
-    /* z-index: 1001; */
+    z-index: 1001;
     position: relative;
     flex-direction: column;
     font-family: 'Dosis-light', sans-serif;
@@ -211,20 +229,37 @@ h1:focus {
     display: grid;
     gap: 0.25rem; /* ??? */
 }
+.submit {
+    top: 20px;
+    background-color: #f6f6f6;
+    color: #1a1a1a;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Dosis', sans-serif;
+}
 
 input {
-    outline: 3px solid #1a1a1a;
+    width: 100%;
+    outline: 2px solid #1a1a1a;
     border-radius: 6px;
 }
-input:not(:placeholder-shown):valid {
-    outline-color: var(--clr-success);
-}
+
 input:not(:placeholder-shown):invalid {
     outline-color: var(--clr-error);
 }
 input:focus:invalid {
     outline-color: var(--clr-warning);
 }
+input:not(:placeholder-shown):valid {
+    outline-color: var(--clr-success);
+}
+
+:root {
+    --clr-success: hsl(143, 100%, 26%);
+    --clr-warning: hsl(43, 100%, 66%);
+    --clr-error: hsl(348, 55%, 49%);
+}
+/*            */
 
 
 /*# FONTY */

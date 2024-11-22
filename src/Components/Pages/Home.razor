@@ -22,9 +22,9 @@
         </div>
         <div class="form-group">
             <label for="password">Heslo:</label>
-            <InputText required placeholder="8+ znaků" type="password" id="password" @bind-Value="UserModel.Password" minlength="8"/>
+            <InputText required placeholder="8+ znaků" type="password" id="password" minlength="8" @bind-Value="UserModel.Password" />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="submit">Submit</button>
     </EditForm>
 </Modal>
 
