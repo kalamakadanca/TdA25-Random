@@ -22,7 +22,7 @@ namespace TourDeApp.Controllers.API_V1.Games
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Models.GameCreateUpdateRequest requestGame)
         {
-            if (!ModelState.IsValid || !requestGame.BindDifficultyType())
+            if (!ModelState.IsValid)
             {
                 return new ObjectResult(new Error
                 {
@@ -35,12 +35,12 @@ namespace TourDeApp.Controllers.API_V1.Games
             }
 
             string? error = requestGame.BoardState.IsBoardValid();
-            if (error != null)
+            if (error != null || !requestGame.BindDifficultyType())
             {
                 return new ObjectResult(new Error
                 {
                     Code = 422,
-                    Message = $"Semantic error: {error}"
+                    Message = $"Semantic error: {error ?? "Difficulty field is not valid"}"
                 })
                 {
                     StatusCode = 422
