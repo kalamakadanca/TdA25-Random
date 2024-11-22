@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TourDeApp.Models;
 using TourDeApp.Models.Schemas;
 
 namespace TourDeApp.Controllers.API_V1.Games
@@ -11,7 +12,9 @@ namespace TourDeApp.Controllers.API_V1.Games
         [HttpGet]
         public IActionResult Get()
         {
-            var games = context.Games.ToArray();
+            var games = context.Games.ToArray()
+                .Select(mapper.Map<Game>)
+                .ToList();
 
             return new ObjectResult(games)
             {
@@ -108,18 +111,64 @@ namespace TourDeApp.Controllers.API_V1.Games
                 };
             }
 
-            return new ObjectResult(foundGame)
+            return new ObjectResult(mapper.Map<Game>(foundGame))
             {
                 StatusCode = 200
             };
         }
 
         [HttpPut("{uuid}")]
-        public IActionResult Put(string uuid)
+        public async Task<IActionResult> Put(string uuid, [FromBody] Models.GameCreateUpdateRequest requestGame)
         {
             // TODO: Updates a game
+            if (!ModelState.IsValid)
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 400,
+                    Message = $"Bad request: {ModelState.Values.First().Errors.First().ErrorMessage}"
+                })
+                {
+                    StatusCode = 400
+                };
+            }
 
-            return StatusCode(200);
+            string? error = requestGame.BoardState.IsBoardValid();
+            if (error != null || !requestGame.BindDifficultyType())
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 422,
+                    Message = $"Semantic error: {error ?? "Difficulty field is not valid"}"
+                })
+                {
+                    StatusCode = 422
+                };
+            }
+
+            var foundGame = await context.Games.FirstOrDefaultAsync(game => game.Uuid == uuid);
+            if (foundGame is null)
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 404,
+                    Message = $"Resource not found"
+                })
+                {
+                    StatusCode = 404
+                };
+            }
+
+            foundGame.Board = requestGame.Board;
+            foundGame.Difficulty = requestGame.EnumDifficulty;
+            foundGame.Name = requestGame.Name;
+
+            await context.SaveChangesAsync();
+
+            return new ObjectResult(mapper.Map<Game>(foundGame))
+            {
+                StatusCode = 200
+            };
         }
 
         [HttpDelete("{uuid}")]

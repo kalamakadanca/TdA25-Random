@@ -9,7 +9,12 @@ public class GameDbToGame : ITypeConverter<GameDb, Game>, AutoMapper.ITypeConver
 { 
     public Game Convert(GameDb source, Game destination, ResolutionContext context)
     {
-        //foreach (CellDb cell in source.GameBoard.Board) destination.BoardState[cell.Row][cell.Column] = cell.State;
+        destination = new Game(source.Name, source.Difficulty);
+        destination.UpdatedAt = source.UpdatedAt;
+        destination.CreatedAt = source.CreatedAt;
+        destination.Uuid = source.Uuid;
+        destination.BoardState = source.Board;
+        destination.GameState = source.GameState;
 
         return destination;
     }
