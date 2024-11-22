@@ -172,11 +172,28 @@ namespace TourDeApp.Controllers.API_V1.Games
         }
 
         [HttpDelete("{uuid}")]
-        public IActionResult Delete(string uuid)
+        public async Task<IActionResult> Delete(string uuid)
         {
-            // TODO: Deletes a game
+            // TODO: Returns a game with defined uuid or a 404 NotFound if it is not in DB.
 
-            return StatusCode(200);
+            var foundGame = await context.Games.FirstOrDefaultAsync(game => game.Uuid == uuid);
+
+            if (foundGame is null)
+            {
+                return new ObjectResult(new Error
+                {
+                    Code = 404,
+                    Message = $"Resource not found"
+                })
+                {
+                    StatusCode = 404
+                };
+            }
+
+            context.Games.Remove(foundGame);
+            await context.SaveChangesAsync();
+            
+            return StatusCode(204);
         }
     }
 }
