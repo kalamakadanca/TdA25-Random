@@ -3,9 +3,9 @@
 
 
 @code {
-    [Parameter] public EventCallback<string> OnClick { get; set; }
+    [Parameter] public EventCallback<Models.Schemas.Cell> OnClick { get; set; }
     
-    [Parameter, EditorRequired] public required string CellInstance { get; set; }
+    [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
         
     private async Task HandleClick()
     {
@@ -14,9 +14,9 @@
 }
 
 <span @onclick="HandleClick" class="cell">
-    @if (CellStateConverter.ToEnum(CellInstance) != CellState.Empty)
+    @if (CellInstance.State != CellState.Empty)
     {
-        if(CellInstance == CellState.X.ToString()) 
+        if(CellInstance.State == CellState.X) 
         {
             <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
         }

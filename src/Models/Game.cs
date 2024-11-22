@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using TourDeApp.Infrastructure;
 using TourDeApp.Infrastructure.CustomConverters;
+using TourDeApp.Infrastructure.ExtensionMethods;
 using TourDeApp.Models.DataBaseModels;
 using TourDeApp.Models.JsonModels;
 using TourDeApp.Models.Schemas;
@@ -30,7 +31,7 @@ namespace TourDeApp.Models
             GameState = GameState.Beginning;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
-            BoardState = new string[GlobalSettings.BoardLenght][];
+            ModelsExtensions.GameGenerateEmptyBoard(this); // Creates an empty board
             GameFinished = false;
             History = new List<Move>();
         }
@@ -63,7 +64,7 @@ namespace TourDeApp.Models
                 for (int i = 1; i < 5; i++)
                 {
                     int x = startX + i * stepX, y = startY + i * stepY;
-                    if (x < 0 || x >= GlobalSettings.BoardLenght || y < 0 || y >= GlobalSettings.BoardLenght) break;
+                    if (x < 0 || x >= GlobalSettings.BoardLength || y < 0 || y >= GlobalSettings.BoardLength) break;
 
                     var cellState = CellStateConverter.ToEnum(BoardState[x][y]);
                     if (cellState != CellState.Empty && cellState == prevState)
@@ -91,9 +92,9 @@ namespace TourDeApp.Models
             }
 
             // Check all directions
-            for (int row = 0; row < GlobalSettings.BoardLenght; row++)
+            for (int row = 0; row < GlobalSettings.BoardLength; row++)
             {
-                for (int col = 0; col < GlobalSettings.BoardLenght; col++)
+                for (int col = 0; col < GlobalSettings.BoardLength; col++)
                 {
                     if (CellStateConverter.ToEnum(BoardState[row][col]) != CellState.Empty)
                     {

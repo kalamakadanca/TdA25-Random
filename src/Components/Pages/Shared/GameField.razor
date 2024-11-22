@@ -7,13 +7,19 @@
 <span class="game_field">
     <table class="table">
         <tbody>
-            @for (int row = 0; row < GlobalSettings.BoardLenght; row++)
+            @for (int row = 0; row < GlobalSettings.BoardLength; row++)
             {
                 <tr>
-                    @for (int column = 0; column < GlobalSettings.BoardLenght; column++)
+                    @for (int column = 0; column < GlobalSettings.BoardLength; column++)
                     {
+                        var cell = new TourDeApp.Models.Schemas.Cell()
+                        {
+                            CellID = [row, column],
+                            State = CellStateConverter.ToEnum(Game.BoardState[row][column])
+                        };
+
                         <td class="game_cell">
-                            <Cell CellInstance="Game.BoardState[row][column]" OnClick="ChangeCellState"></Cell>
+                            <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
                         </td>
                     }
                 </tr>
@@ -34,9 +40,9 @@
     {
     }
 
-    private void ChangeCellState(string cell)
+    private void ChangeCellState(Models.Schemas.Cell cell)
     {
-        if (CellStateConverter.ToEnum(cell) != CellState.Empty) return;
+        if (cell.State != CellState.Empty) return;
 
         GameState gameState = Game.GameState;
         
