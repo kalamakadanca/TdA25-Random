@@ -11,7 +11,7 @@
 {
     <div class="grid-container">
         <div class="left">
-            <div class="grid-item">¨
+            <div class="grid-item">
                 @if (hr_ed)
                 {
                     <div id="text_0">1</div>
@@ -34,6 +34,20 @@
                     <div id="text_0">|</div>
                     <button class=tlac_g id="tlac_1" @onclick="Change_Ed">Editor</button>
                 </div>
+                @if (hr_ed)
+                {
+                    <form>
+                        <button class=tlac_g id="tlac_3">Uložit</button>
+                        <button class=tlac_g id="tlac_4">Načíst</button>
+                    </form>
+                }
+                else
+                {
+                    <form>
+                        <button class=tlac_g id="tlac_3">yapyap</button>
+                        <button class=tlac_g id="tlac_4">yapyap</button>
+                    </form>
+                }
             </div>
         </div>
     </div>

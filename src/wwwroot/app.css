@@ -29,7 +29,7 @@ button {
     display: flex;
     justify-content: center;
     height: 100%;
-    /* background-color: rgba(201, 201, 201, 0.5); /* Pro vizualizaci */
+    background-color: rgba(201, 201, 201, 0.5); /* Pro vizualizaci */
 }
 
 .left {
@@ -48,18 +48,38 @@ button {
     align-items: center;
     gap: 30px;
 }
+
+
+/* tlacitka na /game */
 .tlac_g {
     font-family: 'Dosis', sans-serif;
     text-align: center;
-    width: 150px;
     color: white;
     cursor: pointer;
     border-radius: 8px; /* zaoblení rohů */
     margin: 10px; /* mezera mezi tlačítky */
     position: relative;
     /*z-index: 10; */
-}
 
+    font-size: 20px; /* Velikost textu */
+    padding: 15px 30px; /* Vnitřní okraje tlačítka */
+    border: none;
+    transition: all 0.3s ease; /* Plynulý přechod při změně */
+}
+@media screen and (max-width: 768px) {
+    .tlac_g {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .tlac_g {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
+/*                   */
 
 
 
