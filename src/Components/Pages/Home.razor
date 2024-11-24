@@ -1,4 +1,5 @@
 @page "/"
+@using TourDeApp.Models
 @rendermode InteractiveServer
 @inject NavigationManager navigationManager
 
@@ -9,7 +10,7 @@
     <button class="nazev_tlacitko" id="tlac_2">Nahrát hru</button>
 </div>
 
-
+<!-- Přesunul bych do MainLayout -->
 <Modal @ref="ModalRef">
     <h3 id="text_2">Login</h3>
     <EditForm Model="@UserModel" OnValidSubmit="HandleValidSubmit">
@@ -33,16 +34,11 @@
 @code
 {
     private Modal? ModalRef;
-    private UserModal UserModel {get; set; } = new();
+    private UserModel UserModel {get; set; } = new();
 
     private void OpenModal() => ModalRef?.Open();
     private void HandleValidSubmit() {
         ModalRef?.Close();
-    }
-
-    private class UserModal{
-        public string Username {get; set;} = string.Empty;
-        public string Password {get; set;} = string.Empty;
     }
     private void Play()
     {
