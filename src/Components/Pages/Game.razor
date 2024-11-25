@@ -86,7 +86,7 @@ else
     {
         _game = GameService.CreateGame();
         StateHasChanged(); // Tell blazor that Game should be loaded
-
+        /*
         if (Uuid == null)
         {
             Uuid = _game.Uuid;
@@ -99,5 +99,6 @@ else
             _game = GameService.GetCurrentGame();
             StateHasChanged();
         }
+        */
     }
 }
