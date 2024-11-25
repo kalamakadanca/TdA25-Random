@@ -1,4 +1,5 @@
 ﻿@page "/game/"
+@page "/game/{Uuid}"
 @using TourDeApp.Components.Pages.Shared
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
@@ -91,7 +92,7 @@ else
             Uuid = _game.Uuid;
 
             await Task.Delay(10);
-            //NavigationManager.NavigateTo($"/game/{Uuid}", true);
+            NavigationManager.NavigateTo($"/game/{Uuid}", true);
         }
         else
         {
