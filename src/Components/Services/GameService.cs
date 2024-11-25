@@ -19,5 +19,10 @@ namespace TourDeApp.Components.Services
         {
             return _game;
         }
+
+        public bool GameExists()
+        {
+            return _game != null;
+        }
     }
 }
