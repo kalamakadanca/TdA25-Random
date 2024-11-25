@@ -1,15 +1,9 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER root
+USER $APP_UID
 WORKDIR /app
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:80
 ENV ASPNETCORE_ENVIRONMENT=Development
-
-RUN chmod 777 /app
-RUN chmod 666 /app/database.db
-RUN chown $APP_UID:$APP_GID /app/database.db
-
-USER $APP_UID
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -27,4 +21,8 @@ RUN dotnet publish "TourDeApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+RUN chmod 777 /app
+RUN chmod 666 /app/database.db
+
 ENTRYPOINT ["dotnet", "TourDeApp.dll"]
