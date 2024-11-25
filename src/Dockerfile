@@ -3,6 +3,7 @@ USER $APP_UID
 WORKDIR /app
 EXPOSE 80
 
+ENV ASPNETCORE_ENVIRONMENT=Development
 RUN mkdir -p /app/data && chmod -R 777 /app/data
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
