@@ -24,9 +24,8 @@ WORKDIR /app
 
 COPY --from=publish /app/publish .
 
-COPY database.db /app/TourDeApp.db
-
-RUN chmod 777 /app/TourDeApp.db
+COPY database.db /app/database.db
+RUN chmod 777 /app/database.db
 
 ENV ASPNETCORE_URLS=http://+:80
 
