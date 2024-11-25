@@ -1,5 +1,5 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
+USER root
 WORKDIR /app
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:80
@@ -7,6 +7,9 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 RUN chmod 777 /app
 RUN chmod 666 /app/database.db
+RUN chown $APP_UID:$APP_GID /app/database.db
+
+USER $APP_UID
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
