@@ -22,7 +22,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-RUN chmod 777 /app
-RUN chmod 666 /app/database.db
+# RUN chmod 777 /app
+# RUN chmod 666 /app/database.db
 
 ENTRYPOINT ["dotnet", "TourDeApp.dll"]
