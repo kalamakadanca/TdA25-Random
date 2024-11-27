@@ -17,4 +17,11 @@ public static class CellStateConverter
     {
         return state == CellState.Empty ? "" : state.ToString();
     }
+
+    public static CellState InverseEnum(CellState state)
+    {
+        if (state == CellState.O) return CellState.X;
+        else if (state == CellState.X) return CellState.O;
+        return CellState.Empty;
+    }
 }

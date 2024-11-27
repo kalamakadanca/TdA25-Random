@@ -54,8 +54,8 @@ namespace TourDeApp.Models
             // Record the move to history
             History.Add(new Move(cell.CellID, _next));
 
-            if (History.Count > 5 && GameState == GameState.Beginning) GameState = GameState.Midgame;
-            
+            if (History.Count > 10 && GameState == GameState.Beginning) GameState = GameState.Midgame;
+
             if (_next == CellState.X) _next = CellState.O;
             else _next = CellState.X;
 
@@ -65,7 +65,6 @@ namespace TourDeApp.Models
         {
             if (GameFinished) return false;
 
-            // Helper function to check a sequence of cells
             bool CheckLine(int startX, int startY, int stepX, int stepY)
             {
                 int count = 1;
@@ -73,7 +72,9 @@ namespace TourDeApp.Models
 
                 for (int i = 1; i < 5; i++)
                 {
-                    int x = startX + i * stepX, y = startY + i * stepY;
+                    int x = startX + i * stepX;
+                    int y = startY + i * stepY;
+
                     if (x < 0 || x >= GlobalSettings.BoardLength || y < 0 || y >= GlobalSettings.BoardLength) break;
 
                     var cellState = CellStateConverter.ToEnum(BoardState[x][y]);
@@ -90,13 +91,23 @@ namespace TourDeApp.Models
                         {
                             if (x - stepX >= 0 || y - stepY >= 0 || x + stepX < GlobalSettings.BoardLength || y + stepY < GlobalSettings.BoardLength)
                             {
-                                if (CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) == CellState.Empty)
+                                if ((CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) == CellState.Empty) && prevState == _next)
+                                
                                 {
                                     GameState = GameState.Endgame;
+                                    Console.WriteLine(GameState.ToString());
+                                }
+                                else if (((CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) == CellState.Empty && CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) != CellState.Empty) ||
+                                        (CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) != CellState.Empty && CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) == CellState.Empty)) &&
+                                        prevState != _next)
+                                {
+                                    GameState = GameState.Midgame;
+                                    Console.WriteLine(GameState.ToString());
                                 }
                                 else
                                 {
                                     GameState = GameState.Midgame;
+                                    Console.WriteLine(GameState.ToString());
                                 }
                             }
                         }
@@ -118,10 +129,10 @@ namespace TourDeApp.Models
                 {
                     if (CellStateConverter.ToEnum(BoardState[row][col]) != CellState.Empty)
                     {
-                        if (CheckLine(row, col, 0, 1) || // Horizontal
-                            CheckLine(row, col, 1, 0) || // Vertical
-                            CheckLine(row, col, 1, 1) || // Diagonal top-left to bottom-right
-                            CheckLine(row, col, 1, -1)) // Diagonal top-right to bottom-left
+                        if (CheckLine(row, col, 0, 1) ||
+                            CheckLine(row, col, 1, 0) ||
+                            CheckLine(row, col, 1, 1) ||
+                            CheckLine(row, col, 1, -1))
                         {
                             return true;
                         }
