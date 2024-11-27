@@ -8,7 +8,7 @@ namespace TourDeApp.Models.JsonModels
         public string[][] Board { get; set; }
         
         [JsonIgnore]
-        private const int _lenght = 15;
+        private const int _length = 15;
         
         public string? IsBoardValid()
         {
@@ -16,7 +16,7 @@ namespace TourDeApp.Models.JsonModels
                 .ToArray())
                 .ToArray();
 
-            if (Board.Length != _lenght)
+            if (Board.Length != _length)
                 return "board lenght is not valid";
             else if (!Board.All(x => x.All(y => GlobalSettings.PossibleBoardContent.Contains(y))))
                 return "board can contain only ' ', 'X' and 'O' characters";
