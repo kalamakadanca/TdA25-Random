@@ -36,7 +36,7 @@ namespace TourDeApp.Models
         public GameCreateUpdateRequest(Game game)
         {
             Name = game.Name;
-            Board = game.BoardState;
+            Board = game.Board;
             EnumDifficulty = game.Difficulty;
             Difficulty = EnumDifficulty.ToString();
         }
