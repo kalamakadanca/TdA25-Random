@@ -72,8 +72,6 @@ namespace TourDeApp.Controllers.API_V1.Games
         [HttpGet("{uuid}")]
         public async Task<IActionResult> Get(string uuid)
         {
-            // TODO: Returns a game with defined uuid or a 404 NotFound if it is not in DB.
-
             if (string.IsNullOrEmpty(uuid))
             {
                 return new ObjectResult(new Error
@@ -121,7 +119,6 @@ namespace TourDeApp.Controllers.API_V1.Games
         [HttpPut("{uuid}")]
         public async Task<IActionResult> Put(string uuid, [FromBody] Models.GameCreateUpdateRequest requestGame)
         {
-            // TODO: Updates a game
             if (!ModelState.IsValid)
             {
                 return new ObjectResult(new Error
@@ -175,8 +172,6 @@ namespace TourDeApp.Controllers.API_V1.Games
         [HttpDelete("{uuid}")]
         public async Task<IActionResult> Delete(string uuid)
         {
-            // TODO: Returns a game with defined uuid or a 404 NotFound if it is not in DB.
-
             var foundGame = await context.Games.FirstOrDefaultAsync(game => game.Uuid == uuid);
 
             if (foundGame is null)
