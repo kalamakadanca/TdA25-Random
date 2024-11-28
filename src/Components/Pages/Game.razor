@@ -1,10 +1,11 @@
-﻿@page "/game/"
+@page "/game/"
 @page "/game/{Uuid}"
 @using TourDeApp.Components.Pages.Shared
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 @inject GameService GameService
 @inject GamesController GamesController
+@using TourDeApp.Models.Schemas
 
 <PageTitle>Game</PageTitle>
 
@@ -15,11 +16,22 @@
             <div class="grid-item">
                 @if (hr_ed)
                 {
-                    <h1 class="nazev" id="text_2">HRA</h1>
+                    <h1 id="text_2" style=" font-size: 48px; font-family: 'Dosis-ExtraBold', sans-serif;">HRA</h1>
+                    <div>
+                        <h3>Na řadě je:</h3>
+                        @if (_game.Next == CellState.X)
+                        {
+                            <img src="/TdA_Ikonky/SVG/X/X_cervene.svg" style="width: 10%; height: 10%;" />
+                        }
+                        else
+                        {
+                            <img src="/TdA_Ikonky/SVG/O/O_modre.svg" style="width: 50px; height: 50px;" />
+                        }
+                    </div>
                 }
                 else
                 {
-                    <h1 class="nazev" id="text_1">EDITOR</h1>
+                    <h1 id="text_1" style=" font-size: 48px; font-family: 'Dosis-ExtraBold', sans-serif;">EDITOR</h1>
                 }
             </div>
         </div>
@@ -38,8 +50,10 @@
                 @if (hr_ed)
                 {
                     <form>
-                        <button class=tlac_g id="tlac_3" @onclick="SaveGame">Uložit</button>
+                        <InputText @bind-Value="_gameUuid" style=" background-color: black;">Zadej Random Text</InputText>
+                        <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
                         <button class=tlac_g id="tlac_4" @onclick="LoadGame">Načíst</button>
+                        
                     </form>
                 }
                 else
@@ -137,4 +151,6 @@ else
             Console.WriteLine("There has been an error");
         }
     }
+
+
 }
