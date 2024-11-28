@@ -53,7 +53,7 @@
         Game.UpdateBoard(cell);
 
         // Sends an the update to db
-        await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game));
+        await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game)); // TODO: Don't save if game is not saved in the database
 
         if (Game.CheckWin())
         {     
