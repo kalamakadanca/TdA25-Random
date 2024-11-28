@@ -39,7 +39,8 @@
                 {
                     <form>
                         <button class=tlac_g id="tlac_3" @onclick="SaveGame">Uložit</button>
-                        <button class=tlac_g id="tlac_4" @onclick="GetGames">Načíst</button>
+                        <button class=tlac_g id="tlac_4" @onclick="LoadGame">Načíst</button>
+                        <InputText @bind-Value="_gameUuid">Zadej Random Text</InputText>
                     </form>
                 }
                 else
@@ -65,6 +66,8 @@ else
 @code
 {
     public bool hr_ed = true;
+
+    private string? _gameUuid {get;set;}
 
     private void Change_Ed()
     {
@@ -114,6 +117,25 @@ else
                     Console.WriteLine($"{game.Name}, {game.Uuid}, {game.Difficulty}, {game.GameState}");
                 }
             }
+        }
+    }
+
+    private async Task LoadGame()
+    {
+        var result = await GamesController.Get(_gameUuid);
+
+        if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
+        {
+            TourDeApp.Models.Game game = objectResult.Value as TourDeApp.Models.Game;
+
+            if (game != null) GameService.SetGame(game);
+            _game = GameService.GetCurrentGame();
+            StateHasChanged();
+            Console.WriteLine($"Game has been loaded: {_gameUuid}");
+        }
+        else
+        {
+            Console.WriteLine("There has been an error");
         }
     }
 }

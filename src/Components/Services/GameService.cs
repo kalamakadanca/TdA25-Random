@@ -24,5 +24,10 @@ namespace TourDeApp.Components.Services
         {
             return _game != null;
         }
+
+        public void SetGame(Game game)
+        {
+            _game = game;
+        }
     }
 }
