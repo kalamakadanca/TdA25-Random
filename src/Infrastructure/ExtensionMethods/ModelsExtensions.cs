@@ -6,14 +6,14 @@ namespace TourDeApp.Infrastructure.ExtensionMethods
     {
         public static void GameGenerateEmptyBoard(this Models.Game game)
         {
-            if (game.BoardState == null) game.BoardState = new string[GlobalSettings.BoardLength][];
+            if (game.Board == null) game.Board = new string[GlobalSettings.BoardLength][];
 
             for (int row = 0; row < GlobalSettings.BoardLength; row++) 
             {
-                game.BoardState[row] = new string[GlobalSettings.BoardLength];
+                game.Board[row] = new string[GlobalSettings.BoardLength];
 
                 for (int column = 0; column < GlobalSettings.BoardLength; column++)
-                    game.BoardState[row][column] = "";
+                    game.Board[row][column] = "";
             }
                 
         }

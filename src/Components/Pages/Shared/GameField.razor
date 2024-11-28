@@ -17,7 +17,7 @@
                             var cell = new TourDeApp.Models.Schemas.Cell()
                             {
                                 CellID = [row, column],
-                                State = CellStateConverter.ToEnum(Game.BoardState[row][column])
+                                State = CellStateConverter.ToEnum(Game.Board[row][column])
                             };
 
                             <td class="game_cell">

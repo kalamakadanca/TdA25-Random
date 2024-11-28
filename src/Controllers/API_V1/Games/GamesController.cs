@@ -56,7 +56,7 @@ namespace TourDeApp.Controllers.API_V1.Games
                 UpdatedAt = DateTime.UtcNow,
                 GameState = new GameState(),
                 Uuid = Guid.NewGuid().ToString(),
-                BoardState = requestGame.Board
+                Board = requestGame.Board
             };
             
             // Creates a game

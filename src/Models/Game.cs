@@ -23,7 +23,7 @@ namespace TourDeApp.Models
         public GameState GameState { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public string[][] BoardState { get; set; }
+        public string[][] Board { get; set; }
         [JsonIgnore]
         public bool GameFinished { get; set; }
         [JsonIgnore]
@@ -49,7 +49,7 @@ namespace TourDeApp.Models
         public void UpdateBoard(Cell cell)
         {
             if (GameFinished) return;
-            BoardState[cell.CellID[0]][cell.CellID[1]] = _next.ToString() == "Empty" ? "" : _next.ToString();
+            Board[cell.CellID[0]][cell.CellID[1]] = _next.ToString() == "Empty" ? "" : _next.ToString();
 
             // Record the move to history
             History.Add(new Move(cell.CellID, _next));
@@ -68,7 +68,7 @@ namespace TourDeApp.Models
             bool CheckLine(int startX, int startY, int stepX, int stepY)
             {
                 int count = 1;
-                CellState prevState = CellStateConverter.ToEnum(BoardState[startX][startY]);
+                CellState prevState = CellStateConverter.ToEnum(Board[startX][startY]);
 
                 for (int i = 1; i < 5; i++)
                 {
@@ -77,7 +77,7 @@ namespace TourDeApp.Models
 
                     if (x < 0 || x >= GlobalSettings.BoardLength || y < 0 || y >= GlobalSettings.BoardLength) break;
 
-                    var cellState = CellStateConverter.ToEnum(BoardState[x][y]);
+                    var cellState = CellStateConverter.ToEnum(Board[x][y]);
                     if (cellState != CellState.Empty && cellState == prevState)
                     {
                         count++;
@@ -91,14 +91,14 @@ namespace TourDeApp.Models
                         {
                             if (x - stepX >= 0 || y - stepY >= 0 || x + stepX < GlobalSettings.BoardLength || y + stepY < GlobalSettings.BoardLength)
                             {
-                                if ((CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) == CellState.Empty) && prevState == _next)
+                                if ((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty) && prevState == _next)
                                 
                                 {
                                     GameState = GameState.Endgame;
                                     Console.WriteLine(GameState.ToString());
                                 }
-                                else if (((CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) == CellState.Empty && CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) != CellState.Empty) ||
-                                        (CellStateConverter.ToEnum(BoardState[x - stepX][y - stepY]) != CellState.Empty && CellStateConverter.ToEnum(BoardState[x + stepX][y + stepY]) == CellState.Empty)) &&
+                                else if (((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty && CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) != CellState.Empty) ||
+                                        (CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) != CellState.Empty && CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty)) &&
                                         prevState != _next)
                                 {
                                     GameState = GameState.Midgame;
@@ -127,7 +127,7 @@ namespace TourDeApp.Models
             {
                 for (int col = 0; col < GlobalSettings.BoardLength; col++)
                 {
-                    if (CellStateConverter.ToEnum(BoardState[row][col]) != CellState.Empty)
+                    if (CellStateConverter.ToEnum(Board[row][col]) != CellState.Empty)
                     {
                         if (CheckLine(row, col, 0, 1) ||
                             CheckLine(row, col, 1, 0) ||

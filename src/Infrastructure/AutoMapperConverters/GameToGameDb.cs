@@ -12,7 +12,7 @@ public class GameToGameDb : ITypeConverter<Game, GameDb>, AutoMapper.ITypeConver
         // Initializing a new gamedb object
         destination = new GameDb();
 
-        destination.Board = source.BoardState;
+        destination.Board = source.Board;
         destination.GameState = source.GameState;
         destination.Difficulty = source.Difficulty;
         destination.Name = source.Name;

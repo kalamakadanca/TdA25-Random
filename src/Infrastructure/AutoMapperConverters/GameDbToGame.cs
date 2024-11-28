@@ -13,7 +13,7 @@ public class GameDbToGame : ITypeConverter<GameDb, Game>, AutoMapper.ITypeConver
         destination.UpdatedAt = source.UpdatedAt;
         destination.CreatedAt = source.CreatedAt;
         destination.Uuid = source.Uuid;
-        destination.BoardState = source.Board;
+        destination.Board = source.Board;
         destination.GameState = source.GameState;
 
         return destination;
