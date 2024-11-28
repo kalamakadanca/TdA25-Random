@@ -1,5 +1,4 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
 WORKDIR /app
 EXPOSE 80
 ENV ASPNETCORE_URLS=http://+:80
@@ -22,7 +21,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# RUN chmod 777 /app
-# RUN chmod 666 /app/database.db
+RUN chmod 777 /app
+RUN chmod 666 /app/database.db
 
 ENTRYPOINT ["dotnet", "TourDeApp.dll"]
