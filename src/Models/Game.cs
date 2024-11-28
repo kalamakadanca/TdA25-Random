@@ -87,7 +87,7 @@ namespace TourDeApp.Models
                             Winner = cellState;
                             return true;
                         }
-                        if (count == 4) // TODO: Check if win is actually possible
+                        if (count == 4)
                         {
                             if (x - stepX >= 0 || y - stepY >= 0 || x + stepX < GlobalSettings.BoardLength || y + stepY < GlobalSettings.BoardLength)
                             {

@@ -32,5 +32,13 @@ namespace TourDeApp.Models
 
             return false;
         }
+
+        public GameCreateUpdateRequest(Game game)
+        {
+            Name = game.Name;
+            Board = game.BoardState;
+            EnumDifficulty = game.Difficulty;
+            Difficulty = EnumDifficulty.ToString();
+        }
     }
 }

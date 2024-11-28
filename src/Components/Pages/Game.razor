@@ -4,6 +4,7 @@
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 @inject GameService GameService
+@inject GamesController GamesController
 
 <PageTitle>Game</PageTitle>
 
@@ -37,8 +38,8 @@
                 @if (hr_ed)
                 {
                     <form>
-                        <button class=tlac_g id="tlac_3">Uložit</button>
-                        <button class=tlac_g id="tlac_4">Načíst</button>
+                        <button class=tlac_g id="tlac_3" @onclick="SaveGame">Uložit</button>
+                        <button class=tlac_g id="tlac_4" @onclick="GetGames">Načíst</button>
                     </form>
                 }
                 else
@@ -62,7 +63,6 @@ else
 }
 
 @code
-
 {
     public bool hr_ed = true;
 
@@ -86,19 +86,38 @@ else
     {
         _game = GameService.CreateGame();
         StateHasChanged(); // Tell blazor that Game should be loaded
-        /*
-        if (Uuid == null)
-        {
-            Uuid = _game.Uuid;
+    }
 
-            await Task.Delay(10);
-            NavigationManager.NavigateTo($"/game/{Uuid}", true);
+    private async Task SaveGame()
+    {
+        var request = new GameCreateUpdateRequest(_game);
+        var result = await GamesController.Post(request);
+
+        if (result is ObjectResult objectResult && objectResult.StatusCode == 201)
+        {
+            Console.WriteLine("Hra se uložila");
         }
         else
         {
-            _game = GameService.GetCurrentGame();
-            StateHasChanged();
+            Console.WriteLine("Hra se NEuložila :(");
         }
-        */
+    }
+
+    private void GetGames()
+    {
+        var result = GamesController.Get();
+
+        if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
+        {
+            var games = objectResult.Value as List<TourDeApp.Models.Game>;
+
+            if (games != null)
+            {
+                foreach (TourDeApp.Models.Game game in games)
+                {
+                    Console.WriteLine($"{game.Name}, {game.Uuid}, {game.Difficulty}, {game.GameState}");
+                }
+            }
+        }
     }
 }

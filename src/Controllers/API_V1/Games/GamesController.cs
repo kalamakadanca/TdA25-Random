@@ -59,6 +59,7 @@ namespace TourDeApp.Controllers.API_V1.Games
                 Board = requestGame.Board
             };
             
+            Console.WriteLine(game.Uuid); // Abych věděl UUID
             // Creates a game
             Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
             // Inserting the game in the DB

@@ -3,6 +3,7 @@ using TourDeApp;
 using TourDeApp.Components;
 using TourDeApp.Components.Services;
 using TourDeApp.Models.Schemas;
+using TourDeApp.Controllers.API_V1.Games;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<GamesController>();
 
 var app = builder.Build();
 
