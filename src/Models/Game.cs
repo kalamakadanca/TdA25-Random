@@ -58,7 +58,6 @@ namespace TourDeApp.Models
 
             if (_next == CellState.X) _next = CellState.O;
             else _next = CellState.X;
-
         }
 
         public bool CheckWin()

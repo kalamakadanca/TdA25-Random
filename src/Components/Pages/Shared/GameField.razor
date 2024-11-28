@@ -3,6 +3,7 @@
 @using TourDeApp.Models
 @using TourDeApp.Models.Schemas
 @inject GameService GameService
+@inject GamesController GameController
 
 
 <div>
@@ -15,10 +16,10 @@
                         @for (int column = 0; column < GlobalSettings.BoardLength; column++)
                         {
                             var cell = new TourDeApp.Models.Schemas.Cell()
-                            {
-                                CellID = [row, column],
-                                State = CellStateConverter.ToEnum(Game.Board[row][column])
-                            };
+                    {
+                        CellID = [row, column],
+                        State = CellStateConverter.ToEnum(Game.Board[row][column])
+                    };
 
                             <td class="game_cell">
                                 <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
@@ -33,28 +34,29 @@
 
 
 @code {
-
     [Parameter, EditorRequired] public Game Game { get; set; }
 
     [Parameter] public EventCallback OnWin { get; set; }
-    
+
     [Parameter] public EventCallback ReRender { get; set; }
-    
+
     protected override void OnInitialized()
     {
     }
 
-    private void ChangeCellState(Models.Schemas.Cell cell)
+    private async void ChangeCellState(Models.Schemas.Cell cell)
     {
         if (cell.State != CellState.Empty) return;
 
         GameState gameState = Game.GameState;
-        
+
         Game.UpdateBoard(cell);
 
-        
+        // Sends an the update to db
+        await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game));
+
         if (Game.CheckWin())
-        {
+        {     
             Win();
         }
     }
