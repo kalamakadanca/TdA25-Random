@@ -31,7 +31,7 @@ namespace TourDeApp.Models
         [JsonIgnore]
         public List<Move> History { get; set; }
         [JsonIgnore]
-        private CellState _next { get; set; } = CellState.X;
+        public CellState Next { get; set; } = CellState.X;
 
         public Game(string name, DifficultyType difficulty)
         {
@@ -49,15 +49,15 @@ namespace TourDeApp.Models
         public void UpdateBoard(Cell cell)
         {
             if (GameFinished) return;
-            Board[cell.CellID[0]][cell.CellID[1]] = _next.ToString() == "Empty" ? "" : _next.ToString();
+            Board[cell.CellID[0]][cell.CellID[1]] = Next.ToString() == "Empty" ? "" : Next.ToString();
 
             // Record the move to history
-            History.Add(new Move(cell.CellID, _next));
+            History.Add(new Move(cell.CellID, Next));
 
             if (History.Count > 10 && GameState == GameState.Beginning) GameState = GameState.Midgame;
 
-            if (_next == CellState.X) _next = CellState.O;
-            else _next = CellState.X;
+            if (Next == CellState.X) Next = CellState.O;
+            else Next = CellState.X;
         }
 
         public bool CheckWin()
@@ -90,7 +90,7 @@ namespace TourDeApp.Models
                         {
                             if (x - stepX >= 0 || y - stepY >= 0 || x + stepX < GlobalSettings.BoardLength || y + stepY < GlobalSettings.BoardLength)
                             {
-                                if ((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty) && prevState == _next)
+                                if ((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty) && prevState == Next)
                                 
                                 {
                                     GameState = GameState.Endgame;
@@ -98,7 +98,7 @@ namespace TourDeApp.Models
                                 }
                                 else if (((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty && CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) != CellState.Empty) ||
                                         (CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) != CellState.Empty && CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty)) &&
-                                        prevState != _next)
+                                        prevState != Next)
                                 {
                                     GameState = GameState.Midgame;
                                     Console.WriteLine(GameState.ToString());
