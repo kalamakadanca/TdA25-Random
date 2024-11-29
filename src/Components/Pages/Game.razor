@@ -92,16 +92,17 @@ else
     }
 
     private Models.Game? _game { get; set; }
-    [Parameter] public string Uuid { get; set; }
+    [Parameter] public string? Uuid { get; set; }
 
     protected override void OnInitialized()
     {
         _game = GameService.CreateGame();
-        StateHasChanged(); // Tell blazor that Game should be loaded
+        StateHasChanged();
     }
 
     private async Task SaveGame()
     {
+        if (_game == null) return;
         var request = new GameCreateUpdateRequest(_game);
         var result = await GamesController.Post(request);
 
@@ -135,13 +136,16 @@ else
 
     private async Task LoadGame()
     {
+        if (_gameUuid == null) return;
+
         var result = await GamesController.Get(_gameUuid);
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
         {
-            TourDeApp.Models.Game game = objectResult.Value as TourDeApp.Models.Game;
-
-            if (game != null) GameService.SetGame(game);
+            if (objectResult.Value is TourDeApp.Models.Game game)
+            {
+                GameService.SetGame(game);
+            }
             _game = GameService.GetCurrentGame();
             StateHasChanged();
             Console.WriteLine($"Game has been loaded: {_gameUuid}");
