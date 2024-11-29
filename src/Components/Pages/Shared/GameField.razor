@@ -56,16 +56,18 @@
         await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game));
 
         if (Game.CheckWin())
-        {     
+        {
             Win();
         }
+
+        ReRenderParent();
     }
 
     private async Task ReRenderParent()
     {
         await ReRender.InvokeAsync();
     }
-    
+
     private async Task Win()
     {
         await OnWin.InvokeAsync();
