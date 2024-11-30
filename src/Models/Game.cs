@@ -24,6 +24,7 @@ namespace TourDeApp.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string[][] Board { get; set; }
+
         [JsonIgnore]
         public bool GameFinished { get; set; }
         [JsonIgnore]
@@ -41,9 +42,10 @@ namespace TourDeApp.Models
             GameState = GameState.Beginning;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
-            ModelsExtensions.GameGenerateEmptyBoard(this); // Creates an empty board
+            this.GameGenerateEmptyBoard(); // Creates an empty board
             GameFinished = false;
             History = new List<Move>();
+            CheckWin();
         }
         
         public void UpdateBoard(Cell cell)
@@ -91,7 +93,6 @@ namespace TourDeApp.Models
                             if (x - stepX >= 0 || y - stepY >= 0 || x + stepX < GlobalSettings.BoardLength || y + stepY < GlobalSettings.BoardLength)
                             {
                                 if ((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty) && prevState == Next)
-                                
                                 {
                                     GameState = GameState.Endgame;
                                     Console.WriteLine(GameState.ToString());

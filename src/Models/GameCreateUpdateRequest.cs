@@ -16,7 +16,7 @@ namespace TourDeApp.Models
         [Required] 
         public string[][] Board { get => BoardState.Board; set => BoardState.Board = value; }
         [Required]
-        public string Difficulty { get; set; } = String.Empty;
+        public string Difficulty { get; set; } = string.Empty;
         [JsonIgnore]
         public DifficultyType EnumDifficulty { get; set; }
         
@@ -33,6 +33,8 @@ namespace TourDeApp.Models
             return false;
         }
 
+        public GameCreateUpdateRequest() { }
+        
         public GameCreateUpdateRequest(Game game)
         {
             Name = game.Name;
