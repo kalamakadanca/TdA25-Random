@@ -56,7 +56,7 @@ namespace TourDeApp.Models
             // Record the move to history
             History.Add(new Move(cell.CellID, Next));
 
-            if (History.Count > 5 && GameState == GameState.Opening) GameState = GameState.Midgame;
+            if (History.Count >= 5 && GameState == GameState.Opening) GameState = GameState.Midgame;
 
             if (Next == CellState.X) Next = CellState.O;
             else Next = CellState.X;
