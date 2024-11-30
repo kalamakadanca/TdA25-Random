@@ -23,7 +23,16 @@ namespace TourDeApp.Models
         public GameState GameState { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public string[][] Board { get; set; }
+        public string[][] Board
+        {
+            get => Board;
+            set
+            {
+                CheckWin();
+                Board = value;
+            }
+        }
+
         [JsonIgnore]
         public bool GameFinished { get; set; }
         [JsonIgnore]
