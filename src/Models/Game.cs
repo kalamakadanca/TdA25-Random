@@ -32,7 +32,6 @@ namespace TourDeApp.Models
                 Board = value;
             }
         }
-
         [JsonIgnore]
         public bool GameFinished { get; set; }
         [JsonIgnore]
@@ -54,7 +53,7 @@ namespace TourDeApp.Models
             GameFinished = false;
             History = new List<Move>();
         }
-
+        
         public void UpdateBoard(Cell cell)
         {
             if (GameFinished) return;

@@ -16,12 +16,18 @@ namespace TourDeApp.Models.JsonModels
                 .ToArray())
                 .ToArray();
 
+            
+            int countX = Board.Sum(row => row.Count(item => item == GlobalSettings.PossibleBoardContent[1]));
+            int countO = Board.Sum(row => row.Count(item => item == GlobalSettings.PossibleBoardContent[2]));
+
+            if (countX < countO) 
+                return "invalid starting player";
             if (Board.Length != _length)
-                return "board length is not valid";
-            else if (!Board.All(x => x.All(y => GlobalSettings.PossibleBoardContent.Contains(y))))
+                return "invalid board size";
+            if (!Board.All(x => x.All(y => GlobalSettings.PossibleBoardContent.Contains(y))))
                 return "board can contain only ' ', 'X' and 'O' characters";
-            else
-                return null;
+            
+            return null;
         }
     }
 }
