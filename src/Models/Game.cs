@@ -39,7 +39,7 @@ namespace TourDeApp.Models
             Uuid = Guid.NewGuid().ToString();
             Name = name;
             Difficulty = difficulty;
-            GameState = GameState.Beginning;
+            GameState = GameState.Opening;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
             this.GameGenerateEmptyBoard(); // Creates an empty board
@@ -56,7 +56,7 @@ namespace TourDeApp.Models
             // Record the move to history
             History.Add(new Move(cell.CellID, Next));
 
-            if (History.Count > 10 && GameState == GameState.Beginning) GameState = GameState.Midgame;
+            if (History.Count > 10 && GameState == GameState.Opening) GameState = GameState.Midgame;
 
             if (Next == CellState.X) Next = CellState.O;
             else Next = CellState.X;
