@@ -34,10 +34,7 @@ namespace TourDeApp.Models
         [JsonIgnore]
         public CellState Next { get; set; } = CellState.X;
 
-        public Game()
-        {
-            CheckWinAndSetGameState();
-        }
+        public Game() { }
 
         public Game(string name, DifficultyType difficulty)
         {

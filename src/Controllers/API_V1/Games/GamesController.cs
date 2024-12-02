@@ -60,6 +60,7 @@ namespace TourDeApp.Controllers.API_V1.Games
                 Uuid = Guid.NewGuid().ToString(),
                 Board = requestGame.Board
             };
+            game.CheckWinAndSetGameState();
             
             // Creates a game
             Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
