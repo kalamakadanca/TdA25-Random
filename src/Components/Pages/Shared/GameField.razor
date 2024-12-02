@@ -55,7 +55,7 @@
         // Sends the update to db
         await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game));
 
-        if (Game.CheckWin())
+        if (Game.CheckWinAndSetGameState())
         {
             Win();
         }

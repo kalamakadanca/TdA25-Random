@@ -34,6 +34,11 @@ namespace TourDeApp.Models
         [JsonIgnore]
         public CellState Next { get; set; } = CellState.X;
 
+        public Game()
+        {
+            CheckWinAndSetGameState();
+        }
+
         public Game(string name, DifficultyType difficulty)
         {
             Uuid = Guid.NewGuid().ToString();
@@ -45,7 +50,7 @@ namespace TourDeApp.Models
             this.GameGenerateEmptyBoard(); // Creates an empty board
             GameFinished = false;
             History = new List<Move>();
-            CheckWin();
+            CheckWinAndSetGameState();
         }
         
         public void UpdateBoard(Cell cell)
@@ -62,7 +67,7 @@ namespace TourDeApp.Models
             else Next = CellState.X;
         }
 
-        public bool CheckWin()
+        public bool CheckWinAndSetGameState()
         {
             GameState = Board.Sum(row => row.Count(field => field != "")) <= 8 ? GameState.Opening : GameState.Midgame;
              

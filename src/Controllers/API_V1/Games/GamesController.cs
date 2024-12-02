@@ -50,8 +50,10 @@ namespace TourDeApp.Controllers.API_V1.Games
                 };
             }
             
-            var game = new Models.Game(requestGame.Name, requestGame.EnumDifficulty)
+            var game = new Game
             {
+                Name = requestGame.Name,
+                Difficulty = requestGame.EnumDifficulty,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 GameState = new GameState(),
@@ -59,7 +61,6 @@ namespace TourDeApp.Controllers.API_V1.Games
                 Board = requestGame.Board
             };
             
-            Console.WriteLine(game.Uuid); // Abych věděl UUID
             // Creates a game
             Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
             // Inserting the game in the DB
@@ -117,7 +118,7 @@ namespace TourDeApp.Controllers.API_V1.Games
         }
 
         [HttpPut("{uuid}")]
-        public async Task<IActionResult> Put(string uuid, [FromBody] Models.GameCreateUpdateRequest requestGame)
+        public async Task<IActionResult> Put(string uuid, [FromBody] GameCreateUpdateRequest requestGame)
         {
             if (!ModelState.IsValid)
             {
