@@ -110,12 +110,78 @@ namespace TourDeApp.Models
                     }
                 }
             }
+            
+            // Checks rows
+            for (int i = 0; i < lenght; i++)
+            {
+                for (int j = 0; j < lenght-maxForDiagonal; j++)
+                {
+                    if (Board[i][j] != "" &&
+                        Board[i][j] == Board[i][j + 1] &&
+                        Board[i][j] == Board[i][j + 2] &&
+                        Board[i][j] == Board[i][j + 3] &&
+                        Board[i][j] == Board[i][j + 4]) {
+                        GameState = GameState.Endgame;
+                        Winner = Helper.StrToCellState(Board[i][j]);
+                        return true;
+                    }
+                    if (Board[i][j] == "" &&
+                        Board[i][j + 1] != "" &&
+                        Board[i][j + 1] == Board[i][j + 2] &&
+                        Board[i][j + 1] == Board[i][j + 3] &&
+                        Board[i][j + 1] == Board[i][j + 4] &&
+                        Helper.StrToCellState(Board[i][j + 1]) == Next) {
+                        GameState = GameState.Endgame;
+                    }
+                    else if (Board[i][j + 4] == "" &&
+                        Board[i][j] != "" &&
+                        Board[i][j] == Board[i][j + 1] &&
+                        Board[i][j] == Board[i][j + 2] &&
+                        Board[i][j] == Board[i][j + 3] &&
+                        Helper.StrToCellState(Board[i][j]) == Next) {
+                        GameState = GameState.Endgame;
+                    }
+                }
+            }
 
+            // Checks columns
+            for (int i = 0; i < lenght; i++)
+            {
+                for (int j = 0; j < lenght-maxForDiagonal; j++)
+                {
+                    if (Board[i][j] != "" &&
+                        Board[i][j] == Board[i + 1][j] &&
+                        Board[i][j] == Board[i + 2][j] &&
+                        Board[i][j] == Board[i + 3][j] &&
+                        Board[i][j] == Board[i + 4][j]) {
+                        GameState = GameState.Endgame;
+                        Winner = Helper.StrToCellState(Board[i][j]);
+                        return true;
+                    }
+                    if (Board[i][j] == "" &&
+                        Board[i + 1][j] != "" &&
+                        Board[i + 1][j] == Board[i + 2][j] &&
+                        Board[i + 1][j] == Board[i + 3][j] &&
+                        Board[i + 1][j] == Board[i + 4][j] &&
+                        Helper.StrToCellState(Board[i + 1][j]) == Next) {
+                        GameState = GameState.Endgame;
+                    }
+                    else if (Board[i][j + 4] == "" &&
+                        Board[i][j] != "" &&
+                        Board[i][j] == Board[i + 1][j] &&
+                        Board[i][j] == Board[i + 2][j] &&
+                        Board[i][j] == Board[i + 3][j] &&
+                        Helper.StrToCellState(Board[i][j]) == Next) {
+                        GameState = GameState.Endgame;
+                    }
+                }
+            }
+
+            // Check diagonal '\'
             for (int i = 0; i < lenght-maxForDiagonal; i++)
             {
                 for (int j = 0; j < lenght-maxForDiagonal; j++)
                 {
-                    // Check for winning 
                     if (Board[i][j] != "" &&
                         Board[i][j] == Board[i + 1][j + 1] &&
                         Board[i][j] == Board[i + 2][j + 2] &&
@@ -129,47 +195,50 @@ namespace TourDeApp.Models
                         Board[i + 1][j + 1] != "" &&
                         Board[i + 1][j + 1] == Board[i + 2][j + 2] &&
                         Board[i + 1][j + 1] == Board[i + 3][j + 3] &&
-                        Board[i + 1][j + 1] == Board[i + 4][j + 4]) {
-                        if (Helper.StrToCellState(Board[i + 1][j + 1]) == Next) GameState = GameState.Endgame;
+                        Board[i + 1][j + 1] == Board[i + 4][j + 4] &&
+                        Helper.StrToCellState(Board[i + 1][j + 1]) == Next) {
+                        GameState = GameState.Endgame;
                     }
                     else if (Board[i + 4][j + 4] == "" &&
                         Board[i][j] != "" &&
                         Board[i][j] == Board[i + 1][j + 1] &&
                         Board[i][j] == Board[i + 2][j + 2] &&
-                        Board[i][j] == Board[i + 3][j + 3]) {
-                        if (Helper.StrToCellState(Board[i][j]) == Next) GameState = GameState.Endgame;
+                        Board[i][j] == Board[i + 3][j + 3] &&
+                        Helper.StrToCellState(Board[i][j]) == Next) {
+                        GameState = GameState.Endgame;
                     }
                 }
             }
 
-            for (int i = lenght-1; i >= maxForDiagonal; i--)
+            // Check diagonal '/'
+            for (int i = 0; i < lenght-maxForDiagonal; i++)
             {
-                for (int j = 0; j < lenght-maxForDiagonal; j++)
+                for (int j = lenght-1; j >= maxForDiagonal; j--)
                 {
-                    // Check for winning 
                     if (Board[i][j] != "" &&
-                        Board[i][j] == Board[i - 1][j + 1] &&
-                        Board[i][j] == Board[i - 2][j + 2] &&
-                        Board[i][j] == Board[i - 3][j + 3] &&
-                        Board[i][j] == Board[i - 4][j + 4]) {
+                        Board[i][j] == Board[i + 1][j - 1] &&
+                        Board[i][j] == Board[i + 2][j - 2] &&
+                        Board[i][j] == Board[i + 3][j - 3] &&
+                        Board[i][j] == Board[i + 4][j - 4]) {
                         GameState = GameState.Endgame;
                         Winner = Helper.StrToCellState(Board[i][j]);
                         return true;
                     }
-                    // Check for endgame state
                     if (Board[i][j] == "" &&
-                        Board[i - 1][j + 1] != "" &&
-                        Board[i - 1][j + 1] == Board[i - 2][j + 2] &&
-                        Board[i - 1][j + 1] == Board[i - 3][j + 3] &&
-                        Board[i - 1][j + 1] == Board[i - 4][j + 4]) {
-                        if (Helper.StrToCellState(Board[i - 1][j + 1]) == Next) GameState = GameState.Endgame;
+                        Board[i + 1][j - 1] != "" &&
+                        Board[i + 1][j - 1] == Board[i + 2][j - 2] &&
+                        Board[i + 1][j - 1] == Board[i + 3][j - 3] &&
+                        Board[i + 1][j - 1] == Board[i + 4][j - 4] &&
+                        Helper.StrToCellState(Board[i + 1][j - 1]) == Next) {
+                        GameState = GameState.Endgame;
                     }
-                    else if (Board[i - 4][j + 4] == "" &&
+                    else if (Board[i + 4][j - 4] == "" &&
                         Board[i][j] != "" &&
-                        Board[i][j] == Board[i - 1][j + 1] &&
-                        Board[i][j] == Board[i - 2][j + 2] &&
-                        Board[i][j] == Board[i - 3][j + 3]) {
-                        if (Helper.StrToCellState(Board[i][j]) == Next) GameState = GameState.Endgame;
+                        Board[i][j] == Board[i + 1][j - 1] &&
+                        Board[i][j] == Board[i + 2][j - 2] &&
+                        Board[i][j] == Board[i + 3][j - 3] &&
+                        Helper.StrToCellState(Board[i][j]) == Next) {
+                        GameState = GameState.Endgame;
                     }
                 }
             }
