@@ -64,78 +64,108 @@ namespace TourDeApp.Models
 
         public bool CheckWin()
         {
-            if (GameFinished) return false;
-
-            bool CheckLine(int startX, int startY, int stepX, int stepY)
+            if (Board.Sum(row => row.Count(field => field != "")) <= 5)
             {
-                int count = 1;
-                CellState prevState = CellStateConverter.ToEnum(Board[startX][startY]);
-
-                for (int i = 1; i < 5; i++)
-                {
-                    int x = startX + i * stepX;
-                    int y = startY + i * stepY;
-
-                    if (x < 0 || x >= GlobalSettings.BoardLength || y < 0 || y >= GlobalSettings.BoardLength) break;
-
-                    var cellState = CellStateConverter.ToEnum(Board[x][y]);
-                    if (cellState != CellState.Empty && cellState == prevState)
-                    {
-                        count++;
-                        if (count == 5)
-                        {
-                            GameFinished = true;
-                            Winner = cellState;
-                            return true;
-                        }
-                        if (count == 4)
-                        {
-                            if (x - stepX >= 0 || y - stepY >= 0 || x + stepX < GlobalSettings.BoardLength || y + stepY < GlobalSettings.BoardLength)
-                            {
-                                if ((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty || CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty) && prevState == Next)
-                                {
-                                    GameState = GameState.Endgame;
-                                    Console.WriteLine(GameState.ToString());
-                                }
-                                else if (((CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) == CellState.Empty && CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) != CellState.Empty) ||
-                                        (CellStateConverter.ToEnum(Board[x - stepX][y - stepY]) != CellState.Empty && CellStateConverter.ToEnum(Board[x + stepX][y + stepY]) == CellState.Empty)) &&
-                                        prevState != Next)
-                                {
-                                    GameState = GameState.Midgame;
-                                    Console.WriteLine(GameState.ToString());
-                                }
-                                else
-                                {
-                                    GameState = GameState.Midgame;
-                                    Console.WriteLine(GameState.ToString());
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        count = 1;
-                        prevState = cellState;
-                    }
-                }
-
+                GameState = GameState.Opening;
                 return false;
             }
+            
+            GameState = GameState.Midgame;
+            
+            const int eForWon = 5;
+            const int maxForDiagonal = eForWon - 1;
+            int lenght = Board.Length;
 
-            // Check all directions
-            for (int row = 0; row < GlobalSettings.BoardLength; row++)
+            for (int i = 0; i < lenght; i++)
             {
-                for (int col = 0; col < GlobalSettings.BoardLength; col++)
+                for (int j = 0; j < lenght-maxForDiagonal; j++)
                 {
-                    if (CellStateConverter.ToEnum(Board[row][col]) != CellState.Empty)
-                    {
-                        if (CheckLine(row, col, 0, 1) ||
-                            CheckLine(row, col, 1, 0) ||
-                            CheckLine(row, col, 1, 1) ||
-                            CheckLine(row, col, 1, -1))
-                        {
-                            return true;
-                        }
+                    // Check for winning 
+                    if (Board[i][j] != "" &&
+                        Board[i][j] == Board[i + 1][j + 1] &&
+                        Board[i][j + 2] == Board[i + 2][j + 2] &&
+                        Board[i][j + 3] == Board[i + 3][j + 3] &&
+                        Board[i][j + 4] == Board[i + 4][j + 4]) {
+                        GameState = GameState.Endgame;
+                        Winner = Helper.StrToCellState(Board[i][j]);
+                        return true;
+                    }
+                    if (Board[i][j] == "" &&
+                        Board[i][j + 1] != "" &&
+                        Board[i][j + 2] == Board[i + 2][j + 2] &&
+                        Board[i][j + 3] == Board[i + 3][j + 3] &&
+                        Board[i][j + 4] == Board[i + 4][j + 4]) {
+                        GameState = GameState.Endgame;
+                    } 
+                    else if (Board[i + 4][j + 4] == "" &&
+                             Board[i][j] != "" &&
+                             Board[i][j] == Board[i][j + 1] &&
+                             Board[i][j] == Board[i][j + 2] &&
+                             Board[i][j] == Board[i][j + 3]) {
+                        GameState = GameState.Endgame;
+                    }
+                }
+            }
+
+            for (int i = 0; i < lenght-maxForDiagonal; i++)
+            {
+                for (int j = 0; j < lenght-maxForDiagonal; j++)
+                {
+                    // Check for winning 
+                    if (Board[i][j] != "" &&
+                        Board[i][j] == Board[i + 1][j + 1] &&
+                        Board[i][j] == Board[i + 2][j + 2] &&
+                        Board[i][j] == Board[i + 3][j + 3] &&
+                        Board[i][j] == Board[i + 4][j + 4]) {
+                        GameState = GameState.Endgame;
+                        Winner = Helper.StrToCellState(Board[i][j]);
+                        return true;
+                    }
+                    if (Board[i][j] == "" &&
+                        Board[i + 1][j + 1] != "" &&
+                        Board[i + 1][j + 1] == Board[i + 2][j + 2] &&
+                        Board[i + 1][j + 1] == Board[i + 3][j + 3] &&
+                        Board[i + 1][j + 1] == Board[i + 4][j + 4]) {
+                        GameState = GameState.Endgame;
+                    }
+                    else if (Board[i + 4][j + 4] == "" &&
+                        Board[i][j] != "" &&
+                        Board[i][j] == Board[i + 1][j + 1] &&
+                        Board[i][j] == Board[i + 2][j + 2] &&
+                        Board[i][j] == Board[i + 3][j + 3]) {
+                        GameState = GameState.Endgame;
+                    }
+                }
+            }
+
+            for (int i = lenght-1; i >= maxForDiagonal; i--)
+            {
+                for (int j = 0; j < lenght-maxForDiagonal; j++)
+                {
+                    // Check for winning 
+                    if (Board[i][j] != "" &&
+                        Board[i][j] == Board[i - 1][j + 1] &&
+                        Board[i][j] == Board[i - 2][j + 2] &&
+                        Board[i][j] == Board[i - 3][j + 3] &&
+                        Board[i][j] == Board[i - 4][j + 4]) {
+                        GameState = GameState.Endgame;
+                        Winner = Helper.StrToCellState(Board[i][j]);
+                        return true;
+                    }
+                    // Check for endgame state
+                    if (Board[i][j] == "" &&
+                        Board[i - 1][j + 1] != "" &&
+                        Board[i - 1][j + 1] == Board[i - 2][j + 2] &&
+                        Board[i - 1][j + 1] == Board[i - 3][j + 3] &&
+                        Board[i - 1][j + 1] == Board[i - 4][j + 4]) {
+                        GameState = GameState.Endgame;
+                    }
+                    else if (Board[i - 4][j + 4] == "" &&
+                        Board[i][j] != "" &&
+                        Board[i][j] == Board[i - 1][j + 1] &&
+                        Board[i][j] == Board[i - 2][j + 2] &&
+                        Board[i][j] == Board[i - 3][j + 3]) {
+                        GameState = GameState.Endgame;
                     }
                 }
             }
