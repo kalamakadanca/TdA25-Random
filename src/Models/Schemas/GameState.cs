@@ -2,6 +2,6 @@
 {
     public enum GameState
     {
-        opening, midgame, endgame, unknown
+        Opening, Midgame, Endgame, Unknown
     }
 }
