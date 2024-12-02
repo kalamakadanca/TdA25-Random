@@ -64,13 +64,7 @@ namespace TourDeApp.Models
 
         public bool CheckWin()
         {
-            if (Board.Sum(row => row.Count(field => field != "")) <= 5)
-            {
-                GameState = GameState.Opening;
-                return false;
-            }
-            
-            GameState = GameState.Midgame;
+            GameState = Board.Sum(row => row.Count(field => field != "")) <= 10 ? GameState.Opening : GameState.Midgame;
              
             const int eForWon = 5;
             const int maxForDiagonal = eForWon - 1;
