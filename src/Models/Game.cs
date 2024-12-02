@@ -71,11 +71,15 @@ namespace TourDeApp.Models
             }
             
             GameState = GameState.Midgame;
-            
+             
             const int eForWon = 5;
             const int maxForDiagonal = eForWon - 1;
             int lenght = Board.Length;
-
+            int countX = Board.Sum(row => row.Count(field => field == "X"));
+            int countO = Board.Sum(row => row.Count(field => field == "O"));
+            
+            Next = countX == countO ? CellState.X : CellState.O;
+            
             for (int i = 0; i < lenght; i++)
             {
                 for (int j = 0; j < lenght-maxForDiagonal; j++)
@@ -95,14 +99,14 @@ namespace TourDeApp.Models
                         Board[i][j + 2] == Board[i + 2][j + 2] &&
                         Board[i][j + 3] == Board[i + 3][j + 3] &&
                         Board[i][j + 4] == Board[i + 4][j + 4]) {
-                        GameState = GameState.Endgame;
+                        if (Helper.StrToCellState(Board[i][j + 1]) == Next) GameState = GameState.Endgame;
                     } 
                     else if (Board[i + 4][j + 4] == "" &&
                              Board[i][j] != "" &&
                              Board[i][j] == Board[i][j + 1] &&
                              Board[i][j] == Board[i][j + 2] &&
                              Board[i][j] == Board[i][j + 3]) {
-                        GameState = GameState.Endgame;
+                        if (Helper.StrToCellState(Board[i][j]) == Next) GameState = GameState.Endgame;
                     }
                 }
             }
@@ -126,14 +130,14 @@ namespace TourDeApp.Models
                         Board[i + 1][j + 1] == Board[i + 2][j + 2] &&
                         Board[i + 1][j + 1] == Board[i + 3][j + 3] &&
                         Board[i + 1][j + 1] == Board[i + 4][j + 4]) {
-                        GameState = GameState.Endgame;
+                        if (Helper.StrToCellState(Board[i + 1][j + 1]) == Next) GameState = GameState.Endgame;
                     }
                     else if (Board[i + 4][j + 4] == "" &&
                         Board[i][j] != "" &&
                         Board[i][j] == Board[i + 1][j + 1] &&
                         Board[i][j] == Board[i + 2][j + 2] &&
                         Board[i][j] == Board[i + 3][j + 3]) {
-                        GameState = GameState.Endgame;
+                        if (Helper.StrToCellState(Board[i][j]) == Next) GameState = GameState.Endgame;
                     }
                 }
             }
@@ -158,14 +162,14 @@ namespace TourDeApp.Models
                         Board[i - 1][j + 1] == Board[i - 2][j + 2] &&
                         Board[i - 1][j + 1] == Board[i - 3][j + 3] &&
                         Board[i - 1][j + 1] == Board[i - 4][j + 4]) {
-                        GameState = GameState.Endgame;
+                        if (Helper.StrToCellState(Board[i - 1][j + 1]) == Next) GameState = GameState.Endgame;
                     }
                     else if (Board[i - 4][j + 4] == "" &&
                         Board[i][j] != "" &&
                         Board[i][j] == Board[i - 1][j + 1] &&
                         Board[i][j] == Board[i - 2][j + 2] &&
                         Board[i][j] == Board[i - 3][j + 3]) {
-                        GameState = GameState.Endgame;
+                        if (Helper.StrToCellState(Board[i][j]) == Next) GameState = GameState.Endgame;
                     }
                 }
             }
