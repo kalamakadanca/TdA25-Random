@@ -139,7 +139,7 @@ namespace TourDeApp.Models
             }
 
             // Checks columns
-            for (int i = 0; i < lenght; i++)
+            for (int i = 0; i < lenght-maxForDiagonal; i++)
             {
                 for (int j = 0; j < lenght-maxForDiagonal; j++)
                 {
