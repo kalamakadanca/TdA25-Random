@@ -2,6 +2,7 @@
 @using TourDeApp.Models
 @rendermode InteractiveServer
 @inject NavigationManager navigationManager
+@inject GamesController GamesController
 
 <PageTitle>Home</PageTitle>
 
@@ -16,11 +17,12 @@
     <EditForm Model="@UserModel" OnValidSubmit="HandleValidSubmit">
         <div class="form-group">
             <label for="username">Uživatelské jméno:</label>
-            <InputText required placeholder="Táďa" id="username" @bind-Value="UserModel.Username"/>
+            <InputText required placeholder="Táďa" id="username" @bind-Value="UserModel.Username" />
         </div>
         <div class="form-group">
             <label for="password">Heslo:</label>
-            <InputText required placeholder="8+ znaků" type="password" id="password" minlength="8" @bind-Value="UserModel.Password" />
+            <InputText required placeholder="8+ znaků" type="password" id="password" minlength="8"
+                @bind-Value="UserModel.Password" />
         </div>
         <button type="submit" class="submit">Submit</button>
     </EditForm>
@@ -31,14 +33,70 @@
 <hr style="margin: 20px 0; border: 1px solid white;" />
 @* <h1 class="nazev">ano, ta čára tam má být</h1> *@
 
+@if (gamesLoaded == true)
+{
+    @foreach (var game in games)
+    {
+        <p>@game.Name</p>
+    }
+}
+else
+{
+    // TODO: Loading screen
+}
+
+
 
 @code
 {
     private Modal? ModalRef;
-    private UserModel UserModel {get; set; } = new();
+    private UserModel UserModel { get; set; } = new();
+    private TourDeApp.Models.Game defaultGame = new Models.Game("Default game when no games are found",
+    DifficultyType.Beginner);
+    private List<TourDeApp.Models.Game> _games;
+    private bool gamesLoaded = false;
+    private List<TourDeApp.Models.Game> games
+    {
+        get { return _games; }
+        set
+        {
+            _games = value;
+            gamesLoaded = true;
+            StateHasChanged();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var games = GetGames();
+    }
+
+    private List<Models.Game> GetGames()
+    {
+        var result = GamesController.Get();
+
+        if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
+        {
+            var games = objectResult.Value as List<TourDeApp.Models.Game>;
+
+            if (games != null)
+            {
+                return games;
+            }
+            else
+            {
+                return new List<Models.Game> { defaultGame };
+            }
+        }
+        else
+        {
+            return new List<Models.Game> { defaultGame };
+        }
+    }
 
     private void OpenModal() => ModalRef?.Open();
-    private void HandleValidSubmit() {
+    private void HandleValidSubmit()
+    {
         ModalRef?.Close();
     }
     private void Play()

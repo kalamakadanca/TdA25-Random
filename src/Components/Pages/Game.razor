@@ -115,24 +115,6 @@ else
         }
     }
 
-    private void GetGames()
-    {
-        var result = GamesController.Get();
-
-        if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
-        {
-            var games = objectResult.Value as List<TourDeApp.Models.Game>;
-
-            if (games != null)
-            {
-                foreach (TourDeApp.Models.Game game in games)
-                {
-                    Console.WriteLine($"{game.Name}, {game.Uuid}, {game.Difficulty}, {game.GameState}");
-                }
-            }
-        }
-    }
-
     private async Task LoadGame()
     {
         if (_gameUuid == null) return;
