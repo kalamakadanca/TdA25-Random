@@ -69,7 +69,7 @@ namespace TourDeApp.Models
 
         public bool CheckWinAndSetGameState()
         {
-            GameState = Board.Sum(row => row.Count(field => field != "")) <= 8 ? GameState.Opening : GameState.Midgame;
+            GameState = Board.Sum(row => row.Count(field => field != "")) <= 10 ? GameState.Opening : GameState.Midgame;
              
             const int eForWon = 5;
             const int maxForDiagonal = eForWon - 1;
