@@ -31,12 +31,32 @@
 <hr style="margin: 20px 0; border: 1px solid white;" />
 @* <h1 class="nazev">ano, ta čára tam má být</h1> *@
 
+@if (meh)
+{
+    <div class="border" style="padding: 20px; margin-top: 20px;">
+        <div style="display: flex; flex-direction: column;">
+            @foreach (var todo in Todos)
+            {
+                <div class="flex-center" style="margin-bottom: 10px">
+                    <div class="@ItemClass(todo)" style="width: 280px;">@todo.Text</div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+
+
+
+
+
 
 @code
 {
     private Modal? ModalRef;
     private UserModel UserModel {get; set; } = new();
 
+    public bool meh = true;
     private void OpenModal() => ModalRef?.Open();
     private void HandleValidSubmit() {
         ModalRef?.Close();
@@ -45,5 +65,20 @@
     {
         navigationManager.NavigateTo("/game", true);
     }
+
+    private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
+    
+    protected override void OnInitialized()
+    {
+        // working on
+        Todos.Add(new Todoitem("Wash Clothes"));
+        Todos.Add(new Todoitem("Clean Desk"));
+    }
+
+    public string ItemClass(Todoitem item)
+    {
+        return item.Completed ? "item-completed" : "";
+    }
+        
 
 }

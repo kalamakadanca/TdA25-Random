@@ -15,6 +15,12 @@ button {
     user-select: none;
 }
 
+.item-completed {
+    text-decoration: line-through;
+}
+
+
+
 
 
 .grid-container {
