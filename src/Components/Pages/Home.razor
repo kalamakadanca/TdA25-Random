@@ -92,7 +92,7 @@ else
         return item.Completed ? "item-completed" : "";
     }
         
-    private List<Models.Game> GetGames()
+    private List<Models.Game> GetGames() // TODO: Predelat na async
     {
         var result = GamesController.Get();
 
