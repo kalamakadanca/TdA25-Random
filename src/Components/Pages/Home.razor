@@ -2,6 +2,7 @@
 @using TourDeApp.Models
 @rendermode InteractiveServer
 @inject NavigationManager navigationManager
+@inject GamesController GamesController
 
 <PageTitle>Home</PageTitle>
 
@@ -31,18 +32,24 @@
 <hr style="margin: 20px 0; border: 1px solid white;" />
 @* <h1 class="nazev">ano, ta čára tam má být</h1> *@
 
-@if (meh)
+@if (games != null)
 {
     <div class="border" style="padding: 20px; margin-top: 20px;">
         <div style="display: flex; flex-direction: column;">
-            @foreach (var todo in Todos)
+            @foreach (var game in games)
             {
-                <div class="flex-center" style="margin-bottom: 10px">
+                @*<div class="flex-center" style="margin-bottom: 10px">
                     <div class="@ItemClass(todo)" style="width: 280px;">@todo.Text</div>
-                </div>
+                </div>*@
+
+                <p>@game.Name</p>
             }
         </div>
     </div>
+}
+else
+{
+    // loading screen
 }
 
 
@@ -55,8 +62,11 @@
 {
     private Modal? ModalRef;
     private UserModel UserModel {get; set; } = new();
-
     public bool meh = true;
+    private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
+    private bool gamesLoaded = false;
+    private List<Models.Game>? games { get; set; }
+
     private void OpenModal() => ModalRef?.Open();
     private void HandleValidSubmit() {
         ModalRef?.Close();
@@ -73,6 +83,8 @@
         // working on
         Todos.Add(new Todoitem("Wash Clothes"));
         Todos.Add(new Todoitem("Clean Desk"));
+
+        games = GetGames();
     }
 
     public string ItemClass(Todoitem item)
@@ -80,5 +92,26 @@
         return item.Completed ? "item-completed" : "";
     }
         
+    private List<Models.Game> GetGames()
+    {
+        var result = GamesController.Get();
 
+        if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
+        {
+            var games = objectResult.Value as List<TourDeApp.Models.Game>;
+
+            if (games != null)
+            {
+                foreach (TourDeApp.Models.Game game in games)
+                {
+                    Console.WriteLine($"{game.Name}, {game.Uuid}, {game.Difficulty}, {game.GameState}");
+                    StateHasChanged();
+                    return games;
+                }
+            }
+        }
+
+        StateHasChanged();
+        return new List<Models.Game>() {defaultGame};
+    }
 }
