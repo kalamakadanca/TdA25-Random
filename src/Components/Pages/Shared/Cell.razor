@@ -6,9 +6,13 @@
     [Parameter] public EventCallback<Models.Schemas.Cell> OnClick { get; set; }
     
     [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
-        
+    
+    [Parameter, EditorRequired] public required bool IsPlayable { get; set; }
+
     private async Task HandleClick()
     {
+        if (IsPlayable != true) return;
+        
         await OnClick.InvokeAsync(CellInstance);
     }
 }

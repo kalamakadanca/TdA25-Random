@@ -22,7 +22,7 @@
                     };
 
                             <td class="game_cell">
-                                <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
+                                <Cell CellInstance="cell" IsPlayable="IsPlayable" OnClick="ChangeCellState"></Cell>
                             </td>
                         }
                     </tr>
@@ -39,6 +39,8 @@
     [Parameter] public EventCallback OnWin { get; set; }
 
     [Parameter] public EventCallback ReRender { get; set; }
+
+    [Parameter, EditorRequired] public required bool IsPlayable { get; set; }
 
     protected override void OnInitialized()
     {
