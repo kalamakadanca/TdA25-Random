@@ -1,5 +1,6 @@
 @page "/game/"
 @page "/game/{Uuid}"
+@using TourDeApp.Components.Pages.Shared
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 @inject GameService GameService
@@ -36,7 +37,7 @@
         </div>
 
         <div class="game">
-            <GameField Game="_game" IsPlayable="true" OnWin="StateHasChanged" ReRender="StateHasChanged"></GameField>
+            <GameField Game="_game" OnWin="StateHasChanged" ReRender="StateHasChanged"></GameField>
         </div>
 
         <div class="right">
@@ -49,7 +50,7 @@
                 @if (hr_ed)
                 {
                     <form>
-                        <InputText @bind-Value="_gameUuid" style=" background-color: white;">Zadej Random Text</InputText> @*? To tady asi už nemusí být ne?*@
+                        <InputText @bind-Value="_gameUuid" style=" background-color: white;">Zadej Random Text</InputText>
                         <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
                         
                     </form>
@@ -113,7 +114,6 @@ else
             Console.WriteLine("Hra se NEuložila :(");
         }
     }
-
 
     private async Task LoadGame()
     {
