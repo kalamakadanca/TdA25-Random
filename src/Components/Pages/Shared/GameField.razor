@@ -16,10 +16,10 @@
                         @for (int column = 0; column < GlobalSettings.BoardLength; column++)
                         {
                             var cell = new TourDeApp.Models.Schemas.Cell()
-                    {
-                        CellID = [row, column],
-                        State = CellStateConverter.ToEnum(Game.Board[row][column])
-                    };
+                            {
+                                CellID = [row, column],
+                                State = CellStateConverter.ToEnum(Game.Board[row][column])
+                            };
 
                             <td class="game_cell">
                                 <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>

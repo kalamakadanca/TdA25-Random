@@ -1,0 +1,26 @@
+@code
+{
+    [Parameter, EditorRequired] public required Models.Game Game { get; set; }
+}
+
+<div class="game_field">
+    <table class="table">
+        <tbody>
+            @for (int row = 0; row < GlobalSettings.BoardLength; row++)
+            {
+                for (int column = 0; column < GlobalSettings.BoardLength; column++)
+                {
+                    var cell = new TourDeApp.Models.Schemas.Cell()
+                    {
+                        CellID = [row, column],
+                        State = CellStateConverter.ToEnum(Game.Board[row][column])
+                    };
+
+                    <td class="game_cell">
+                        <PreviewCell CellState="cell.State"></PreviewCell>
+                    </td>
+                }
+            }
+        </tbody>
+    </table>
+</div>

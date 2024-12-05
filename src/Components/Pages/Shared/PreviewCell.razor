@@ -1,0 +1,27 @@
+@code
+{
+    [Parameter, EditorRequired] public required Models.Schemas.CellState CellState { get; set; }
+
+    protected override void OnInitialized()
+    {
+
+    }
+}
+
+<div class="cell">
+    @if (CellState != CellState.Empty)
+    {
+        if (CellState == CellState.X)
+        {
+            <div class="icon">
+                <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
+            </div>
+        }
+        else
+        {
+            <div class="icon">
+                <img class="icon" src="/TdA_Ikonky/SVG/O/O_cervene.svg"/>
+            </div>
+        }
+    }
+</div>
