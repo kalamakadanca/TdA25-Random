@@ -9,17 +9,17 @@ namespace TourDeApp.Models
 {
     public class GameCreateUpdateRequest
     {
-        [Required] 
-        public string Name { get; set; } = string.Empty;
+        [Required]
+        public string Name { get; set; }
         [JsonIgnore]
-        public BoardStateJson BoardState { get; set; } = new();
-        [Required] 
+        public BoardStateJson BoardState { get; set; }
+        [Required]
         public string[][] Board { get => BoardState.Board; set => BoardState.Board = value; }
         [Required]
-        public string Difficulty { get; set; } = string.Empty;
+        public string Difficulty { get; set; }
         [JsonIgnore]
         public DifficultyType EnumDifficulty { get; set; }
-        
+
         public bool BindDifficultyType()
         {
             Difficulty = Char.ToUpper(Difficulty[0]) + Difficulty.Substring(1).ToLower();
@@ -33,12 +33,10 @@ namespace TourDeApp.Models
             return false;
         }
 
-        public GameCreateUpdateRequest() { }
-        
         public GameCreateUpdateRequest(Game game)
         {
             Name = game.Name;
-            Board = game.Board;
+            BoardState = new BoardStateJson(game.Board);
             EnumDifficulty = game.Difficulty;
             Difficulty = EnumDifficulty.ToString();
         }

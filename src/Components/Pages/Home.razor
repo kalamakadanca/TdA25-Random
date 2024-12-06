@@ -78,14 +78,17 @@ else
     }
 
     private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
-    
+
     protected override void OnInitialized()
     {
         // working on
         Todos.Add(new Todoitem("Wash Clothes"));
         Todos.Add(new Todoitem("Clean Desk"));
+    }
 
-        games = GetGames();
+    protected override async Task OnInitializedAsync()
+    {
+        games = await GetGames();
     }
 
     public string ItemClass(Todoitem item)
@@ -93,9 +96,9 @@ else
         return item.Completed ? "item-completed" : "";
     }
         
-    private List<Models.Game> GetGames() // TODO: Predelat na async
+    private async Task<List<Models.Game>> GetGames() // TODO: Predelat na async
     {
-        var result = GamesController.Get();
+        var result = await GamesController.Get();
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
         {
@@ -105,7 +108,6 @@ else
             {
                 foreach (TourDeApp.Models.Game game in games)
                 {
-                    Console.WriteLine($"{game.Name}, {game.Uuid}, {game.Difficulty}, {game.GameState}");
                     StateHasChanged();
                     return games;
                 }

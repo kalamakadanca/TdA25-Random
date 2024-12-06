@@ -51,9 +51,10 @@
                 {
                     <form>
                         <InputText @bind-Value="_gameUuid" style=" background-color: white;">Zadej Random Text</InputText>
-                        <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
                         
                     </form>
+                    <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
+
                 }
                 else
                 {
@@ -79,7 +80,7 @@ else
 {
     public bool hr_ed = true;
 
-    private string? _gameUuid {get;set;}
+    private string? _gameUuid { get; set; }
 
     private void Change_Ed()
     {
@@ -107,7 +108,7 @@ else
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 201)
         {
-            Console.WriteLine("Hra se uložila");
+            if (objectResult.Value is Models.Game game) await LoadGame(game.Uuid);
         }
         else
         {
@@ -115,9 +116,9 @@ else
         }
     }
 
-    private async Task LoadGame()
+    private async Task LoadGame(string uuid)
     {
-        if (_gameUuid == null) return;
+        if (uuid == null) return;
 
         var result = await GamesController.Get(_gameUuid);
 
@@ -126,10 +127,8 @@ else
             if (objectResult.Value is TourDeApp.Models.Game game)
             {
                 GameService.SetGame(game);
+                NavigationManager.NavigateTo($"/game/{game.Uuid}", true);
             }
-            _game = GameService.GetCurrentGame();
-            StateHasChanged();
-            Console.WriteLine($"Game has been loaded: {_gameUuid}");
         }
         else
         {
