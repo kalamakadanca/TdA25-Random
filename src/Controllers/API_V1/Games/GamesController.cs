@@ -10,7 +10,7 @@ namespace TourDeApp.Controllers.API_V1.Games
     public class GamesController(DatabaseContext context, IMapper mapper) : Controller
     {
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             var games = context.Games.ToArray()
                 .Select(mapper.Map<Game>)

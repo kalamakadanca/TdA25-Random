@@ -10,6 +10,11 @@ namespace TourDeApp.Models.JsonModels
         [JsonIgnore]
         private const int _length = 15;
         
+        public BoardStateJson(string[][] board)
+        {
+            Board = board;
+        }
+
         public string? IsBoardValid()
         {
             Board = Board.Select(x => x.Select(s => s.ToUpper())
