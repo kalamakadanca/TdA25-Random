@@ -40,14 +40,16 @@ button {
 
 .left {
     left: 0;
+    min-width: 138px;
 }
 .right {
     right: 0;
 }
 
 .grid-item {
-    position:fixed;
+    
 }
+
 .container_g {
     display: flex;
     justify-content: center;
