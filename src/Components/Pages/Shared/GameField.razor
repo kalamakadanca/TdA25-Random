@@ -6,31 +6,27 @@
 @inject GamesController GameController
 
 
-<div>
-    <span class="game_field">
-        <table class="table">
-            <tbody>
-                @for (int row = 0; row < GlobalSettings.BoardLength; row++)
+<table class="table">
+    <tbody>
+    @for (int row = 0; row < GlobalSettings.BoardLength; row++)
+    {
+        <tr>
+            @for (int column = 0; column < GlobalSettings.BoardLength; column++)
+            {
+                var cell = new TourDeApp.Models.Schemas.Cell()
                 {
-                    <tr>
-                        @for (int column = 0; column < GlobalSettings.BoardLength; column++)
-                        {
-                            var cell = new TourDeApp.Models.Schemas.Cell()
-                            {
-                                CellID = [row, column],
-                                State = CellStateConverter.ToEnum(Game.Board[row][column])
-                            };
+                    CellID = [row, column],
+                    State = CellStateConverter.ToEnum(Game.Board[row][column])
+                };
 
-                            <td class="game_cell">
-                                <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
-                            </td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </span>
-</div>
+                <td class="game_cell">
+                    <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
 
 
 @code {
