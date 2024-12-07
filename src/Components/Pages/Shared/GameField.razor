@@ -42,14 +42,14 @@
 
     private async void ChangeCellState(Models.Schemas.Cell cell)
     {
-        if (cell.State != CellState.Empty) return;
+        if (cell.State != CellState.Empty || Game.Winner != null) return;
 
         GameState gameState = Game.GameState;
 
         Game.UpdateBoard(cell);
 
         // Sends the update to db
-        await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game));
+        //await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game));
 
         if (Game.CheckWinAndSetGameState())
         {

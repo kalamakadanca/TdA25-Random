@@ -102,8 +102,22 @@ else
 
     protected override void OnInitialized()
     {
-        _game = GameService.CreateGame();
+
         StateHasChanged();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        string currentUrl = NavigationManager.Uri;
+        if (currentUrl.Contains("/game/"))
+        {
+            var index = currentUrl.IndexOf("/game/") + "/game/".Length;
+            Uuid = currentUrl.Substring(index);
+            _game = await LoadGame(Uuid);
+        }
+        else
+        {
+            _game = GameService.CreateGame();
+        }
     }
 
     private async Task SaveGame()
@@ -114,7 +128,11 @@ else
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 201)
         {
-            if (objectResult.Value is Models.Game game) await LoadGame(game.Uuid);
+            if (objectResult.Value is Models.Game game) 
+            {
+                Uuid = game.Uuid;
+                NavigationManager.NavigateTo($"/game/{Uuid}");
+            }
         }
         else
         {
@@ -122,28 +140,29 @@ else
         }
     }
 
-    private async Task LoadGame(string uuid)
+    private async Task<Models.Game> LoadGame(string uuid)
     {
-        if (uuid == null) return;
+        if (uuid == null) return defaultGame;
 
-        var result = await GamesController.Get(_gameUuid);
+        var result = await GamesController.Get(uuid);
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
         {
             if (objectResult.Value is TourDeApp.Models.Game game)
             {
-                GameService.SetGame(game);
-                NavigationManager.NavigateTo($"/game/{game.Uuid}", true);
+                return game;
             }
+            return defaultGame;
         }
         else
         {
             Console.WriteLine("There has been an error");
+            return defaultGame;
         }
     }
 
 
-        private Modal? ModalRef;
+    private Modal? ModalRef;
     private UserModel UserModel {get; set; } = new();
     public bool meh = true;
     private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
@@ -157,10 +176,7 @@ else
 
     private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
 
-    protected override async Task OnInitializedAsync()
-    {
-        games = await GetGames();
-    }
+
 
     public string ItemClass(Todoitem item)
     {
