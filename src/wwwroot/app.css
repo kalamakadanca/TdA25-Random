@@ -47,7 +47,7 @@ button {
 }
 
 .grid-item {
-    
+    position: fixed;
 }
 
 .container_g {

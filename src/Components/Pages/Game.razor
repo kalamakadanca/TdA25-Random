@@ -49,12 +49,18 @@
                 </div>
                 @if (hr_ed)
                 {
-                    <form>
-                        <InputText @bind-Value="_gameUuid" style=" background-color: white;">Zadej Random Text</InputText>
-                        
-                    </form>
-                    <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
 
+                    <EditForm Model="@UserModel">
+                        <div class="form-group" style="padding: 10px 0">
+                            <label>Název hry:</label>
+                            <InputText @bind-Value="_game.Name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Zadej Random Text</label>
+                            <InputText @bind-Value="_gameUuid" style="background-color: white"/>
+                        </div>
+                    </EditForm>
+                    <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
                 }
                 else
                 {
@@ -136,5 +142,51 @@ else
         }
     }
 
+
+        private Modal? ModalRef;
+    private UserModel UserModel {get; set; } = new();
+    public bool meh = true;
+    private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
+    private bool gamesLoaded = false;
+    private List<Models.Game>? games { get; set; }
+
+    private void OpenModal() => ModalRef?.Open();
+    private void HandleValidSubmit() {
+        ModalRef?.Close();
+    }
+
+    private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        games = await GetGames();
+    }
+
+    public string ItemClass(Todoitem item)
+    {
+        return item.Completed ? "item-completed" : "";
+    }
+        
+    private async Task<List<Models.Game>> GetGames() // TODO: Predelat na async
+    {
+        var result = await GamesController.Get();
+
+        if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
+        {
+            var games = objectResult.Value as List<TourDeApp.Models.Game>;
+
+            if (games != null)
+            {
+                foreach (TourDeApp.Models.Game game in games)
+                {
+                    StateHasChanged();
+                    return games;
+                }
+            }
+        }
+
+        StateHasChanged();
+        return new List<Models.Game>() {defaultGame};
+    }
 
 }
