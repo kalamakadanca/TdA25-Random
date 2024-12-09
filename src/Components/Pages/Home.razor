@@ -18,11 +18,12 @@
     <EditForm Model="@UserModel" OnValidSubmit="HandleValidSubmit">
         <div class="form-group">
             <label for="username">Uživatelské jméno:</label>
-            <InputText required placeholder="Táďa" id="username" @bind-Value="UserModel.Username"/>
+            <InputText required placeholder="Táďa" id="username" @bind-Value="UserModel.Username" />
         </div>
         <div class="form-group">
             <label for="password">Heslo:</label>
-            <InputText required placeholder="8+ znaků" type="password" id="password" minlength="8" @bind-Value="UserModel.Password" />
+            <InputText required placeholder="8+ znaků" type="password" id="password" minlength="8"
+                @bind-Value="UserModel.Password" />
         </div>
         <button type="submit" class="submit">Submit</button>
     </EditForm>
@@ -33,15 +34,15 @@
 <hr style="margin: 20px 0; border: 1px solid white;" />
 @* <h1 class="nazev">ano, ta čára tam má být</h1> *@
 
-@if (games != null)
+@if (Games != null)
 {
     <div class="border" style="padding: 20px; margin-top: 20px;">
         <div style="display: flex; flex-direction: column;">
-            @foreach (var game in games)
+            @foreach (var game in Games)
             {
                 @*<div class="flex-center" style="margin-bottom: 10px">
-                    <div class="@ItemClass(todo)" style="width: 280px;">@todo.Text</div>
-                </div>*@
+        <div class="@ItemClass(todo)" style="width: 280px;">@todo.Text</div>
+        </div>*@
 
                 <PreviewGame Game="game"></PreviewGame>
             }
@@ -50,7 +51,7 @@
 }
 else
 {
-    // loading screen
+    <h1>Loading...</h1> // TODO: Tady dodělat loading screen
 }
 
 
@@ -62,14 +63,27 @@ else
 @code
 {
     private Modal? ModalRef;
-    private UserModel UserModel {get; set; } = new();
+    private UserModel UserModel { get; set; } = new();
     public bool meh = true;
     private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
-    private bool gamesLoaded = false;
-    private List<Models.Game>? games { get; set; }
+    private bool gamesLoading { get; set; }
+    private List<Models.Game>? _games;
+    public List<Models.Game>? Games
+    {
+        get
+        {
+            return _games;
+        }
+        set
+        {
+            _games = value;
+            StateHasChanged();
+        }
+    }
 
     private void OpenModal() => ModalRef?.Open();
-    private void HandleValidSubmit() {
+    private void HandleValidSubmit()
+    {
         ModalRef?.Close();
     }
     private void Play()
@@ -88,33 +102,39 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        games = await GetGames();
+        gamesLoading = true;
+        // Start a background task to load games without blocking the UI
+        _ = LoadGamesAsync();
+    }
+
+    private async Task LoadGamesAsync()
+    {
+        Games = await GetGames();
+        gamesLoading = false;
+        await InvokeAsync(StateHasChanged); // Notify Blazor to update the UI
     }
 
     public string ItemClass(Todoitem item)
     {
         return item.Completed ? "item-completed" : "";
     }
-        
-    private async Task<List<Models.Game>> GetGames() // TODO: Predelat na async
-    {
-        var result = await GamesController.Get();
 
+    private async Task<List<Models.Game>> GetGames()
+    {
+        await Task.Delay(1000);
+    
+        var result = await GamesController.Get();
+    
         if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
         {
             var games = objectResult.Value as List<TourDeApp.Models.Game>;
-
+    
             if (games != null)
             {
-                foreach (TourDeApp.Models.Game game in games)
-                {
-                    StateHasChanged();
-                    return games;
-                }
+                return games;
             }
         }
-
-        StateHasChanged();
-        return new List<Models.Game>() {defaultGame};
+    
+        return new List<Models.Game>() { defaultGame };
     }
 }
