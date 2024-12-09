@@ -96,6 +96,7 @@ else
     private void Change_Hr()
     {
         hr_ed = true;
+        
         _game = GameService.CreateGame();
         StateHasChanged();
     }
@@ -187,7 +188,7 @@ else
         return item.Completed ? "item-completed" : "";
     }
 
-    private async Task<List<Models.Game>> GetGames() // TODO: Predelat na async
+    private async Task<List<Models.Game>> GetGames()
     {
         var result = await GamesController.Get();
 
@@ -205,7 +206,6 @@ else
             }
         }
 
-        StateHasChanged();
         return new List<Models.Game>() { defaultGame };
     }
 

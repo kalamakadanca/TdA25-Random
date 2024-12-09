@@ -40,7 +40,7 @@
     {
     }
 
-    private async void ChangeCellState(Models.Schemas.Cell cell)
+    private void ChangeCellState(Models.Schemas.Cell cell)
     {
         if (cell.State != CellState.Empty || Game.Winner != null) return;
 
