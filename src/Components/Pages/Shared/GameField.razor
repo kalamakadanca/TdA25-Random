@@ -8,23 +8,23 @@
 
 <table class="table">
     <tbody>
-    @for (int row = 0; row < GlobalSettings.BoardLength; row++)
-    {
-        <tr>
-            @for (int column = 0; column < GlobalSettings.BoardLength; column++)
-            {
-                var cell = new TourDeApp.Models.Schemas.Cell()
+        @for (int row = 0; row < GlobalSettings.BoardLength; row++)
+        {
+            <tr>
+                @for (int column = 0; column < GlobalSettings.BoardLength; column++)
                 {
-                    CellID = [row, column],
-                    State = CellStateConverter.ToEnum(Game.Board[row][column])
-                };
+                    var cell = new TourDeApp.Models.Schemas.Cell()
+                    {
+                        CellID = [row, column],
+                        State = CellStateConverter.ToEnum(Game.Board[row][column])
+                    };
 
-                <td class="game_cell">
-                    <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
-                </td>
-            }
-        </tr>
-    }
+                    <td class="game_cell">
+                        <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
+                    </td>
+                }
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -53,6 +53,10 @@
 
         if (Game.CheckWinAndSetGameState())
         {
+            foreach (var id in Game.WinningLine)
+            {
+                Console.WriteLine($"{id[0]}, {id[1]}");
+            }
             Win();
         }
 

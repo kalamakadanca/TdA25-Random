@@ -16,7 +16,8 @@
             <div class="grid-item">
                 @if (hr_ed)
                 {
-                    <h1 id="text_2" style=" font-size: 48px; font-family: 'Dosis-ExtraBold', sans-serif; text-align:center;">HRA</h1>
+                    <h1 id="text_2" style=" font-size: 48px; font-family: 'Dosis-ExtraBold', sans-serif; text-align:center;">HRA
+                    </h1>
                     <div style="display: flex; gap: 10px;">
                         <h3 id="text_0">Na řadě je:</h3>
                         @if (_game.Next == CellState.X)
@@ -57,7 +58,7 @@
                         </div>
                         <div class="form-group">
                             <label>Zadej Random Text</label>
-                            <InputText @bind-Value="_gameUuid" style="background-color: white"/>
+                            <InputText @bind-Value="_gameUuid" style="background-color: white" />
                         </div>
                     </EditForm>
                     <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
@@ -95,6 +96,8 @@ else
     private void Change_Hr()
     {
         hr_ed = true;
+        _game = GameService.CreateGame();
+        StateHasChanged();
     }
 
     private Models.Game? _game { get; set; }
@@ -128,7 +131,7 @@ else
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 201)
         {
-            if (objectResult.Value is Models.Game game) 
+            if (objectResult.Value is Models.Game game)
             {
                 Uuid = game.Uuid;
                 NavigationManager.NavigateTo($"/game/{Uuid}");
@@ -163,14 +166,15 @@ else
 
 
     private Modal? ModalRef;
-    private UserModel UserModel {get; set; } = new();
+    private UserModel UserModel { get; set; } = new();
     public bool meh = true;
     private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
     private bool gamesLoaded = false;
     private List<Models.Game>? games { get; set; }
 
     private void OpenModal() => ModalRef?.Open();
-    private void HandleValidSubmit() {
+    private void HandleValidSubmit()
+    {
         ModalRef?.Close();
     }
 
@@ -182,7 +186,7 @@ else
     {
         return item.Completed ? "item-completed" : "";
     }
-        
+
     private async Task<List<Models.Game>> GetGames() // TODO: Predelat na async
     {
         var result = await GamesController.Get();
@@ -202,7 +206,7 @@ else
         }
 
         StateHasChanged();
-        return new List<Models.Game>() {defaultGame};
+        return new List<Models.Game>() { defaultGame };
     }
 
 }
