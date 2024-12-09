@@ -44,9 +44,9 @@
         <div class="right">
             <div class="grid-item">
                 <div class="container_g">
-                    <button class=tlac_g id="tlac_2" @onclick="Change_Hr">Hra</button>
+                    <button class=tlac_g id="tlac_2" @onclick="() => hr_ed = false">Hra</button>
                     <div id="text_0">|</div>
-                    <button class=tlac_g id="tlac_1" @onclick="Change_Ed">Editor</button>
+                    <button class=tlac_g id="tlac_1" @onclick="() => hr_ed = true">Editor</button>
                 </div>
                 @if (hr_ed)
                 {
@@ -54,7 +54,7 @@
                     <EditForm Model="@UserModel">
                         <div class="form-group" style="padding: 10px 0">
                             <label>Název hry:</label>
-                            <InputText @bind-Value="_game.Name" />
+                            <InputText @bind-Value="_saveName" />
                         </div>
                         <div class="form-group">
                             <label>Zadej Random Text</label>
@@ -88,27 +88,30 @@ else
     public bool hr_ed = true;
 
     private string? _gameUuid { get; set; }
+    private string? _saveName { get; set; }
+    private Modal? ModalRef;
+    private UserModel UserModel { get; set; } = new();
+    public bool meh = true;
+    private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
+    private bool gamesLoaded = false;
+    private List<Models.Game>? games { get; set; }
 
-    private void Change_Ed()
+    private void NewGame()
     {
-        hr_ed = false;
-    }
-    private void Change_Hr()
-    {
-        hr_ed = true;
-        
-        _game = GameService.CreateGame();
-        StateHasChanged();
+        if (NavigationManager.Uri.Contains("/game/"))
+        {
+            NavigationManager.NavigateTo("/game", true);
+        }
+        else
+        {
+            _game = GameService.CreateGame();
+            StateHasChanged();
+        }
     }
 
     private Models.Game? _game { get; set; }
     [Parameter] public string? Uuid { get; set; }
 
-    protected override void OnInitialized()
-    {
-
-        StateHasChanged();
-    }
     protected override async Task OnInitializedAsync()
     {
         string currentUrl = NavigationManager.Uri;
@@ -166,12 +169,7 @@ else
     }
 
 
-    private Modal? ModalRef;
-    private UserModel UserModel { get; set; } = new();
-    public bool meh = true;
-    private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
-    private bool gamesLoaded = false;
-    private List<Models.Game>? games { get; set; }
+
 
     private void OpenModal() => ModalRef?.Open();
     private void HandleValidSubmit()
