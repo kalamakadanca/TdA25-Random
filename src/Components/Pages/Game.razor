@@ -44,9 +44,9 @@
         <div class="right">
             <div class="grid-item">
                 <div class="container_g">
-                    <button class=tlac_g id="tlac_2" @onclick="() => hr_ed = false">Hra</button>
+                    <button class=tlac_g id="tlac_2" @onclick="() => hr_ed = true">Hra</button>
                     <div id="text_0">|</div>
-                    <button class=tlac_g id="tlac_1" @onclick="() => hr_ed = true">Editor</button>
+                    <button class=tlac_g id="tlac_1" @onclick="() => hr_ed = false">Editor</button>
                 </div>
                 @if (hr_ed)
                 {
@@ -176,36 +176,6 @@ else
     private void HandleValidSubmit()
     {
         ModalRef?.Close();
-    }
-
-    private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
-
-
-
-    public string ItemClass(Todoitem item)
-    {
-        return item.Completed ? "item-completed" : "";
-    }
-
-    private async Task<List<Models.Game>> GetGames()
-    {
-        var result = await GamesController.Get();
-
-        if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
-        {
-            var games = objectResult.Value as List<TourDeApp.Models.Game>;
-
-            if (games != null)
-            {
-                foreach (TourDeApp.Models.Game game in games)
-                {
-                    StateHasChanged();
-                    return games;
-                }
-            }
-        }
-
-        return new List<Models.Game>() { defaultGame };
     }
 
 }
