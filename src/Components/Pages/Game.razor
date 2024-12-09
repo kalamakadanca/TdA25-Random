@@ -130,6 +130,7 @@ else
     private async Task SaveGame()
     {
         if (_game == null) return;
+        if (!string.IsNullOrEmpty(_saveName)) _game.Name = _saveName;
         var request = new GameCreateUpdateRequest(_game);
         var result = await GamesController.Post(request);
 

@@ -164,7 +164,7 @@ button {
 
 .game {
     display: flex;
-    height: 100vh;
+    height: 10vh;
     justify-content: center;
     align-items: flex-start;
     margin-top: 20px;
