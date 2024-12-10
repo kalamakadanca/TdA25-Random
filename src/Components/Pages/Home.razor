@@ -35,17 +35,13 @@
 
 @if (Games != null)
 {
-    <div class="border" style="padding: 20px; margin-top: 20px;">
-        <div style="display: flex; flex-direction: column;">
+    <div class="games">
             @foreach (var game in Games)
             {
-                @*<div class="flex-center" style="margin-bottom: 10px">
-                <div class="@ItemClass(todo)" style="width: 280px;">@todo.Text</div>
-                </div>*@
-
-                <PreviewGame Game="game"></PreviewGame>
+                <div class="game-preview">
+                    <PreviewGame Game="game"></PreviewGame>
+                </div>
             }
-        </div>
     </div>
 }
 else

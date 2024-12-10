@@ -1,0 +1,27 @@
+.game_field {
+
+    display: flex;
+    justify-content:center;
+    align-items: center;
+
+    border: 2px solid black;
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+}
+
+.table {
+    border-spacing: 0px;
+}
+
+.game_cell {
+    border: 1px solid white;
+    width: 50px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: white;
+    min-width: 20px;
+    min-height: 20px;
+}

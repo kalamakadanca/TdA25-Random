@@ -1,0 +1,21 @@
+.games
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.game-preview
+{
+    
+}
+
+.game-field
+{
+
+}
+
+.table
+{
+
+}

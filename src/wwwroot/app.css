@@ -211,7 +211,7 @@ button {
 .loader {
     width: 45px;
     aspect-ratio: 1;
-    --c: no-repeat linear-gradient(#000 0 0);
+    --c: no-repeat linear-gradient(#131212 0 0);
     background: 
       var(--c) 0%   50%,
       var(--c) 50%  50%,
@@ -230,14 +230,14 @@ button {
 .loader-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
   }
 
 
 .game {
     display: flex;
-    height: 10vh;
+    height: 100vh;
     justify-content: center;
     align-items: flex-start;
     margin-top: 20px;
