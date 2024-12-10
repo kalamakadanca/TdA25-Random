@@ -3,11 +3,14 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    flex-direction: column; /* hra na jinem radku */
 }
 
 .game-preview
 {
-    
+    display: grid;
+    text-align: center;
+    grid-template-columns: repeat(15, 1fr); /* 15 sloupců */
 }
 
 .game-field
