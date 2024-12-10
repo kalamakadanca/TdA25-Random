@@ -1,6 +1,4 @@
-﻿@using TourDeApp.Infrastructure
-@using TourDeApp.Infrastructure.CustomConverters
-@using TourDeApp.Models
+﻿@using TourDeApp.Models
 @using TourDeApp.Models.Schemas
 @inject GameService GameService
 @inject GamesController GameController
@@ -30,7 +28,7 @@
 
 
 @code {
-    [Parameter, EditorRequired] public Game Game { get; set; }
+    [Parameter, EditorRequired] public required Game Game { get; set; }
 
     [Parameter] public EventCallback OnWin { get; set; }
 
