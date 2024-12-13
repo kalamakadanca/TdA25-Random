@@ -8,28 +8,9 @@
 <PageTitle>Home</PageTitle>
 
 <div class="container">
-    <button class="nazev_tlacitko" id="tlac_1" @onclick="Play">Hrát</button>
-    <button class="nazev_tlacitko" id="tlac_2">Nahrát hru</button>
+    <button class="btton" @onclick="Play">Hrát</button>
+    <button class="btton">Nahrát hru</button>
 </div>
-
-<!-- Přesunul bych do MainLayout -->
-<Modal @ref="ModalRef">
-    <h3 id="text_2">Login</h3>
-    <EditForm Model="@UserModel" OnValidSubmit="HandleValidSubmit">
-        <div class="form-group">
-            <label for="username">Uživatelské jméno:</label>
-            <InputText required placeholder="Táďa" id="username" @bind-Value="UserModel.Username" />
-        </div>
-        <div class="form-group">
-            <label for="password">Heslo:</label>
-            <InputText required placeholder="8+ znaků" type="password" id="password" minlength="8"
-                @bind-Value="UserModel.Password" />
-        </div>
-        <button type="submit" class="submit">Submit</button>
-    </EditForm>
-</Modal>
-
-<button @onclick="OpenModal" class="btton">Přihlásit se</button>
 
 <hr style="margin: 20px 0; border: 1px solid white;" />
 

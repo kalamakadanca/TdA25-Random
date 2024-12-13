@@ -19,12 +19,12 @@ button {
     text-decoration: line-through;
 }
 
-/* prihlaseni - tlacitko */
+/* tlacitko */
 .btton {
     width: 10em;
     position: relative;
-    height: 3.5em;
-    border: 3px ridge #AB2E58;
+    height: 20em;
+    border: 3px ridge #0070BB;
     outline: none;
     background-color: transparent;
     color: white;
@@ -64,10 +64,9 @@ button {
   }
   
 .btton:hover {
-    box-shadow: inset 0px 0px 25px #724479;
+    box-shadow: inset 0px 0px 25px #E31837;
   }
 /*                   */
-
 
 
 
@@ -161,7 +160,6 @@ button {
 .container {
     display: flex;
     justify-content: center;
-
 }
 
 
