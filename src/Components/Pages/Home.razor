@@ -99,8 +99,6 @@ else
 
     private async Task<List<Models.Game>> GetGames()
     {
-        await Task.Delay(1000);
-    
         var result = await GamesController.Get();
     
         if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
