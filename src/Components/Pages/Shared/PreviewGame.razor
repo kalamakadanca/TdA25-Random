@@ -1,9 +1,16 @@
 @code
 {
+    [Parameter] public EventCallback<string> OnClick { get; set; }
+
     [Parameter, EditorRequired] public required Models.Game Game { get; set; }
+
+    private async Task HandleClick()
+    {
+        await OnClick.InvokeAsync(Game.Uuid);
+    }
 }
 
-<div class="game_field">
+<div class="game_field" @onclick="HandleClick">
     <table class="table">
         <tbody>
             @for (int row = 0; row < GlobalSettings.BoardLength; row++)

@@ -17,12 +17,12 @@
 @if (Games != null)
 {
     <div class="games">
-            @foreach (var game in Games)
-            {
-                <div class="game-preview">
-                    <PreviewGame Game="game"></PreviewGame>
-                </div>
-            }
+        @foreach (var game in Games)
+        {
+            <div class="game-preview">
+                <PreviewGame Game="game" OnClick="OpenGame"></PreviewGame>
+            </div>
+        }
     </div>
 }
 else
@@ -100,17 +100,22 @@ else
     private async Task<List<Models.Game>> GetGames()
     {
         var result = await GamesController.Get();
-    
+
         if (result is ObjectResult objectResult && objectResult.StatusCode == 200)
         {
             var games = objectResult.Value as List<TourDeApp.Models.Game>;
-    
+
             if (games != null)
             {
                 return games;
             }
         }
-    
+
         return new List<Models.Game>() { defaultGame };
+    }
+
+    private void OpenGame(string uuid)
+    {
+        navigationManager.NavigateTo($"/game/{uuid}");
     }
 }
