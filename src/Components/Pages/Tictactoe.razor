@@ -1,0 +1,110 @@
+﻿@page "/tictactoe"
+
+<h3>Tic Tac Toe</h3>
+
+<div class="grid-container">
+    <div class="grid">
+        @for (int i = 0; i < 9; i++)
+        {
+            <button class="cell" @onclick="() => MakeMove(i)" disabled="@(!string.IsNullOrEmpty(Board[i]))">
+                @Board[i]
+            </button>
+        }
+    </div>
+    <div class="grid">
+        @for (int i = 0; i < 9; i++)
+        {
+            <button class="cell" @onclick="() => MakeMove(i)" disabled="@(!string.IsNullOrEmpty(Board[i]))">
+                @Board[i]
+            </button>
+        }
+    </div>
+</div>
+
+<p class="message">@Message</p>
+
+<button @onclick="ResetGame">Reset Game</button>
+
+@code {
+    private string[] Board = new string[9];
+    private string CurrentPlayer = "X";
+    private string Message = "Player X's turn";
+    private bool GameOver = false;
+
+    private void MakeMove(int index)
+    {
+        if (GameOver || !string.IsNullOrEmpty(Board[index]))
+        {
+            return;
+        }
+
+        Board[index] = CurrentPlayer;
+
+        if (CheckWin(CurrentPlayer))
+        {
+            Message = $"Player {CurrentPlayer} wins!";
+            GameOver = true;
+        }
+        else if (Board.All(cell => !string.IsNullOrEmpty(cell)))
+        {
+            Message = "It's a draw!";
+            GameOver = true;
+        }
+        else
+        {
+            CurrentPlayer = CurrentPlayer == "X" ? "O" : "X";
+            Message = $"Player {CurrentPlayer}'s turn";
+        }
+    }
+
+    private bool CheckWin(string player)
+    {
+        int[][] winningCombinations = new int[][]
+        {
+            new int[] { 0, 1, 2 }, new int[] { 3, 4, 5 }, new int[] { 6, 7, 8 }, // Rows
+            new int[] { 0, 3, 6 }, new int[] { 1, 4, 7 }, new int[] { 2, 5, 8 }, // Columns
+            new int[] { 0, 4, 8 }, new int[] { 2, 4, 6 }  // Diagonals
+        };
+
+        return winningCombinations.Any(combination =>
+            combination.All(index => Board[index] == player)
+        );
+    }
+
+    private void ResetGame()
+    {
+        Board = new string[9];
+        CurrentPlayer = "X";
+        Message = "Player X's turn";
+        GameOver = false;
+    }
+}
+
+<style>
+    .grid-container {
+        
+    }
+    
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 5px;
+        margin-top: 20px;
+    }
+
+    .cell {
+        width: 100px;
+        height: 100px;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        background-color: #f9f9f9;
+        border: 2px solid #000;
+        cursor: pointer;
+    }
+
+    .message {
+        margin-top: 20px;
+        font-size: 1.5rem;
+    }
+</style>
