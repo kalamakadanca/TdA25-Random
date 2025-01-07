@@ -13,23 +13,32 @@
 <div class="preview-game" @onclick="HandleClick">
     <table class="preview-table">
         <tbody>
-            @for (int row = 0; row < GlobalSettings.BoardLength; row++)
-            {
-                <tr>
-                    @for (int column = 0; column < GlobalSettings.BoardLength; column++)
+        @for (int row = 0; row < GlobalSettings.BoardLength; row++)
+        {
+            <tr>
+                @for (int column = 0; column < GlobalSettings.BoardLength; column++)
+                {
+                    var cell = new TourDeApp.Models.Schemas.Cell()
                     {
-                        var cell = new TourDeApp.Models.Schemas.Cell()
-                        {
-                            CellID = [row, column],
-                            State = CellStateConverter.ToEnum(Game.Board[row][column])
-                        };
+                        CellID = [row, column],
+                        State = CellStateConverter.ToEnum(Game.Board[row][column])
+                    };
 
-                        <td class="preview-game-cell">
-                            <PreviewCell CellState="cell.State"></PreviewCell>
-                        </td>
-                    }
-                </tr>
-            }
+                    <td class="preview-game-cell">
+                        <PreviewCell CellState="cell.State"></PreviewCell>
+                    </td>
+                }
+            </tr>
+        }
         </tbody>
     </table>
+    
+
+</div>    
+
+<div class="game-info">
+    @Game.Name
+    @Game.Difficulty
+    @Game.CreatedAt.ToString()
+    @Game.UpdatedAt.ToString()
 </div>
