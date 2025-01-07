@@ -1,6 +1,5 @@
 .preview-game{
-    justify-content: center;
-    align-items: center;
+    justify-self: center;
 
     border: 2px solid black;
     margin: 10px;
