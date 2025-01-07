@@ -16,14 +16,18 @@
 
 @if (Games != null)
 {
-    <div class="games">
-        @foreach (var game in Games)
-        {
-            <div class="game-preview">
-                <PreviewGame Game="game" OnClick="OpenGame"></PreviewGame>
-            </div>
-        }
-    </div>
+    <table>
+        <tbody>
+            @for (int i = 0; i < 5; i++)
+            {
+                <tr>
+                    <td>
+                        <PreviewGame Game="_games[i]" OnClick="OpenGame"></PreviewGame>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {
