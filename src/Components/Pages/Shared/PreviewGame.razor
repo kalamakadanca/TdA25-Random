@@ -16,18 +16,18 @@
             @for (int row = 0; row < GlobalSettings.BoardLength; row++)
             {
                 <tr>
-                @for (int column = 0; column < GlobalSettings.BoardLength; column++)
-                {
-                    var cell = new TourDeApp.Models.Schemas.Cell()
+                    @for (int column = 0; column < GlobalSettings.BoardLength; column++)
                     {
-                        CellID = [row, column],
-                        State = CellStateConverter.ToEnum(Game.Board[row][column])
-                    };
+                        var cell = new TourDeApp.Models.Schemas.Cell()
+                        {
+                            CellID = [row, column],
+                            State = CellStateConverter.ToEnum(Game.Board[row][column])
+                        };
 
-                    <td class="preview-game-cell">
-                        <PreviewCell CellState="cell.State"></PreviewCell>
-                    </td>
-                }
+                        <td class="preview-game-cell">
+                            <PreviewCell CellState="cell.State"></PreviewCell>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>

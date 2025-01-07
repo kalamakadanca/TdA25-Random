@@ -16,10 +16,12 @@
 }
 
 .preview-game-cell{
-    display: flex;
+    display: table-cell;
     justify-content: center;
     align-items: center;
 
     width: 20px;
     height: 20px;
+
+    border: 1px solid black;
 }
