@@ -1,0 +1,13 @@
+.preview-cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.preview-icon{
+    height: 80%;
+    width: 80%;
+}
