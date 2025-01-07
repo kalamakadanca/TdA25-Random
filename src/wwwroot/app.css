@@ -35,30 +35,6 @@ button {
     cursor: pointer;
   }
   
-.btton::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 3%;
-    width: 95%;
-    height: 40%;
-    background-color: #1a1a1a;
-    transition: 0.5s;
-    transform-origin: center;
-  }
-  
-.btton::before {
-    content: "";
-    transform-origin: center;
-    position: absolute;
-    top: 80%;
-    left: 3%;
-    width: 95%;
-    height: 40%;
-    background-color: #1a1a1a;
-    transition: 0.5s;
-  }
-  
 .btton:hover::before, button:hover::after {
     transform: scale(0)
   }

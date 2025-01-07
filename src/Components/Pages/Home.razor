@@ -21,7 +21,7 @@
             <tbody>
                 @for (int i = 0; i < Games.Count; i++)
                 {
-                    if (i + 2 < Games.Count || (Games.Count - 1) % 3 == 0) // Only check for ArrayOutOfBounds exception for now
+                    if (i + 2 < Games.Count || (Games.Count - 1) % 3 == 0)
                     {   
                         <tr>
                             <td>
@@ -29,7 +29,7 @@
                             </td>
 
                             <td>
-                                <PreviewGame Game="Games[i+1]" OnClick="OpenGame"></PreviewGame>
+                                <PreviewGame Game="Games[i + 1]" OnClick="OpenGame"></PreviewGame>
                             </td>
 
                             <td>
