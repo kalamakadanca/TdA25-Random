@@ -19,7 +19,7 @@
     <div class="container">
         <table class="game-preview">
             <tbody>
-                @for (int i = 0; i < Games.Count; i++)
+                @for (int i = 0; i < Games.Count; i++) // TODO: Fix (games appear multiple times and there are bugs)
                 {
                     if (i + 2 < Games.Count || (Games.Count - 1) % 3 == 0)
                     {   
@@ -109,13 +109,6 @@ else
     private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
 
     protected override void OnInitialized()
-    {
-        // working on
-        Todos.Add(new Todoitem("Wash Clothes"));
-        Todos.Add(new Todoitem("Clean Desk"));
-    }
-
-    protected override async Task OnInitializedAsync()
     {
         gamesLoading = true;
         // Start a background task to load games without blocking the UI
