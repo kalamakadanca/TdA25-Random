@@ -58,7 +58,6 @@ button {
     display: flex;
     justify-content: center;
     height: 100%;
-    /* background-color: rgba(201, 201, 201, 0.5); Pro vizualizaci */
 }
 
 .left {
@@ -136,6 +135,7 @@ button {
 .container {
     display: flex;
     justify-content: center;
+    gap: 30px;
 }
 
 

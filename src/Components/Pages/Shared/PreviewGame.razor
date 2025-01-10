@@ -37,8 +37,27 @@
 </div>    
 
 <div class="game-info">
+    @if (Game.Difficulty == DifficultyType.Beginner)
+    {
+        <img src="TdA_Ikonky\SVG\Beginner\zarivka_beginner_modre.svg" class="difficulty-icon" />
+    }
+    else if (Game.Difficulty == DifficultyType.Easy)
+    {
+        <img src="TdA_Ikonky\SVG\Easy\zarivka_easy_zlute.svg" class="difficulty-icon" />
+    }
+    else if (Game.Difficulty == DifficultyType.Medium)
+    {
+        <img src="TdA_Ikonky\SVG\Medium\zarivka_medium_oranzove.svg" class="difficulty-icon" />
+    }
+    else if (Game.Difficulty == DifficultyType.Hard)
+    {
+        <img src="TdA_Ikonky\SVG\Hard\zarivka_hard_cervene.svg" class="difficulty-icon" />
+    }
+    else if (Game.Difficulty == DifficultyType.Extreme)
+    {
+        <img src="TdA_Ikonky\SVG\Extreme\zarivka_extreme_fialove.svg" class="difficulty-icon" />
+    }
     @Game.Name
-    @Game.Difficulty
     @Game.CreatedAt.ToString()
     @Game.UpdatedAt.ToString()
 </div>

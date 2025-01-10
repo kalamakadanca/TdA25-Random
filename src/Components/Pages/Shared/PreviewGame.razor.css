@@ -27,4 +27,12 @@
 
 .game-info {
     margin: 5px;
+    color: white;
+    font-family: 'Dosis-light', sans-serif;
+}
+
+
+@font-face {
+    font-family: 'Dosis-light';
+    src: url('Dosis-Light.ttf');
 }
