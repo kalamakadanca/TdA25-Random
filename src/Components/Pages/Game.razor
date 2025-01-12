@@ -131,7 +131,7 @@ else
     {
         if (_game == null) return;
         if (!string.IsNullOrEmpty(_saveName)) _game.Name = _saveName;
-        var request = new GameCreateUpdateRequest(new Models.Game(_saveName, DifficultyType.Beginner));
+        var request = new GameCreateUpdateRequest(new Models.Game{Name = _saveName, Difficulty = DifficultyType.Beginner, Board = _game.Board});
         var result = await GamesController.Post(request);
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 201)
