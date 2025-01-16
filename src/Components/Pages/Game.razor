@@ -50,19 +50,6 @@
                 </div>
                 @if (hr_ed)
                 {
-
-                    <EditForm Model="@UserModel">
-                        <div class="form-group" style="padding: 10px 0">
-                            <label>Název hry:</label>
-                            <InputText @bind-Value="_saveName" />
-                        </div>
-                        <div class="form-group">
-                            <label>Zadej Random Text</label>
-                            <InputText @bind-Value="_gameUuid" style="background-color: white" />
-                        </div>
-                    </EditForm>
-                    <button id="tlac_3" @onclick="SaveGame" style=" ">Uložit</button>
-
                     <Modal @ref="ModalRef">
                         <h3 id="text_2">Uložení hry</h3>
                         <EditForm Model="@UserModel" OnValidSubmit="HandleValidSubmit">
