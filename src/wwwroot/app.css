@@ -11,7 +11,7 @@ body {
 
 .buttn {
     background-color: #f3f7fe;
-    color: #3b82f6;
+    color: #724479;
     border: none;
     cursor: pointer;
     border-radius: 8px;
@@ -21,9 +21,9 @@ body {
     font-family: 'Dosis', sans-serif;
     font-size: 16px;
 }
-  
+
 .buttn:hover {
-    background-color: #3b82f6;
+    background-color: #724479;
     box-shadow: 0 0 0 5px #3b83f65f;
     color: #fff;
 }
@@ -98,10 +98,6 @@ button {
     right: 0;
 }
 
-.grid-item {
-    /* position: fixed; */
-    /* ??????????????? */
-}
 
 .container_g {
     display: flex;

@@ -9,7 +9,6 @@
 
 <div class="container">
     <button class="btton" @onclick="Play">Hrát</button>
-    <button class="btton">Nahrát hru</button>
 </div>
 
 <div style="margin: 0; padding: 0;">
@@ -18,55 +17,57 @@
     <!-- Čára -->
     <hr style="margin: 20px 0; border: 1px solid white;" />
 
-    <h1 style="font-size: 48px; font-family: 'Dosis-ExtraBold', sans-serif; text-align: center;">uložené hry</h1>
+    <h1 style="font-size: 48px; font-family: 'Dosis-ExtraBold', sans-serif; text-align: center; color: #724479;">uložené hry</h1>
 
     @if (Games != null)
     {
-        <div style="margin: 0; padding:0;">
-            <div class="container">
-                <table class="game-preview">
-                    <tbody>
-                        @for (int i = 0; i < Games.Count; i += 3)
-                        {
-                            if (Games.Count - i >= 3)
+        <div style="cursor: pointer;">
+            <div style="margin: 0; padding:0;">
+                <div class="container">
+                    <table class="game-preview">
+                        <tbody>
+                            @for (int i = 0; i < Games.Count; i += 3)
                             {
-                                <tr>
-                                    <td>
-                                        <PreviewGame Game="Games[i]" OnClick="OpenGame"></PreviewGame>
-                                    </td>
+                                if (Games.Count - i >= 3)
+                                {
+                                    <tr>
+                                        <td>
+                                            <PreviewGame Game="Games[i]" OnClick="OpenGame"></PreviewGame>
+                                        </td>
 
-                                    <td>
-                                        <PreviewGame Game="Games[i + 1]" OnClick="OpenGame"></PreviewGame>
-                                    </td>
+                                        <td>
+                                            <PreviewGame Game="Games[i + 1]" OnClick="OpenGame"></PreviewGame>
+                                        </td>
 
-                                    <td>
-                                        <PreviewGame Game="Games[i + 2]" OnClick="OpenGame"></PreviewGame>
-                                    </td>
-                                </tr>
-                            }
-                            else if (Games.Count - i == 2)
-                            {
-                                <tr>
-                                    <td>
-                                        <PreviewGame Game="Games[i]" OnClick="OpenGame"></PreviewGame>
-                                    </td>
+                                        <td>
+                                            <PreviewGame Game="Games[i + 2]" OnClick="OpenGame"></PreviewGame>
+                                        </td>
+                                    </tr>
+                                }
+                                else if (Games.Count - i == 2)
+                                {
+                                    <tr>
+                                        <td>
+                                            <PreviewGame Game="Games[i]" OnClick="OpenGame"></PreviewGame>
+                                        </td>
 
-                                    <td>
-                                        <PreviewGame Game="Games[i + 1]" OnClick="OpenGame"></PreviewGame>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <PreviewGame Game="Games[i + 1]" OnClick="OpenGame"></PreviewGame>
+                                        </td>
+                                    </tr>
+                                }
+                                else if (Games.Count- i == 1)
+                                {
+                                    <tr>
+                                        <td>
+                                            <PreviewGame Game="Games[i]" OnClick="OpenGame"></PreviewGame>
+                                        </td>
+                                    </tr>
+                                }
                             }
-                            else if (Games.Count- i == 1)
-                            {
-                                <tr>
-                                    <td>
-                                        <PreviewGame Game="Games[i]" OnClick="OpenGame"></PreviewGame>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     }
