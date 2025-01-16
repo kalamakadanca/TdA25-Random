@@ -70,10 +70,6 @@
                                 <label for="username">Název hry:</label>
                                 <InputText required placeholder="hra1" @bind-Value="_saveName" />
                             </div>
-                            <div class="form-group">
-                                <label for="password">Zadej Random text:</label>
-                                <InputText required placeholder="fjfj" @bind-Value="_gameUuid" />
-                            </div>
                             <br/>
                             <button id="tlac_3" @onclick="SaveGame" type="submit" class="submit" style="display: flex; justify-content: center">Uložit</button>
                         </EditForm>
@@ -188,10 +184,10 @@ else
     }
 
 
-    private void HandleClick()
+    private async Task HandleClick()
     {
         OpenModal();
-        SaveGame();
+        await SaveGame();
     }
 
     private void OpenModal() => ModalRef?.Open();
