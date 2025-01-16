@@ -25,8 +25,5 @@ namespace TourDeApp.Models.DataBaseModels
             get => (string.IsNullOrEmpty(BoardJson) ? [] : JsonConvert.DeserializeObject<string[][]>(BoardJson))!;
             set => BoardJson = JsonConvert.SerializeObject(value);
         }
-        
-        public int GameBoardId { get; set; }
-        public GameBoardDb GameBoard { get; set; } = new();
     }
 }

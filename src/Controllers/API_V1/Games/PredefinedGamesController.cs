@@ -1,77 +1,76 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TourDeApp.Models;
 using TourDeApp.Models.Schemas;
 
-namespace TourDeApp.Controllers.API_V1.Games
-{
-    [Route("/api/v1/games")]
-    public class GamesController(DatabaseContext context, IMapper mapper) : Controller
-    {
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var games = (await context.Games.ToArrayAsync())
-                .Select(mapper.Map<Game>)
-                .ToList();
+namespace TourDeApp.Controllers.API_V1.Games;
 
-            return new ObjectResult(games)
+[Route("/api/v1/games/predefined")]
+public class PredefinedGamesController(DatabaseContext context, IMapper mapper) : Controller
+{
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
+        var games = (await context.PredefinedGames.ToArrayAsync())
+            .Select(mapper.Map<Game>)
+            .ToList();
+
+        return new ObjectResult(games)
+        {
+            StatusCode = 200
+        };
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] GameCreateUpdateRequest requestGame)
+    {
+        if (!ModelState.IsValid)
+        {
+            return new ObjectResult(new Error
             {
-                StatusCode = 200
+                Code = 400,
+                Message = $"Bad request: { ModelState.Values.First().Errors.First().ErrorMessage }"
+            })
+            {
+                StatusCode = 400
+            };
+        }
+        string? error = requestGame.BoardState.IsBoardValid();
+        if (error != null || !requestGame.BindDifficultyType())
+        {
+            return new ObjectResult(new Error
+            {
+                Code = 422,
+                Message = $"Semantic error: {error ?? "Difficulty field is not valid"}"
+            })
+            {
+                StatusCode = 422
             };
         }
         
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Models.GameCreateUpdateRequest requestGame)
+        var game = new Game
         {
-            if (!ModelState.IsValid)
-            {
-                return new ObjectResult(new Error
-                {
-                    Code = 400,
-                    Message = $"Bad request: { ModelState.Values.First().Errors.First().ErrorMessage }"
-                })
-                {
-                    StatusCode = 400
-                };
-            }
-
-            string? error = requestGame.BoardState.IsBoardValid();
-            if (error != null || !requestGame.BindDifficultyType())
-            {
-                return new ObjectResult(new Error
-                {
-                    Code = 422,
-                    Message = $"Semantic error: {error ?? "Difficulty field is not valid"}"
-                })
-                {
-                    StatusCode = 422
-                };
-            }
-            
-            var game = new Game
-            {
-                Name = requestGame.Name,
-                Difficulty = requestGame.EnumDifficulty,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                GameState = new GameState(),
-                Uuid = Guid.NewGuid().ToString(),
-                Board = requestGame.Board
-            };
-            game.CheckWinAndSetGameState();
-            
-            // Creates a game
-            Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
-            // Inserting the game in the DB
-            await context.Games.AddAsync(gameDb);
-            await context.SaveChangesAsync();
-            
-            return new ObjectResult(game) { StatusCode = 201 };
-        }
-
-        [HttpGet("{uuid}")]
+            Name = requestGame.Name,
+            Difficulty = requestGame.EnumDifficulty,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+            GameState = new GameState(),
+            Uuid = Guid.NewGuid().ToString(),
+            Board = requestGame.Board
+        };
+        game.CheckWinAndSetGameState();
+        
+        // Creates a game
+        Models.DataBaseModels.GameDb gameDb = mapper.Map<Models.DataBaseModels.GameDb>(game);
+        // Inserting the game in the DB
+        await context.Games.AddAsync(gameDb);
+        await context.SaveChangesAsync();
+        
+        return new ObjectResult(game) { StatusCode = 201 };
+    }
+    
+    [HttpGet("{uuid}")]
         public async Task<IActionResult> Get(string uuid)
         {
             if (string.IsNullOrEmpty(uuid))
@@ -193,5 +192,4 @@ namespace TourDeApp.Controllers.API_V1.Games
             
             return StatusCode(204);
         }
-    }
 }
