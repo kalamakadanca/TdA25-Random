@@ -6,3 +6,10 @@ Za nás by bylo ideální kdybyste uvedli následující informace:
     Jaké technologie používá
     Jak se aplikace spouští
     Další informace, které uznáte za vhodné
+
+
+<p>
+    Název týmu: <b>Random<b/>
+    <br/>
+    Členové týmu: <b>Jakub Adamčík, Viktor Babich, Daniela Luuová<b/>
+<p/>
