@@ -9,7 +9,23 @@ Za nás by bylo ideální kdybyste uvedli následující informace:
 
 
 <p>
-    Název týmu: <b>Random<b/>
+    Název týmu: Random
     <br/>
-    Členové týmu: <b>Jakub Adamčík, Viktor Babich, Daniela Luuová<b/>
+    Členové týmu: Jakub Adamčík, Viktor Babich, Daniela Luuová
+    <br/>
+    Technologie:
+        <br/>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;Programovací jazyky - C#
+        <br/>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;Frontend - Blazor
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;Backend - ASP.NET Core
+        <br/>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;Další technologie - Docker, Github Actions
+        <br/>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;Celá stránka je vytvořena v tmavém režimu.
 <p/>
