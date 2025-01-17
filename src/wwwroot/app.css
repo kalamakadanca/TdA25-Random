@@ -8,6 +8,15 @@ body {
     height: 100vh;   
 }
 
+.obtiznost {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}
+
+
+
+
 
 .buttn {
     background-color: #f3f7fe;

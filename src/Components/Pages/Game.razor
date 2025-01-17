@@ -57,8 +57,18 @@
                                 <label for="username">Název hry:</label>
                                 <InputText required placeholder="hra1" @bind-Value="_saveName" />
                             </div>
+                            <label>Obtížnost:</label>
+                            <div style="display: flex; justify-content: center; gap: 10px;">
+                                <img src="/TdA_Ikonky/SVG/Beginner/zarivka_beginner_modre.svg" class="obtiznost">
+                                <img src="/TdA_Ikonky/SVG/Easy/zarivka_easy_bile.svg" class="obtiznost">
+                                <img src="/TdA_Ikonky/SVG/Medium/zarivka_medium_modre.svg" class="obtiznost">
+                                <img src="/TdA_Ikonky/SVG/Hard/zarivka_hard_bile.svg" class="obtiznost">
+                                <img src="/TdA_Ikonky/SVG/Extreme/zarivka_extreme_modre.svg" class="obtiznost">
+
+                            </div>
                             <br/>
                             <button id="tlac_3" @onclick="SaveGame" type="submit" class="submit" style="display: flex; justify-content: center">Uložit</button>
+                            
                         </EditForm>
                     </Modal>
                     <hr/>
@@ -87,6 +97,10 @@ else
 
 @code
 {
+    public int _difficulty = 0;
+    List<DifficultyType> obt = new List<DifficultyType>();
+
+
     public bool hr_ed = true;
 
     private string? _gameUuid { get; set; }
