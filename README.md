@@ -6,7 +6,7 @@
     <br/>
     <b>Jak spustit aplikaci:</b>
     <br/>
-    Stáhněte si všechny soubory zobrazené výše, poté otevřete ve vybraném IDE (Integrated Development Environment/Integrované Vývojové Prostředí).
+    Stáhněte si všechny soubory zobrazené výše, poté otevřete v libovolném IDE (Integrované Vývojové Prostřed).
     <br/>
     Spusťte soubor s názvem "Program.cs". Pokud se program automaticky nespustí v prohlížeči, přejděte na tuto adresu: http://localhost:5205/
     <br/>
