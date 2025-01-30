@@ -59,20 +59,28 @@
                             </div>
                             <label>Obtížnost:</label>
                             <div style="display: flex; justify-content: center; gap: 10px;">
-                                <img src="/TdA_Ikonky/SVG/Beginner/zarivka_beginner_modre.svg" class="obtiznost">
-                                <img src="/TdA_Ikonky/SVG/Easy/zarivka_easy_bile.svg" class="obtiznost">
-                                <img src="/TdA_Ikonky/SVG/Medium/zarivka_medium_modre.svg" class="obtiznost">
-                                <img src="/TdA_Ikonky/SVG/Hard/zarivka_hard_bile.svg" class="obtiznost">
-                                <img src="/TdA_Ikonky/SVG/Extreme/zarivka_extreme_modre.svg" class="obtiznost">
-
+                                <img @onclick="() => _saveDifficulty = DifficultyType.Beginner"
+                                    src="/TdA_Ikonky/SVG/Beginner/zarivka_beginner_modre.svg" class="obtiznost">
+                                <img @onclick="() => _saveDifficulty = DifficultyType.Easy"
+                                    src="/TdA_Ikonky/SVG/Easy/zarivka_easy_bile.svg" class="obtiznost">
+                                <img @onclick="() => _saveDifficulty = DifficultyType.Medium"
+                                    src="/TdA_Ikonky/SVG/Medium/zarivka_medium_modre.svg" class="obtiznost">
+                                <img @onclick="() => _saveDifficulty = DifficultyType.Hard"
+                                    src="/TdA_Ikonky/SVG/Hard/zarivka_hard_bile.svg" class="obtiznost">
+                                <img @onclick="() => _saveDifficulty = DifficultyType.Extreme"
+                                    src="/TdA_Ikonky/SVG/Extreme/zarivka_extreme_modre.svg" class="obtiznost">
                             </div>
-                            <br/>
-                            <button id="tlac_3" @onclick="SaveGame" type="submit" class="submit" style="display: flex; justify-content: center">Uložit</button>
-                            
+                            <div style="font-size: 20px">
+                                @_saveDifficulty.ToString();
+                            </div>
+                            <br />
+                            <button id="tlac_3" @onclick="SaveGame" type="submit" class="submit"
+                                style="display: flex; justify-content: center">Uložit</button>
+
                         </EditForm>
                     </Modal>
-                    <hr/>
-                    <br/>
+                    <hr />
+                    <br />
                     <div class="center">
                         <button @onclick="OpenModal" class="buttn">Uložit hru</button>
                     </div>
@@ -80,7 +88,7 @@
                 }
                 else
                 {
-                    <hr/>
+                    <hr />
                 }
             </div>
         </div>
@@ -88,11 +96,11 @@
 }
 else if (_game == null)
 {
-    <!-- TODO: Show loading screen or spinning circle (will be nice when games are retrieved from database) -->
+    // TODO: Show loading screen or spinning circle (will be nice when games are retrieved from database)
 }
 else
 {
-    <!-- TODO: Display a message saying who has won, how many rounds, etc. -->
+    // TODO: Display a message saying who has won, how many rounds, etc.
 }
 
 @code
@@ -105,6 +113,7 @@ else
 
     private string? _gameUuid { get; set; }
     private string? _saveName { get; set; }
+    private DifficultyType _saveDifficulty { get; set; }
     private Modal? ModalRef;
     private UserModel UserModel { get; set; } = new();
     public bool meh = true;
@@ -147,7 +156,13 @@ else
     {
         if (_game == null) return;
         if (!string.IsNullOrEmpty(_saveName)) _game.Name = _saveName;
-        var request = new GameCreateUpdateRequest(new Models.Game{Name = _saveName, Difficulty = DifficultyType.Beginner, Board = _game.Board});
+        if (_saveDifficulty != default) _game.Difficulty = _saveDifficulty;
+        var request = new GameCreateUpdateRequest(new Models.Game
+            {
+                Name = _saveName,
+                Difficulty = _saveDifficulty,
+                Board = _game.Board
+            });
         var result = await GamesController.Post(request);
 
         if (result is ObjectResult objectResult && objectResult.StatusCode == 201)
