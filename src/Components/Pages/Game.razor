@@ -59,15 +59,15 @@
                             </div>
                             <label>Obtížnost:</label>
                             <div style="display: flex; justify-content: center; gap: 10px;">
-                                <img @onclick="() => _saveDifficulty = DifficultyType.Beginner"
+                                <img @onclick="() => ChangeDifficulty(DifficultyType.Beginner)"
                                     src="/TdA_Ikonky/SVG/Beginner/zarivka_beginner_modre.svg" class="obtiznost">
-                                <img @onclick="() => _saveDifficulty = DifficultyType.Easy"
+                                <img @onclick="() => ChangeDifficulty(DifficultyType.Easy)"
                                     src="/TdA_Ikonky/SVG/Easy/zarivka_easy_bile.svg" class="obtiznost">
-                                <img @onclick="() => _saveDifficulty = DifficultyType.Medium"
+                                <img @onclick="() => ChangeDifficulty(DifficultyType.Medium)"
                                     src="/TdA_Ikonky/SVG/Medium/zarivka_medium_modre.svg" class="obtiznost">
-                                <img @onclick="() => _saveDifficulty = DifficultyType.Hard"
+                                <img @onclick="() => ChangeDifficulty(DifficultyType.Hard)"
                                     src="/TdA_Ikonky/SVG/Hard/zarivka_hard_bile.svg" class="obtiznost">
-                                <img @onclick="() => _saveDifficulty = DifficultyType.Extreme"
+                                <img @onclick="() => ChangeDifficulty(DifficultyType.Extreme)"
                                     src="/TdA_Ikonky/SVG/Extreme/zarivka_extreme_modre.svg" class="obtiznost">
                             </div>
                             <div style="font-size: 20px">
@@ -136,6 +136,13 @@ else
 
     private Models.Game? _game { get; set; }
     [Parameter] public string? Uuid { get; set; }
+
+    public void ChangeDifficulty(DifficultyType difficulty)
+    {
+        _saveDifficulty= difficulty;
+        Console.WriteLine(_saveDifficulty);
+        StateHasChanged();
+    }
 
     protected override async Task OnInitializedAsync()
     {
