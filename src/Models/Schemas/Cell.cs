@@ -4,5 +4,6 @@
     {
         public CellState State { get; set; }
         public int[]? CellID { get; set; }
+        public bool WinningCell { get; set; } = false;
     }
 }

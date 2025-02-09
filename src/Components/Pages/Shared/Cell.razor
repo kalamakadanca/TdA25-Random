@@ -13,16 +13,35 @@
     }
 }
 
-<span @onclick="HandleClick" class="cell">
-    @if (CellInstance.State != CellState.Empty)
-    {
-        if(CellInstance.State == CellState.X) 
+@if (CellInstance.WinningCell == false)
+{
+    <span @onclick="HandleClick" class="cell">
+        @if (CellInstance.State != CellState.Empty)
         {
-            <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
+            if(CellInstance.State == CellState.X) 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
+            }
+            else 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/O/O_modre.svg"/>
+            }
         }
-        else 
+    </span>
+}
+else
+{
+    <span @onclick="HandleClick" class="winning_cell">
+        @if (CellInstance.State != CellState.Empty)
         {
-            <img class="icon" src="/TdA_Ikonky/SVG/O/O_modre.svg"/>
+            if(CellInstance.State == CellState.X) 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
+            }
+            else 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/O/O_modre.svg"/>
+            }
         }
-    }
-</span>
+    </span>
+}

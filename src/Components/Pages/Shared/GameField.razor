@@ -14,7 +14,8 @@
                     var cell = new TourDeApp.Models.Schemas.Cell()
                     {
                         CellID = [row, column],
-                        State = CellStateConverter.ToEnum(Game.Board[row][column])
+                        State = CellStateConverter.ToEnum(Game.Board[row][column]),
+                        WinningCell = Game.WinningLine.Any(x => x[0] == row && x[1] == column)
                     };
 
                     <td class="game_cell">

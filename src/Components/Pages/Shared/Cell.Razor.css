@@ -10,6 +10,16 @@
     aspect-ratio: 1/1;
 }
 
+.winning_cell {
+    display: flex;
+    background-color: darkgray;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
 .icon {
     width: 80%;
     height: 80%;
