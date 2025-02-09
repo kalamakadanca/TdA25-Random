@@ -1,27 +1,28 @@
-.games
-{
-    display: flex;
+.games {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     justify-content: flex-start;
     align-items: flex-start;
-    flex-direction: column; /* hra na jinem radku */
+    flex-direction: column;
+    /* hra na jinem radku */
 }
 
-.game-preview
-{
+.games-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.game-preview {
+    display: inline-block;
     text-align: center;
 }
 
-.game-field
-{
-
+.game-field {
+    /* Add any cell or board styling here if needed */
 }
 
-.table
-{
-
-}
-
-.game-info
-{
-    
+.table {
+    border-spacing: 0;
+    width: 100%;
 }
