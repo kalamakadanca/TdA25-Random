@@ -89,6 +89,7 @@ namespace TourDeApp.Models
                         Board[i][j] == Board[i + 3][j + 3] &&
                         Board[i][j] == Board[i + 4][j + 4]) {
                         GameState = GameState.Endgame;
+                        GameFinished = true;
                         Winner = Helper.StrToCellState(Board[i][j]);
                         WinningLine = new List<int[]> { new[] { i, j }, new[] { i + 1, j + 1 }, new[] { i + 2, j + 2 }, new[] { i + 3, j + 3 }, new[] { i + 4, j + 4 } };
                         return true;
@@ -121,6 +122,7 @@ namespace TourDeApp.Models
                         Board[i][j] == Board[i][j + 3] &&
                         Board[i][j] == Board[i][j + 4]) {
                         GameState = GameState.Endgame;
+                        GameFinished = true;
                         Winner = Helper.StrToCellState(Board[i][j]);
                         WinningLine = new List<int[]> { new[] { i, j }, new[] { i, j + 1 }, new[] { i, j + 2 }, new[] { i, j + 3 }, new[] { i, j + 4 } };
                         return true;
@@ -155,6 +157,7 @@ namespace TourDeApp.Models
                         Board[i][j] == Board[i + 3][j] &&
                         Board[i][j] == Board[i + 4][j]) {
                         GameState = GameState.Endgame;
+                        GameFinished = true;
                         Winner = Helper.StrToCellState(Board[i][j]);
                         WinningLine = new List<int[]> { new[] { i, j }, new[] { i + 1, j }, new[] { i + 2, j }, new[] { i + 3, j }, new[] { i + 4, j } };
                         return true;
@@ -189,6 +192,7 @@ namespace TourDeApp.Models
                         Board[i][j] == Board[i + 3][j + 3] &&
                         Board[i][j] == Board[i + 4][j + 4]) {
                         GameState = GameState.Endgame;
+                        GameFinished = true;
                         Winner = Helper.StrToCellState(Board[i][j]);
                         WinningLine = new List<int[]> { new[] { i, j }, new[] { i + 1, j + 1 }, new[] { i + 2, j + 2 }, new[] { i + 3, j + 3 }, new[] { i + 4, j + 4 } };
                         return true;
@@ -223,6 +227,7 @@ namespace TourDeApp.Models
                         Board[i][j] == Board[i + 3][j - 3] &&
                         Board[i][j] == Board[i + 4][j - 4]) {
                         GameState = GameState.Endgame;
+                        GameFinished = true;
                         Winner = Helper.StrToCellState(Board[i][j]);
                         WinningLine = new List<int[]> { new[] { i, j }, new[] { i + 1, j - 1 }, new[] { i + 2, j - 2 }, new[] { i + 3, j - 3 }, new[] { i + 4, j - 4 } };
                         return true;

@@ -9,7 +9,7 @@
 
 <PageTitle>Game</PageTitle>
 
-@if (_game != null && _game.GameFinished != true)
+@if (_game != null)
 {
     <div class="grid-container">
         <div class="left">
@@ -38,7 +38,22 @@
         </div>
 
         <div class="game">
-            <GameField Game="_game" OnWin="StateHasChanged" ReRender="StateHasChanged"></GameField>
+            <GameField Game="_game" OnWin="() => WinningDialog.Open()" ReRender="StateHasChanged"></GameField>
+            
+            <Modal @ref="WinningDialog">
+                <div container>
+                    @if (_game.Winner == CellState.O)
+                    {
+                        <h2>Kolečko vyhrálo</h2>
+                    }
+                    else if (_game.Winner == CellState.X)
+                    {
+                        <h2>Křížek vyhrál</h2>
+                    }
+
+                    <button class="buttn"@onclick="() => { WinningDialog.Close(); ModalRef.Open(); }">Uložit hru</button>
+                </div>
+            </Modal>
         </div>
 
         <div class="right">
@@ -113,6 +128,7 @@ else
     private string? _saveName { get; set; }
     private DifficultyType _saveDifficulty { get; set; }
     private Modal? ModalRef;
+    private Modal WinningDialog;
     private UserModel UserModel { get; set; } = new();
     public bool meh = true;
     private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
@@ -216,4 +232,8 @@ else
         ModalRef?.Close();
     }
 
+    private void GameWon()
+    {
+        
+    }
 }
