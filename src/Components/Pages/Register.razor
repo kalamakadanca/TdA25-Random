@@ -1,0 +1,73 @@
+﻿@page "/register"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+
+
+<h3>Register</h3>
+
+<div style="background-color: white">
+<EditForm Model="@registerModel" OnValidSubmit="RegisterUser" FormName="register">
+        <DataAnnotationsValidator/>
+
+        <div >
+            <label for="email">Email</label>
+            <InputText id="email"@bind-Value="registerModel.Email"/>
+            <ValidationMessage For="@(() => registerModel.Email)"/>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <InputText id="password" type="password" @bind-Value="registerModel.Password"></InputText>
+            <ValidationMessage For="@(() => registerModel.Password)"></ValidationMessage>
+        </div>
+
+        <div>
+            <label for="confirmPassword">Password</label>
+            <InputText id="confirmPassword" type="password" @bind-Value="registerModel.ConfirmPassword"></InputText>
+            <ValidationMessage For="@(() => registerModel.ConfirmPassword)"></ValidationMessage>
+        </div>
+
+        <button type="submit">Register</button>
+    </EditForm>
+</div>
+@code {
+
+    private RegisterModel registerModel = new();
+    
+    private class RegisterModel
+    {
+        [Required(ErrorMessage = "Email je povinný")]
+        public string Email { get; set; }
+        
+        [Required(ErrorMessage = "Heslo je povinné")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Heslo musí mít alespoň 6 znaků")]
+        public string Password { get; set; }
+        
+        [Required(ErrorMessage = "Heslo je povinné")]
+        [Compare(nameof(Password), ErrorMessage = "Hesla se neshodují")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    private async Task RegisterUser()
+    {
+        Console.WriteLine("Accoutn registering");
+        var user = new User
+        {
+            Email = registerModel.Email,
+            UserName = registerModel.Email
+        };
+
+        var result = await UserManager.CreateAsync(user, registerModel.Password);
+
+        if (result.Succeeded)
+        {
+            SignInManager.SignInAsync(user, isPersistent: false);
+            NavigationManager.NavigateTo("/", forceLoad: true);
+        }
+    }
+}
