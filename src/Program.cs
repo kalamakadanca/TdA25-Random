@@ -22,15 +22,28 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddDbContext<UserDatabaseContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("AnotherConnection"));
+    options.UseSqlite("Data Source=users.db");
 });
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
     {
-        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireLowercase = true;
     })
     .AddEntityFrameworkStores<UserDatabaseContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    options.LoginPath = "/login";
+});
+
+builder.Services.AddAuthentication();
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
@@ -52,7 +65,7 @@ else
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
@@ -61,7 +74,13 @@ app.UseAuthorization();
 
 app.UseAntiforgery();
 
-app.MapControllers();
+// Configure cookie policy
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Lax
+});
+
+//app.MapControllers();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
