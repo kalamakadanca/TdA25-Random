@@ -10,11 +10,11 @@
 
 <h3>Register</h3>
 
-<div style="background-color: white;">
+<div style="background-color: white">
 <EditForm Model="@registerModel" OnValidSubmit="RegisterUser" FormName="register">
         <DataAnnotationsValidator/>
 
-        <div>
+        <div >
             <label for="email">Email</label>
             <InputText id="email"@bind-Value="registerModel.Email"/>
             <ValidationMessage For="@(() => registerModel.Email)"/>
@@ -55,6 +55,7 @@
 
     private async Task RegisterUser()
     {
+        Console.WriteLine("Accoutn registering");
         var user = new User
         {
             Email = registerModel.Email,

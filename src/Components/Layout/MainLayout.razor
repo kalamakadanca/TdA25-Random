@@ -1,11 +1,6 @@
 ﻿@inherits LayoutComponentBase
-@using Microsoft.AspNetCore.Authentication
-@using Microsoft.AspNetCore.Identity
-@using TourDeApp.Components.Pages.Shared
-@using TourDeApp.Components.Pages
-@inject SignInManager<User> SignInManager
 @inject NavigationManager NavigationManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
+
 
 <div class="page">
     <div class="header">
@@ -13,38 +8,20 @@
             <img src="TdA_Logo/SVG/hlavni_logo.svg" alt="Logo" class="logo" />
         </a>
         <h1 class="nazev">PIŠKVORKY</h1>
-    </div>
-<!--
-        @if (loggedIn == false)
-        {
-            <button @onclick="() => LoginDialog.Open()">Přihlásit se</button>
-        }
-        else
-        {
-            <p>Jste přihlášen</p>
-        }
-        <Modal @ref="LoginDialog">
-            <EditForm FormName="login" Model="loginModel" OnValidSubmit="Login">
-                <DataAnnotationsValidator/>
-                
-                <div>
-                    <label for="email">Email</label>
-                    <InputText id="email" @bind-Value="loginModel.Email"></InputText>
-                    <ValidationMessage For="@(() => loginModel.Email)"></ValidationMessage>
-                </div>
-                
-                <div>
-                    <label for="password">Heslo</label>
-                    <InputText id="password" @bind-Value="loginModel.Password"></InputText>
-                    <ValidationMessage For="(() => loginModel.Password)"></ValidationMessage>
-                </div>
-                
-                <button type="submit">Příhlásit</button>
-            </EditForm>
-        </Modal>
+        <button style="justify-self: flex-end" @onclick="HandleClick">Registrovat</button>
     </div>
 
-!-->
+    <!--
+    <nav>
+        <ul>
+            <li><NavLink href="" Match="NavLinkMatch.All">Domů</NavLink></li>
+            <li><NavLink href="hra" Match="NavLinkMatch.All">Hra</NavLink></li>
+            <li><NavLink href="historie" Match="NavLinkMatch.All">Historie</NavLink></li>
+            <li><NavLink href="kontakt" Match="NavLinkMatch.All">Kontakt</NavLink></li>
+        </ul>
+    </nav>
+    -->
+
     <main>
         @Body
     </main>
@@ -56,50 +33,11 @@
     <a class="dismiss">🗙</a>
 </div>
 
-<!--
 @code {
-    private Modal LoginDialog;
-    
-    
-    [CascadingParameter] private HttpContext HttpContext { get; set; } = default!;
 
-    private bool loggedIn = false;
-    
-    private LoginModel loginModel = new();
-
-    protected override async Task OnInitializedAsync()
+    private void HandleClick()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        loggedIn = user.Identity.IsAuthenticated;
-    }
-    
-    private class LoginModel
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        NavigationManager.NavigateTo("/register", forceLoad: true);
     }
 
-    private async Task Login()
-    {
-        try
-        {
-            var result = await SignInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, false, false);
-
-            if (result.Succeeded)
-            {
-                LoginDialog.Close();
-            }
-            else if (result == null)
-            {
-                Console.WriteLine("Výsledek je null");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Něco se posralo {ex.Message}");
-        }
-    }
 }
-!-->
