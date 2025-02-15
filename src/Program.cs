@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TourDeApp;
 using TourDeApp.Components;
 using TourDeApp.Components.Services;
 using TourDeApp.Models.Schemas;
 using TourDeApp.Controllers.API_V1.Games;
-using TourDeApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,18 +17,6 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
-builder.Services.AddDbContext<UserDatabaseContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("AnotherConnection"));
-});
-
-builder.Services.AddIdentity<User, IdentityRole>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = false;
-    })
-    .AddEntityFrameworkStores<UserDatabaseContext>()
-    .AddDefaultTokenProviders();
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
@@ -55,10 +41,6 @@ else
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseAntiforgery();
 
 app.MapControllers();

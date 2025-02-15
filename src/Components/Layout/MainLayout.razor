@@ -1,6 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject NavigationManager NavigationManager
-
 
 <div class="page">
     <div class="header">
@@ -8,7 +6,6 @@
             <img src="TdA_Logo/SVG/hlavni_logo.svg" alt="Logo" class="logo" />
         </a>
         <h1 class="nazev">PIŠKVORKY</h1>
-        <button style="justify-self: flex-end" @onclick="HandleClick">Registrovat</button>
     </div>
 
     <!--
@@ -32,12 +29,3 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
-
-@code {
-
-    private void HandleClick()
-    {
-        NavigationManager.NavigateTo("/register", forceLoad: true);
-    }
-
-}
