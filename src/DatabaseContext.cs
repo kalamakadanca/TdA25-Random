@@ -17,3 +17,4 @@ public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbCont
             .HasConversion<string>();
     }
 }
+

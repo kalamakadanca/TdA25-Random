@@ -1,0 +1,62 @@
+﻿@page "/register"
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject IJSRuntime JSruntime
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@rendermode InteractiveServer
+
+<h3>Register</h3>
+
+<div>
+    <EditForm FormName="register" Model="_registerModel" OnValidSubmit="HandleSubmit">
+        <DataAnnotationsValidator/>
+        <div>
+            <label for="email" style="color: white">Email</label>
+            <InputText id="email" @bind-Value="_registerModel.Email"></InputText>
+            <ValidationMessage For="() => _registerModel.Email"></ValidationMessage>
+        </div>
+        <div>
+            <label for="password" style="color: white">Heslo</label>
+            <InputText id="password" @bind-Value="_registerModel.Password"></InputText>
+            <ValidationMessage For="() => _registerModel.Password"></ValidationMessage>
+        </div>        
+        <div>
+            <label for="confirm-password" style="color: white">Potvrďte heslo</label>
+            <InputText id="confirm-password" @bind-Value="_registerModel.ConfirmPassword"></InputText>
+            <ValidationMessage For="() => _registerModel.ConfirmPassword"></ValidationMessage>
+        </div>
+
+        <div style="display: flex; flex-direction: row">
+            <button type="submit">Vytvořit účet</button>
+        </div>
+
+    </EditForm>
+</div>
+
+@code {
+    private RegisterModel _registerModel = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        // pokud už uživatel je přihlášený, poslat ho zpátky domů
+        if (user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        var result = await JSruntime.InvokeAsync<bool>("authHelper.register",_registerModel.Email, _registerModel.Password);
+
+        if (result)
+        {
+            NavigationManager.NavigateTo("/", true);
+        }
+    }
+}

@@ -1,0 +1,64 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@rendermode InteractiveServer
+
+
+<h3 style="color:white">Login</h3>
+
+<div>
+    <EditForm FormName="login" Model="_loginModel" OnValidSubmit="HandleSubmit">
+        <DataAnnotationsValidator/>
+        <div>
+            <label for="email" style="color: white">Email</label>
+            <InputText id="email" @bind-Value="_loginModel.Email"></InputText>
+            <ValidationMessage For="() => _loginModel.Email"></ValidationMessage>
+        </div>
+        <div>
+            <label for="password" style="color: white">Heslo</label>
+            <InputText id="password" @bind-Value="_loginModel.Password"></InputText>
+            <ValidationMessage For="() => _loginModel.Password"></ValidationMessage>
+        </div>
+        
+        <div style="display: flex; flex-direction: row">     
+            <button type="submit">Přihlásit se</button>
+            <button @onclick="HandleCreateAccount">Vytvořit účet</button>
+        </div>
+
+    </EditForm>
+</div>
+
+@code {
+    private LoginModel _loginModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        // pokud už uživatel je přihlášený, poslat ho zpátky domů
+        if (user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+    
+    private async Task HandleSubmit()
+    {
+        var result = await JSRuntime.InvokeAsync<bool>("authHelper.login", _loginModel.Email, _loginModel.Password);
+
+        if (result)
+        {
+            NavigationManager.NavigateTo("/", true);
+        }
+    }
+
+    private void HandleCreateAccount()
+    {
+        NavigationManager.NavigateTo("/register");
+    }
+}
