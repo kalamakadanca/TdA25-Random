@@ -1,5 +1,6 @@
 ﻿@page "/login"
 @using Microsoft.AspNetCore.Components.Authorization
+@using TourDeApp.Components.Pages.Shared
 
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
@@ -9,6 +10,8 @@
 
 
 <h3 style="color:white">Login</h3>
+
+<LoadingOverlay IsLoading="isLoading"></LoadingOverlay>
 
 <div>
     <EditForm FormName="login" Model="_loginModel" OnValidSubmit="HandleSubmit">
@@ -35,8 +38,12 @@
 @code {
     private LoginModel _loginModel = new();
 
+    private bool isLoading = false;
+    
     protected override async Task OnInitializedAsync()
     {
+        isLoading = false;
+        StateHasChanged();
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
@@ -49,12 +56,20 @@
     
     private async Task HandleSubmit()
     {
+        isLoading = true;
+        StateHasChanged();
+        
         var result = await JSRuntime.InvokeAsync<bool>("authHelper.login", _loginModel.Email, _loginModel.Password);
 
         if (result)
         {
+            isLoading = false;
+            StateHasChanged();
             NavigationManager.NavigateTo("/", true);
         }
+
+        isLoading = false;
+        StateHasChanged();
     }
 
     private void HandleCreateAccount()

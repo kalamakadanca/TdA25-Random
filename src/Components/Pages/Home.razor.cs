@@ -47,6 +47,11 @@ public partial class Home : ComponentBase
     {
         multiplayerSelectModal.Open();
     }
+
+    private async Task PlayQuickGame()
+    {
+        
+    }
     
     private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
 

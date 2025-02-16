@@ -14,10 +14,6 @@ body {
     height: 25px;
 }
 
-
-
-
-
 .buttn {
     background-color: #f3f7fe;
     color: #724479;
@@ -29,6 +25,7 @@ body {
     transition: 0.3s;
     font-family: 'Dosis', sans-serif;
     font-size: 16px;
+    margin: 10px;
 }
 
 .buttn:hover {
@@ -37,19 +34,17 @@ body {
     color: #fff;
 }
 
-
-
-
-
 h3 {
     font-family: 'Dosis-Bold', sans-serif;
     font-size: 24px;
     margin: 0;
 }
+
 img, svg {
     pointer-events: none;
     user-select: none;
 }
+
 button {
     user-select: none;
 }
@@ -81,9 +76,6 @@ button {
 .btton:hover {
     box-shadow: inset 0px 0px 25px #E31837;
   }
-/*                   */
-
-
 
 .grid-container {
     display: grid;

@@ -1,5 +1,6 @@
 ﻿@page "/register"
 @using Microsoft.AspNetCore.Components.Authorization
+@using TourDeApp.Components.Pages.Shared
 
 @inject IJSRuntime JSruntime
 @inject NavigationManager NavigationManager
@@ -8,6 +9,8 @@
 @rendermode InteractiveServer
 
 <h3>Register</h3>
+
+<LoadingOverlay IsLoading="isLoading"></LoadingOverlay>
 
 <div>
     <EditForm FormName="register" Model="_registerModel" OnValidSubmit="HandleSubmit">
@@ -37,9 +40,13 @@
 
 @code {
     private RegisterModel _registerModel = new();
+    private bool isLoading = false;
     
     protected override async Task OnInitializedAsync()
     {
+        isLoading = false;
+        StateHasChanged();
+        
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
@@ -52,11 +59,20 @@
 
     private async Task HandleSubmit()
     {
+        isLoading = true;
+        StateHasChanged();
+        
         var result = await JSruntime.InvokeAsync<bool>("authHelper.register",_registerModel.Email, _registerModel.Password);
 
         if (result)
         {
+            isLoading = false;
+            StateHasChanged();
+            
             NavigationManager.NavigateTo("/", true);
         }
+
+        isLoading = false;
+        StateHasChanged();
     }
 }

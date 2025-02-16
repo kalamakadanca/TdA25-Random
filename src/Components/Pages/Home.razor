@@ -7,11 +7,13 @@
 
 <div class="container">
     <button class="btton" @onclick="PlayLocally">Hrát lokálně</button>
-    <button class="btton" @onclick="PlayOnline"></button>
+    <button class="btton" @onclick="PlayOnline">Hrát online</button>
     
-    <Modal @ref="multiplayerSelectModal">
-        <button class="buttn">Rychlá hra</button>
-        <button class="buttn">Hra s kamarádem</button>
+    <Modal @ref="multiplayerSelectModal" HeightPercent="10" WidthPercent="20">
+        <div style="display: flex; justify-content: center; align-items:  center; height: 100%">
+            <button class="buttn" @onclick="PlayQuickGame">Rychlá hra</button>
+            <button class="buttn">Hra s kamarádem</button>
+        </div>
     </Modal>
 </div>
 

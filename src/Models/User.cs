@@ -19,7 +19,7 @@ public class User : IdentityUser
     private const int K_FACTOR = 40;
     private const float ALPHA = 0.5f;
 
-    // Call after a game between two player finishes (not normal local game)
+    // Call after a game between two player (not normal local game)
     public void UpdateELO(float gameResult, int opponentElo)
     {
         double winDrawRatio;

@@ -1,13 +1,29 @@
-<div class="modal-backdrop" @onclick="Close" style="display: @(IsVisible ? "flex" : "none")">
-    <div class="modal-window" @onclick:stopPropagation>
-        <button class="close-button" @onclick="Close">×</button>
-        @ChildContent
+<!-- Added height and  width parameters to be able to set height and width for each modal separately !-->
+@if (HeightPercent != null && HeightPercent != null)
+{
+    <div class="modal-backdrop" @onclick="Close" style="display: @(IsVisible ? "flex" : "none")">
+        <div class="modal-window" style=" width: @WidthPercent%; height: @HeightPercent%" @onclick:stopPropagation>
+            <button class="close-button" @onclick="Close">×</button>
+            @ChildContent
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="modal-backdrop" @onclick="Close" style="display: @(IsVisible ? "flex" : "none")">
+        <div class="modal-window" @onclick:stopPropagation>
+            <button class="close-button" @onclick="Close">×</button>
+            @ChildContent
+        </div>
+    </div>
+}
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public int? WidthPercent { get; set; }
+    [Parameter] public int? HeightPercent { get; set; }
+    
     public bool IsVisible { get; private set; }
 
     public void Open() => IsVisible = true;
