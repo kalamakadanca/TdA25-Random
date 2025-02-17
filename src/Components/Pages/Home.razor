@@ -9,11 +9,38 @@
     <button class="btton" @onclick="PlayLocally">Hrát lokálně</button>
     <button class="btton" @onclick="PlayOnline">Hrát online</button>
     
-    <Modal @ref="multiplayerSelectModal" HeightPercent="10" WidthPercent="20">
-        <div style="display: flex; justify-content: center; align-items:  center; height: 100%">
-            <button class="buttn" @onclick="PlayQuickGame">Rychlá hra</button>
-            <button class="buttn">Hra s kamarádem</button>
-        </div>
+
+    <Modal @ref="multiplayerSelectModal" HeightPercent="30" WidthPercent="20">
+        @if (!playWithFriend)
+        {
+            <div style="display: flex; justify-content: center; align-items:  center; height: 100%">
+                <button class="buttn" @onclick="PlayQuickGame">Rychlá hra</button>
+                <button class="buttn" @onclick="PlayWithFriend">Hra s kamarádem</button>
+            </div>
+        }
+        else if (waitingForFriend)
+        {
+            <h2>Vytvoření hry</h2>
+
+            <div>
+                <label>Kód hry: @GenerateFriendCode()</label>
+            </div>
+        }
+        else
+        {
+            <h2>Hra s kamarádem</h2>
+
+            <div>
+                <label for="join-game">Kód hry</label>
+                <InputText id="join-game" @bind-Value="friendCode"></InputText>
+                <button>Připojit se</button>
+            </div>
+
+            <div>
+                <label for="create-game">Nemáte kód?</label>
+                <button @onclick="() => { waitingForFriend = true; StateHasChanged();}">Vytvořit hru</button>
+            </div>
+        }
     </Modal>
 </div>
 

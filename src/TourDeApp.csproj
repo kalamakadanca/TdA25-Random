@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Components\Pages\FindGame.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="database.db" />
   </ItemGroup>
 

@@ -11,14 +11,17 @@ public partial class Home : ComponentBase
 {
     [Inject] private NavigationManager _navigationManager { get; set; } = default!;
     [Inject] private GamesController _gamesController { get; set; } = default!;
-    
-    
+
+    private Random random;
     private Modal? ModalRef;
     private Modal multiplayerSelectModal;
     private UserModel UserModel { get; set; } = new();
     public bool meh = true;
     private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
     private bool gamesLoading { get; set; }
+    private bool playWithFriend { get; set; } = false;
+    private string? friendCode { get; set; }
+    private bool waitingForFriend { get; set; } = false;
     private List<Models.Game>? _games;
     public List<Models.Game>? Games
     {
@@ -50,14 +53,28 @@ public partial class Home : ComponentBase
 
     private async Task PlayQuickGame()
     {
-        
+        // TODO: Player will be added to matchmaking queue
     }
+
+    private void PlayWithFriend()
+    {
+        playWithFriend = true;
+        StateHasChanged();
+    }
+
+    private async Task JoinFriend()
+    {
+        // TODO
+    }
+
+    private string GenerateFriendCode() => random.Next(100000, 999999).ToString();
     
     private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
 
     protected override void OnInitialized()
     {
         gamesLoading = true;
+        random = new();
         // Start a background task to load games without blocking the UI
         _ = LoadGamesAsync();
     }

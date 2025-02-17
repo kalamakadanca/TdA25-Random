@@ -51,6 +51,7 @@ namespace TourDeApp.Models
             History = new List<Move>();
             CheckWinAndSetGameState();
         }
+
         
         public void UpdateBoard(Cell cell)
         {
