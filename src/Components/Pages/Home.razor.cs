@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using TourDeApp.Components.Services;
+using TourDeApp.Services;
 using TourDeApp.Controllers.API_V1.Games;
 using TourDeApp.Models;
 using TourDeApp.Models.Schemas;

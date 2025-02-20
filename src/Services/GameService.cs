@@ -3,11 +3,13 @@ using TourDeApp.Models.Schemas;
 
 
 // Toto je dočasně dokud Viktor neudělá controller
-namespace TourDeApp.Components.Services
+namespace TourDeApp.Services
 {
     public class GameService
     {
         private Game _game;
+        private event Action OnWin;
+        private event Action OnMove;
 
         public Game CreateGame()
         {
@@ -15,19 +17,28 @@ namespace TourDeApp.Components.Services
             return _game;
         }
 
-        public Game GetCurrentGame()
+        public Game GetGame() => _game;
+
+        public void SubscribeMove(Action callback)
         {
-            return _game;
+            OnMove += callback;
         }
 
-        public bool GameExists()
+        public void SubscribeWin(Action callback)
         {
-            return _game != null;
+            OnWin += callback;
         }
-
-        public void SetGame(Game game)
+        
+        public void UpdateBoard(Models.Schemas.Cell cell)
         {
-            _game = game;
+            _game.UpdateBoard(cell);
+            
+            OnMove.Invoke();
+            
+            if (_game.CheckWinAndSetGameState())
+            {
+                OnWin.Invoke();
+            }
         }
     }
 }

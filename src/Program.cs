@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TourDeApp;
 using TourDeApp.Components;
-using TourDeApp.Components.Services;
 using TourDeApp.Models.Schemas;
 using TourDeApp.Controllers.API_V1.Authentication;
 using TourDeApp.Controllers.API_V1.Games;
@@ -56,7 +55,6 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<GamesController>();
 
-builder.Services.AddScoped<SignalRService>();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
@@ -84,7 +82,7 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHub<ChatHub>("/chathub");
+app.MapHub<GameHub>("/gamehub");
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

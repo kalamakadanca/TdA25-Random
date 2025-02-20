@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using TourDeApp.Components.Services;
+using TourDeApp.Services;
 using TourDeApp.Controllers.API_V1.Games;
 using TourDeApp.Models;
 using TourDeApp.Models.Schemas;
@@ -14,21 +14,15 @@ public partial class Game : ComponentBase
     [Inject] private GamesController _gamesController { get; set; } = default!;
 
     
-    public int _difficulty = 0;
-    List<DifficultyType> obt = new List<DifficultyType>();
-    
+    private Models.Game? _game { get; set; }
     public bool hr_ed = true;
-
-    private string? _gameUuid { get; set; }
     private string? _saveName { get; set; }
     private DifficultyType _saveDifficulty { get; set; }
     private Modal? ModalRef;
     private Modal WinningDialog;
     private UserModel UserModel { get; set; } = new();
-    public bool meh = true;
     private Models.Game defaultGame = new Models.Game("Default game", DifficultyType.Beginner);
     private bool gamesLoaded = false;
-    private List<Models.Game>? games { get; set; }
 
     private void NewGame()
     {
@@ -43,16 +37,20 @@ public partial class Game : ComponentBase
         }
     }
 
-    private Models.Game? _game { get; set; }
     [Parameter] public string? Uuid { get; set; }
 
     public void ChangeDifficulty(DifficultyType difficulty)
     {
         _saveDifficulty = difficulty;
-        Console.WriteLine(_saveDifficulty);
         StateHasChanged();
     }
 
+    protected override void OnInitialized()
+    {
+        _gameService.SubscribeMove(StateHasChanged);
+        _gameService.SubscribeWin(GameWon);
+    }
+    
     protected override async Task OnInitializedAsync()
     {
         string currentUrl = _navigationManager.Uri;
@@ -129,6 +127,6 @@ public partial class Game : ComponentBase
 
     private void GameWon()
     {
-        
+        // TODO
     }
 }

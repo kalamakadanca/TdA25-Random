@@ -2,7 +2,6 @@
 @page "/game/{Uuid}"
 @using TourDeApp.Components.Pages.Shared
 @rendermode InteractiveServer
-@using TourDeApp.Models.Schemas
 
 <PageTitle>Game</PageTitle>
 
@@ -33,26 +32,26 @@
                 }
             </div>
         </div>
+        
+        <Modal @ref="WinningDialog">
+            <div container>
+                @if (_game.Winner == CellState.O)
+                {
+                    <h2>Kolečko vyhrálo</h2>
+                }
+                else if (_game.Winner == CellState.X)
+                {
+                    <h2>Křížek vyhrál</h2>
+                }
 
+                <button class="buttn"@onclick="() => { WinningDialog.Close(); ModalRef.Open(); }">Uložit hru</button>
+            </div>
+        </Modal>
+        
         <div class="game">
-            <GameField Game="_game" OnWin="() => WinningDialog.Open()" ReRender="StateHasChanged"></GameField>
-            
-            <Modal @ref="WinningDialog">
-                <div container>
-                    @if (_game.Winner == CellState.O)
-                    {
-                        <h2>Kolečko vyhrálo</h2>
-                    }
-                    else if (_game.Winner == CellState.X)
-                    {
-                        <h2>Křížek vyhrál</h2>
-                    }
-
-                    <button class="buttn"@onclick="() => { WinningDialog.Close(); ModalRef.Open(); }">Uložit hru</button>
-                </div>
-            </Modal>
+            <GameField></GameField>
         </div>
-
+        
         <div class="right">
             <div class="grid-item">
                 <div class="container_g">
