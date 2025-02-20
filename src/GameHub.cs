@@ -5,12 +5,7 @@ namespace TourDeApp
 {
     public class GameHub : Hub
     {
-        public override async Task OnConnectedAsync()
-        {
-            Console.WriteLine($"{Context.ConnectionId} has connected to GameHub");
-        }
-
-        public async Task UpdateGame(Game game)
+        public async Task UpdateGame(Models.Game game)
         {
             await Clients.All.SendAsync("ReceiveMessage", game);
         }
