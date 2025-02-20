@@ -84,7 +84,7 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHub<GameHub>("/gamehub");
+app.MapHub<ChatHub>("/chathub");
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
