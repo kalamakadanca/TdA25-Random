@@ -1,7 +1,9 @@
 ﻿@using TourDeApp.Models
 @using TourDeApp.Models.Schemas
+@using TourDeApp.Services
 @inject GameService GameService
 @inject GamesController GameController
+@implements IDisposable
 
 
 <table class="table">
@@ -14,12 +16,12 @@
                     var cell = new TourDeApp.Models.Schemas.Cell()
                     {
                         CellID = [row, column],
-                        State = CellStateConverter.ToEnum(Game.Board[row][column]),
-                        WinningCell = Game.WinningLine.Any(x => x[0] == row && x[1] == column)
+                        State = CellStateConverter.ToEnum(_game.Board[row][column]),
+                        WinningCell = _game.WinningLine.Any(x => x[0] == row && x[1] == column)
                     };
 
                     <td class="game_cell">
-                        <Cell CellInstance="cell" OnClick="ChangeCellState"></Cell>
+                        <Cell CellInstance="cell"></Cell>
                     </td>
                 }
             </tr>
@@ -29,47 +31,35 @@
 
 
 @code {
-    [Parameter, EditorRequired] public required Game Game { get; set; }
+    [Inject] private GameService _gameService { get; set; }
 
-    [Parameter] public EventCallback OnWin { get; set; }
-
-    [Parameter] public EventCallback ReRender { get; set; }
-
+    private Game _game { get; set; }
+    
     protected override void OnInitialized()
     {
+        _gameService.SubscribeMove(StateHasChanged);
+        _game = _gameService.GetGame();
     }
 
     private void ChangeCellState(Models.Schemas.Cell cell)
     {
-        if (cell.State != CellState.Empty || Game.Winner != null) return;
+        if (cell.State != CellState.Empty || _game.Winner != null) return;
 
-        GameState gameState = Game.GameState;
+        GameState gameState = _game.GameState;
 
-        Game.UpdateBoard(cell);
+        _gameService.UpdateBoard(cell);
 
-        // Sends the update to db
-        //await GameController.Put(Game.Uuid, new GameCreateUpdateRequest(Game));
-
-        if (Game.CheckWinAndSetGameState())
+        if (_game.CheckWinAndSetGameState())
         {
-            foreach (var id in Game.WinningLine)
+            foreach (var id in _game.WinningLine)
             {
                 Console.WriteLine($"{id[0]}, {id[1]}");
             }
-            Win();
         }
-
-        ReRenderParent();
     }
 
-    private async Task ReRenderParent()
+    public void Dispose()
     {
-        await ReRender.InvokeAsync();
+        _gameService.UnsubscribeMove(StateHasChanged);
     }
-
-    private async Task Win()
-    {
-        await OnWin.InvokeAsync();
-    }
-
 }

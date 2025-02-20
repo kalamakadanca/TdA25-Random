@@ -1,15 +1,26 @@
 ﻿@using TourDeApp.Infrastructure.CustomConverters
 @using TourDeApp.Models.Schemas
+@implements IDisposable
 
 
 @code {
-    [Parameter] public EventCallback<Models.Schemas.Cell> OnClick { get; set; }
-    
     [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
-        
-    private async Task HandleClick()
+    
+    [Inject] private GameService _gameService { get; set; }
+
+    protected override void OnInitialized()
     {
-        await OnClick.InvokeAsync(CellInstance);
+        _gameService.SubscribeMove(StateHasChanged);
+    }
+    
+    private void HandleClick()
+    {
+        _gameService.UpdateBoard(CellInstance);
+    }
+    
+    public void Dispose()
+    {
+        _gameService.UnsubscribeMove(StateHasChanged);
     }
 }
 
