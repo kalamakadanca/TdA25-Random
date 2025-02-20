@@ -43,5 +43,6 @@ public class User : IdentityUser
 
     private int CalculateExpectedResult(int elo, int opponentElo) => 1 / 1 + 10 * ((opponentElo - elo) / SCALING_FACTOR);
 
+    // ReSharper disable once PossibleLossOfFraction
     private double CalculateWinDrawRatio() => (Wins + Draws) / (Wins + Draws + Losses);
 }

@@ -3,6 +3,7 @@
 @using TourDeApp.Services
 @inject GameService GameService
 @inject GamesController GameController
+@implements IDisposable
 
 
 <table class="table">
@@ -55,5 +56,10 @@
                 Console.WriteLine($"{id[0]}, {id[1]}");
             }
         }
+    }
+
+    public void Dispose()
+    {
+        _gameService.UnsubscribeMove(StateHasChanged);
     }
 }

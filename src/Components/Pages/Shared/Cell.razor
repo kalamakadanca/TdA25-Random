@@ -1,5 +1,6 @@
 ﻿@using TourDeApp.Infrastructure.CustomConverters
 @using TourDeApp.Models.Schemas
+@implements IDisposable
 
 
 @code {
@@ -15,6 +16,11 @@
     private void HandleClick()
     {
         _gameService.UpdateBoard(CellInstance);
+    }
+    
+    public void Dispose()
+    {
+        _gameService.UnsubscribeMove(StateHasChanged);
     }
 }
 

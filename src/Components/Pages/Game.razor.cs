@@ -127,6 +127,12 @@ public partial class Game : ComponentBase
 
     private void GameWon()
     {
-        // TODO
+        WinningDialog.Open();
+    }
+    
+    public void Dispose()
+    {
+        _gameService.UnsubscribeMove(StateHasChanged);
+        _gameService.UnsubscribeWin(GameWon);
     }
 }

@@ -18,16 +18,6 @@ namespace TourDeApp.Services
         }
 
         public Game GetGame() => _game;
-
-        public void SubscribeMove(Action callback)
-        {
-            OnMove += callback;
-        }
-
-        public void SubscribeWin(Action callback)
-        {
-            OnWin += callback;
-        }
         
         public void UpdateBoard(Models.Schemas.Cell cell)
         {
@@ -39,6 +29,26 @@ namespace TourDeApp.Services
             {
                 OnWin.Invoke();
             }
+        }
+        
+        public void SubscribeMove(Action callback)
+        {
+            OnMove += callback;
+        }
+
+        public void SubscribeWin(Action callback)
+        {
+            OnWin += callback;
+        }
+
+        public void UnsubscribeMove(Action callback)
+        {
+            OnMove -= callback;
+        }
+
+        public void UnsubscribeWin(Action callback)
+        {
+            OnWin -= callback;
         }
     }
 }
