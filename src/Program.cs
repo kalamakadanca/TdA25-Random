@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TourDeApp;
 using TourDeApp.Components;
+using TourDeApp.Components.Services;
 using TourDeApp.Models.Schemas;
 using TourDeApp.Controllers.API_V1.Authentication;
 using TourDeApp.Controllers.API_V1.Games;
