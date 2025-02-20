@@ -52,6 +52,7 @@ builder.Services.AddIdentityCore<User>()
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
+builder.Services.AddSingleton<MatchmakingService>();
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<GamesController>();
 

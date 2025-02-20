@@ -19,7 +19,6 @@ public class User : IdentityUser
     private const int K_FACTOR = 40;
     private const float ALPHA = 0.5f;
 
-    // Call after a game between two player (not normal local game)
     public void UpdateELO(float gameResult, int opponentElo)
     {
         double winDrawRatio;
@@ -43,5 +42,6 @@ public class User : IdentityUser
 
     private int CalculateExpectedResult(int elo, int opponentElo) => 1 / 1 + 10 * ((opponentElo - elo) / SCALING_FACTOR);
 
+    // ReSharper disable once PossibleLossOfFraction
     private double CalculateWinDrawRatio() => (Wins + Draws) / (Wins + Draws + Losses);
 }
