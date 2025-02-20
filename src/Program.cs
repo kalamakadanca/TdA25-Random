@@ -8,6 +8,7 @@ using TourDeApp.Models.Schemas;
 using TourDeApp.Controllers.API_V1.Authentication;
 using TourDeApp.Controllers.API_V1.Games;
 using TourDeApp.Models;
+using TourDeApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,9 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<GamesController>();
 
+builder.Services.AddScoped<SignalRService>();
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -79,6 +83,8 @@ app.MapControllers();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHub<ChatHub>("/chathub");
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
