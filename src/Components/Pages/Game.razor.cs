@@ -4,6 +4,7 @@ using TourDeApp.Components.Services;
 using TourDeApp.Controllers.API_V1.Games;
 using TourDeApp.Models;
 using TourDeApp.Models.Schemas;
+using TourDeApp.Services;
 
 namespace TourDeApp.Components.Pages;
 
@@ -12,6 +13,7 @@ public partial class Game : ComponentBase
     [Inject] private NavigationManager _navigationManager { get; set; } = default!;
     [Inject] private GameService _gameService { get; set; } = default!;
     [Inject] private GamesController _gamesController { get; set; } = default!;
+    [Inject] private SignalRService _signalRService { get; set; } = default!;
 
     
     public int _difficulty = 0;
@@ -43,7 +45,7 @@ public partial class Game : ComponentBase
         }
     }
 
-    private Models.Game? _game { get; set; }
+    private Models.Game _game { get; set; }
     [Parameter] public string? Uuid { get; set; }
 
     public void ChangeDifficulty(DifficultyType difficulty)
@@ -65,7 +67,19 @@ public partial class Game : ComponentBase
         else
         {
             _game = _gameService.CreateGame();
+            _signalRService.GameUpdated += OnGameUpdated;
         }
+    }
+
+    private void OnGameUpdated(object sender, Models.Game game)
+    {
+        _game = game;
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task SendGame()
+    {
+        await _signalRService.UpdateGame(_game);
     }
 
     private async Task SaveGame()

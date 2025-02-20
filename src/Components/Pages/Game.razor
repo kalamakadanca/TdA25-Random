@@ -35,7 +35,7 @@
         </div>
 
         <div class="game">
-            <GameField Game="_game" OnWin="() => WinningDialog.Open()" ReRender="StateHasChanged"></GameField>
+            <GameField Game="_game" OnWin="() => WinningDialog.Open()" ReRender="SendGame"></GameField>
             
             <Modal @ref="WinningDialog">
                 <div container>
