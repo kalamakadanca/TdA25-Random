@@ -37,10 +37,16 @@
     
     protected override void OnInitialized()
     {
-        _gameService.SubscribeMove(StateHasChanged);
+        _gameService.SubscribeMove(OnMove);
         _game = _gameService.GetGame();
     }
 
+    private void OnMove()
+    {
+        _game = _gameService.GetGame();
+        InvokeAsync(StateHasChanged);
+    }
+    
     private void ChangeCellState(Models.Schemas.Cell cell)
     {
         if (cell.State != CellState.Empty || _game.Winner != null) return;

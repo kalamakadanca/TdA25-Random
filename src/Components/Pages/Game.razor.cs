@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Client;
 using TourDeApp.Services;
 using TourDeApp.Controllers.API_V1.Games;
 using TourDeApp.Models;
 using TourDeApp.Models.Schemas;
+using Cell = TourDeApp.Components.Pages.Shared.Cell;
 
 namespace TourDeApp.Components.Pages;
 
@@ -12,6 +14,9 @@ public partial class Game : ComponentBase
     [Inject] private NavigationManager _navigationManager { get; set; } = default!;
     [Inject] private GameService _gameService { get; set; } = default!;
     [Inject] private GamesController _gamesController { get; set; } = default!;
+    [Inject] private SignalRService _signalRService { get; set; }
+    
+    private HubConnection _hubConnection { get; set; }
 
     
     private Models.Game? _game { get; set; }
@@ -47,8 +52,13 @@ public partial class Game : ComponentBase
 
     protected override void OnInitialized()
     {
-        _gameService.SubscribeMove(StateHasChanged);
+        _gameService.SubscribeMove(ReRender);
         _gameService.SubscribeWin(GameWon);
+    }
+
+    private void ReRender()
+    {
+        InvokeAsync(StateHasChanged);
     }
     
     protected override async Task OnInitializedAsync()
@@ -62,7 +72,14 @@ public partial class Game : ComponentBase
         }
         else
         {
-            _game = _gameService.CreateGame();
+            _signalRService.StartAsync();
+
+            _signalRService.HubConnection.On<Models.Schemas.Cell>("SendMove", (cell) =>
+            {
+                _gameService.UpdateBoard(cell);
+            });
+            
+            _game = _gameService.GameExists() ? _gameService.CreateGame() : _gameService.GetGame();
         }
     }
 

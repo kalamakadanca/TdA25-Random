@@ -4,5 +4,8 @@ namespace TourDeApp;
 
 public class GameHub : Hub
 {
-    // TODO:
+    public async Task SendMove(Models.Schemas.Cell cell)
+    {
+        await Clients.All.SendAsync("SendMove", cell);
+    }
 }
