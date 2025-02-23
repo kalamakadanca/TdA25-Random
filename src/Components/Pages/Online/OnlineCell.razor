@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.SignalR.Client
+@using TourDeApp.Infrastructure.CustomConverters
+@using TourDeApp.Models.Schemas
+@implements IDisposable
+
+@code {
+    [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
+    [Parameter, EditorRequired] public required string Uuid { get; set; }
+    
+    [Inject] private OnlineGameService _gameService { get; set; }
+    [Inject] private SignalRService _signalRService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _gameService.Subscribe(Uuid, ReRender, StateHasChanged);
+    }
+
+    private void ReRender()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+    
+    private async Task HandleClick()
+    {
+        await _signalRService.HubConnection.InvokeAsync("SendMove", CellInstance);
+    }
+    
+    public void Dispose()
+    {
+    }
+}
+
+@if (CellInstance.WinningCell == false)
+{
+    <span @onclick="HandleClick" class="cell">
+        @if (CellInstance.State != CellState.Empty)
+        {
+            if(CellInstance.State == CellState.X) 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
+            }
+            else 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/O/O_modre.svg"/>
+            }
+        }
+    </span>
+}
+else
+{
+    <span @onclick="HandleClick" class="winning_cell">
+        @if (CellInstance.State != CellState.Empty)
+        {
+            if(CellInstance.State == CellState.X) 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/X/X_cervene.svg"/>
+            }
+            else 
+            {
+                <img class="icon" src="/TdA_Ikonky/SVG/O/O_modre.svg"/>
+            }
+        }
+    </span>
+}

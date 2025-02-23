@@ -69,7 +69,6 @@ public partial class Home : ComponentBase
 
     private string GenerateFriendCode() => random.Next(100000, 999999).ToString();
     
-    private IList<Todoitem> Todos { get; set; } = new List<Todoitem>();
 
     protected override void OnInitialized()
     {
@@ -84,11 +83,6 @@ public partial class Home : ComponentBase
         Games = await GetGames();
         gamesLoading = false;
         await InvokeAsync(StateHasChanged); // Notify Blazor to update the UI
-    }
-
-    public string ItemClass(Todoitem item)
-    {
-        return item.Completed ? "item-completed" : "";
     }
 
     private async Task<List<Models.Game>> GetGames()

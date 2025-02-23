@@ -40,20 +40,20 @@ namespace TourDeApp.Models
 
         public Game(string name, DifficultyType difficulty)
         {
-            Uuid = Guid.NewGuid().ToString();
+            if (Uuid is null) Uuid = Guid.NewGuid().ToString();
             Name = name;
             Difficulty = difficulty;
             GameState = GameState.Opening;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
-            this.GameGenerateEmptyBoard(); // Creates an empty board
+            this.GameGenerateEmptyBoard();
             GameFinished = false;
             History = new List<Move>();
             CheckWinAndSetGameState();
         }
 
         
-        public void UpdateBoard(Cell cell)
+        public virtual void UpdateBoard(Cell cell)
         {
             if (GameFinished) return;
             Board[cell.CellID[0]][cell.CellID[1]] = Next.ToString() == "Empty" ? "" : Next.ToString();

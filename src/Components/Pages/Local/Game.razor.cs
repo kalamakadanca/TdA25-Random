@@ -7,7 +7,7 @@ using TourDeApp.Models;
 using TourDeApp.Models.Schemas;
 using Cell = TourDeApp.Components.Pages.Shared.Cell;
 
-namespace TourDeApp.Components.Pages;
+namespace TourDeApp.Components.Pages.Local;
 
 public partial class Game : ComponentBase
 {
