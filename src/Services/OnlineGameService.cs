@@ -9,12 +9,9 @@ public class OnlineGameService
 {
     private List<OnlineGame> _games = new();
 
-    public OnlineGame CreateGame( string uuid, string player1Id)
+    public OnlineGame CreateGame(string player1Id)
     {
-        var game = new OnlineGame("Online hra", DifficultyType.Beginner, player1Id)
-        {
-            Uuid = uuid
-        };
+        var game = new OnlineGame("Online hra", DifficultyType.Beginner, player1Id) { Player1Id = player1Id};
         
         _games.Add(game);
 

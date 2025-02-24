@@ -17,7 +17,7 @@ public partial class OnlineGame : ComponentBase
     
     protected override async Task OnInitializedAsync()
     {
-        _signalRService.StartAsync();
+        await _signalRService.StartAsync();
 
         if (_navigationManager.Uri.Contains("/online/"))
         {        
@@ -25,11 +25,13 @@ public partial class OnlineGame : ComponentBase
             var index = currentUrl.IndexOf("/online/") + "/online/".Length;
             Uuid = currentUrl.Substring(index);
             _game = _gameService.JoinGame(_signalRService.HubConnection.ConnectionId, Uuid);
+            StateHasChanged();
         }
         else
         {
-            _game = _gameService.CreateGame(Uuid, _signalRService.HubConnection.ConnectionId);
+            _game = _gameService.CreateGame(_signalRService.HubConnection.ConnectionId);
             _navigationManager.NavigateTo($"/online/{_game.Uuid}");
+            StateHasChanged();
         }
         
         await InvokeAsync(StateHasChanged);
@@ -38,8 +40,6 @@ public partial class OnlineGame : ComponentBase
         {
             _gameService.UpdateBoard(cell, _game.Uuid);
         });
-        
-        
     }
 
     private void OnMove()

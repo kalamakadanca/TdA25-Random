@@ -27,7 +27,7 @@ public class GameHub : Hub
 
     public async Task CreateGame(string uuid)
     {
-        _gameService.CreateGame(Context.ConnectionId, uuid);
+        _gameService.CreateGame(Context.ConnectionId);
 
         await Groups.AddToGroupAsync(Context.ConnectionId, uuid);
     }

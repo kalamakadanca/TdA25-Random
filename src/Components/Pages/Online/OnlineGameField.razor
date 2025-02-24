@@ -1,6 +1,4 @@
-﻿@page "/OnlineGameField"
-
-<table class="table">
+﻿<table class="table">
     <tbody>
     @for (int row = 0; row < GlobalSettings.BoardLength; row++)
     {
@@ -10,12 +8,12 @@
                 var cell = new TourDeApp.Models.Schemas.Cell()
                 {
                     CellID = [row, column],
-                    State = CellStateConverter.ToEnum(_game.Board[row][column]),
-                    WinningCell = _game.WinningLine.Any(x => x[0] == row && x[1] == column)
+                    State = CellStateConverter.ToEnum(Game.Board[row][column]),
+                    WinningCell = Game.WinningLine.Any(x => x[0] == row && x[1] == column)
                 };
 
                 <td class="game_cell">
-                    <OnlineCell CellInstance="cell" Uuid="@Uuid"></OnlineCell>
+                    <OnlineCell CellInstance="cell" Uuid="@Game.Uuid"></OnlineCell>
                 </td>
             }
         </tr>
@@ -24,15 +22,13 @@
 </table>
 
 @code {
-    private Models.OnlineGame _game { get; set; }
+    [Parameter] public Models.OnlineGame Game { get; set; }
 
     [Inject] private OnlineGameService _gameService { get; set; }
     [Inject] private SignalRService _signalRService { get; set; }
 
-    [Parameter, EditorRequired] public string Uuid { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
-        _gameService.Subscribe(_game.Uuid, StateHasChanged, StateHasChanged);
+        _gameService.Subscribe(Game.Uuid, StateHasChanged, StateHasChanged);
     }
 }
