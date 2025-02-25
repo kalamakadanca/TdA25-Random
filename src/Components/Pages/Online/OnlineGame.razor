@@ -1,9 +1,17 @@
 ﻿@page "/online"
 @page "/online/{uuid}"
+@rendermode InteractiveServer
 
 @if (_game is not null)
 {
     <div class="game">
         <OnlineGameField Game="@_game"></OnlineGameField>
+    </div>
+}
+else
+{
+    <div class="container" style="height: 100vh; align-items: center;">
+        <h3 style="color: white">Hra nebyla nalezena :(</h3>
+        <button @onclick="NewGame">Vytvořit novou hru</button>
     </div>
 }

@@ -48,7 +48,8 @@ public partial class Home : ComponentBase
 
     private void PlayOnline()
     {
-        multiplayerSelectModal.Open();
+        //multiplayerSelectModal.Open();
+        _navigationManager.NavigateTo("/online", true);
     }
 
     private async Task PlayQuickGame()

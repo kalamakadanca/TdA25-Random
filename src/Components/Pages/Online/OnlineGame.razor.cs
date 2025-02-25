@@ -38,12 +38,19 @@ public partial class OnlineGame : ComponentBase
 
         _signalRService.HubConnection.On<Models.Schemas.Cell>("SendMove", (cell) =>
         {
-            _gameService.UpdateBoard(cell, _game.Uuid);
+            _game = _gameService.UpdateBoard(cell, _game.Uuid);
         });
+        
+        _gameService.Subscribe(Uuid, OnMove, StateHasChanged);
     }
 
     private void OnMove()
     {
-        
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void NewGame()
+    {
+        _navigationManager.NavigateTo("/online", true);
     }
 }

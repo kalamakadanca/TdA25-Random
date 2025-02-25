@@ -1,8 +1,10 @@
-﻿<table class="table">
+﻿@rendermode InteractiveServer
+
+<table class="table">
     <tbody>
     @for (int row = 0; row < GlobalSettings.BoardLength; row++)
     {
-        <tr>
+        <tr class="game-row">
             @for (int column = 0; column < GlobalSettings.BoardLength; column++)
             {
                 var cell = new TourDeApp.Models.Schemas.Cell()
@@ -29,6 +31,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _gameService.Subscribe(Game.Uuid, StateHasChanged, StateHasChanged);
+        _gameService.Subscribe(Game.Uuid, OnMove, StateHasChanged);
+    }
+
+    private void OnMove()
+    {
+        InvokeAsync(StateHasChanged);
     }
 }

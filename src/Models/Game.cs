@@ -53,7 +53,7 @@ namespace TourDeApp.Models
         }
 
         
-        public virtual void UpdateBoard(Cell cell)
+        public virtual async Task UpdateBoard(Cell cell)
         {
             if (GameFinished) return;
             Board[cell.CellID[0]][cell.CellID[1]] = Next.ToString() == "Empty" ? "" : Next.ToString();
@@ -63,8 +63,7 @@ namespace TourDeApp.Models
 
             if (History.Count >= 5 && GameState == GameState.Opening) GameState = GameState.Midgame;
 
-            if (Next == CellState.X) Next = CellState.O;
-            else Next = CellState.X;
+            Next = Next == CellState.X ? CellState.O : CellState.X;
         }
 
         public bool CheckWinAndSetGameState()
@@ -77,7 +76,7 @@ namespace TourDeApp.Models
             int countX = Board.Sum(row => row.Count(field => field == "X"));
             int countO = Board.Sum(row => row.Count(field => field == "O"));
             
-            Next = countX == countO ? CellState.X : CellState.O;
+            // Next = countX == countO ? CellState.X : CellState.O;
             
             for (int i = 0; i < lenght-maxForDiagonal; i++)
             {

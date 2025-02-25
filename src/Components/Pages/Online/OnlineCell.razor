@@ -2,6 +2,7 @@
 @using TourDeApp.Infrastructure.CustomConverters
 @using TourDeApp.Models.Schemas
 @implements IDisposable
+@rendermode InteractiveServer
 
 @code {
     [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
@@ -22,6 +23,7 @@
     
     private async Task HandleClick()
     {
+        if (CellInstance.State != CellState.Empty) return;
         await _signalRService.HubConnection.InvokeAsync("SendMove", CellInstance);
     }
     

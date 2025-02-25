@@ -16,7 +16,7 @@ public class OnlineGame : Game
         CurrentPlayerId = Player1Id;
     }
     
-    public override void UpdateBoard(Cell cell)
+    public override async Task UpdateBoard(Cell cell)
     {
         if (GameFinished) return;
         Board[cell.CellID[0]][cell.CellID[1]] = Next.ToString() == "Empty" ? "" : Next.ToString();
@@ -26,8 +26,9 @@ public class OnlineGame : Game
 
         if (History.Count >= 5 && GameState == GameState.Opening) GameState = GameState.Midgame;
 
-        if (Next == CellState.X) Next = CellState.O;
-        else Next = CellState.X;
+        Next = Next == CellState.X ? CellState.O : CellState.X;
+        
+        Console.WriteLine(Next.ToString());
         
         OnMove.Invoke();
     }

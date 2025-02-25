@@ -39,12 +39,13 @@ public class OnlineGameService
         return _games.Find(p => p.Uuid == uuid) ?? throw new InvalidOperationException();
     }
 
-    public void UpdateBoard(Cell cell, string uuid)
+    public OnlineGame UpdateBoard(Cell cell, string uuid)
     {
         var game = _games.Find(p => p.Uuid == uuid);
 
         game?.UpdateBoard(cell);
-        
+
+        return game;
     }
 
     public void Subscribe(string uuid, Action onMove, Action onWin)
