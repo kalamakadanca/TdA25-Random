@@ -11,17 +11,19 @@
         </a>
         <h1 class="nazev">PIŠKVORKY</h1>
         
-        <div class="user-status">
-            @if (_isAuthenticated)
-            {
-                <p>Vítej @_username</p>
-                <button @onclick="HandleLogout">Odhlásit</button>
-            }
-            else
-            {
-                <p>Nejste přihlášený</p>
-                <button @onclick="HandleLogin">Přihlásit</button>
-            }
+        <div style="display: flex; justify-content: flex-end; align-items: flex-end; width:100%;">
+            <div style="color:white; ">
+                @if (_isAuthenticated)
+                {
+                    <p>Vítej @_username</p>
+                    <button @onclick="HandleLogout">Odhlásit</button>
+                }
+                else
+                {
+                    <p>Nejste přihlášený</p>
+                    <button @onclick="HandleLogin">Přihlásit</button>
+                }
+            </div>
         </div>
     </div>
     
