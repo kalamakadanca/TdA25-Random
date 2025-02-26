@@ -22,12 +22,12 @@
         </div>
         <div>
             <label for="password" style="color: white">Heslo</label>
-            <InputText id="password" @bind-Value="_registerModel.Password"></InputText>
+            <InputText id="password" @bind-Value="_registerModel.Password" type="password"></InputText>
             <ValidationMessage For="() => _registerModel.Password"></ValidationMessage>
         </div>        
         <div>
             <label for="confirm-password" style="color: white">Potvrďte heslo</label>
-            <InputText id="confirm-password" @bind-Value="_registerModel.ConfirmPassword"></InputText>
+            <InputText id="confirm-password" @bind-Value="_registerModel.ConfirmPassword" type="password"></InputText>
             <ValidationMessage For="() => _registerModel.ConfirmPassword"></ValidationMessage>
         </div>
 

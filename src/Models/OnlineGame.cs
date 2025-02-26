@@ -26,9 +26,16 @@ public class OnlineGame : Game
 
         if (History.Count >= 5 && GameState == GameState.Opening) GameState = GameState.Midgame;
 
-        Next = Next == CellState.X ? CellState.O : CellState.X;
-        
         Console.WriteLine(Next.ToString());
+
+        if (Next == CellState.O)
+        {
+            Next = CellState.X;
+        }
+        else
+        {
+            Next = CellState.O;
+        }
         
         OnMove.Invoke();
     }

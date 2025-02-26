@@ -23,7 +23,7 @@
         </div>
         <div>
             <label for="password" style="color: white">Heslo</label>
-            <InputText id="password" @bind-Value="_loginModel.Password"></InputText>
+            <InputText id="password" @bind-Value="_loginModel.Password" type="password"></InputText>
             <ValidationMessage For="() => _loginModel.Password"></ValidationMessage>
         </div>
         
