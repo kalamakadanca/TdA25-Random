@@ -18,25 +18,25 @@ public class OnlineGame : Game
     
     public override async Task UpdateBoard(Cell cell)
     {
-        if (GameFinished) return;
-        Board[cell.CellID[0]][cell.CellID[1]] = Next.ToString() == "Empty" ? "" : Next.ToString();
-
-        // Record the move to history
+        if (GameFinished || Board[cell.CellID[0]][cell.CellID[1]] != "") return;
+        
+        Board[cell.CellID[0]][cell.CellID[1]] = Next.ToString();
+        
         History.Add(new Move(cell.CellID, Next));
 
         if (History.Count >= 5 && GameState == GameState.Opening) GameState = GameState.Midgame;
 
-        Console.WriteLine(Next.ToString());
-
-        if (Next == CellState.O)
+        if (Next == CellState.X)
         {
-            Next = CellState.X;
+            Next = CellState.O;
+            CurrentPlayerId = Player2Id;
         }
         else
         {
-            Next = CellState.O;
+            Next = CellState.X;
+            CurrentPlayerId = Player1Id;
         }
-        
+
         OnMove.Invoke();
     }
 }

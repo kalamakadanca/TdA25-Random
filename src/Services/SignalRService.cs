@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
+using TourDeApp.Models.Schemas;
 
 namespace TourDeApp.Services;
 
@@ -21,5 +22,15 @@ public class SignalRService
             .Build();
 
         await HubConnection.StartAsync();
+    }
+
+    public async Task JoinGroup(string uuid)
+    {
+        await HubConnection.SendAsync("JoinGame", uuid);
+    }
+
+    public async Task SendMove(string uuid, Models.Schemas.Cell cell)
+    {
+        await HubConnection.SendAsync("SendMove", uuid, cell);
     }
 }

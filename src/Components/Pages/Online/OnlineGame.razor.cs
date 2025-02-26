@@ -30,11 +30,13 @@ public partial class OnlineGame : ComponentBase
         else
         {
             _game = _gameService.CreateGame(_signalRService.HubConnection.ConnectionId);
-            _navigationManager.NavigateTo($"/online/{_game.Uuid}");
+            _navigationManager.NavigateTo($"/online/{_game.Uuid}", true);
             StateHasChanged();
         }
         
         await InvokeAsync(StateHasChanged);
+
+        _signalRService.JoinGroup(Uuid);
 
         _signalRService.HubConnection.On<Models.Schemas.Cell>("SendMove", (cell) =>
         {
