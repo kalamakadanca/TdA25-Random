@@ -40,13 +40,13 @@ namespace TourDeApp.Models
 
         public Game(string name, DifficultyType difficulty)
         {
-            if (Uuid is null) Uuid = Guid.NewGuid().ToString();
+            Uuid = Guid.NewGuid().ToString();
             Name = name;
             Difficulty = difficulty;
             GameState = GameState.Opening;
             CreatedAt = DateTime.Now;
             UpdatedAt = CreatedAt;
-            this.GameGenerateEmptyBoard();
+            this.GameGenerateEmptyBoard(); // Creates an empty board
             GameFinished = false;
             History = new List<Move>();
             CheckWinAndSetGameState();
@@ -63,7 +63,8 @@ namespace TourDeApp.Models
 
             if (History.Count >= 5 && GameState == GameState.Opening) GameState = GameState.Midgame;
 
-            Next = Next == CellState.X ? CellState.O : CellState.X;
+            if (Next == CellState.X) Next = CellState.O;
+            else Next = CellState.X;
         }
 
         public bool CheckWinAndSetGameState()
@@ -76,7 +77,7 @@ namespace TourDeApp.Models
             int countX = Board.Sum(row => row.Count(field => field == "X"));
             int countO = Board.Sum(row => row.Count(field => field == "O"));
             
-            // Next = countX == countO ? CellState.X : CellState.O;
+            Next = countX == countO ? CellState.X : CellState.O;
             
             for (int i = 0; i < lenght-maxForDiagonal; i++)
             {

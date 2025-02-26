@@ -2,6 +2,7 @@ using TourDeApp.Models;
 using TourDeApp.Models.Schemas;
 
 
+// Toto je dočasně dokud Viktor neudělá controller
 namespace TourDeApp.Services
 {
     public class GameService
@@ -16,9 +17,9 @@ namespace TourDeApp.Services
             return _game;
         }
 
-        public bool GameExists() => _game == null;
-
         public Game GetGame() => _game;
+
+        public bool GameExists() => _game is null;
         
         public void UpdateBoard(Models.Schemas.Cell cell)
         {

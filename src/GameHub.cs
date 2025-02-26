@@ -32,8 +32,8 @@ public class GameHub : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, uuid);
     }
     
-    public async Task SendMove(Models.Schemas.Cell cell)
+    public async Task SendMove(Models.Schemas.Cell cell, string uuid)
     {
-        await Clients.All.SendAsync("SendMove", cell);
+        await Clients.Group(uuid).SendAsync("SendMove", cell);
     }
 }
