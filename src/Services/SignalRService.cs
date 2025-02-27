@@ -26,7 +26,7 @@ public class SignalRService
 
     public async Task JoinGroup(string uuid)
     {
-        await HubConnection.SendAsync("JoinGame", uuid);
+        await HubConnection.SendAsync("JoinGroup", uuid);
     }
 
     public async Task SendMove(string uuid, Models.Schemas.Cell cell)

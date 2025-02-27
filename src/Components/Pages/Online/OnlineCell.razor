@@ -24,7 +24,7 @@
     private async Task HandleClick()
     {
         if (CellInstance.State != CellState.Empty) return;
-        await _signalRService.HubConnection.InvokeAsync("SendMove", CellInstance);
+        await _signalRService.HubConnection.InvokeAsync("SendMove", Uuid, CellInstance);
     }
     
     public void Dispose()

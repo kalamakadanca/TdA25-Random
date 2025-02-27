@@ -14,7 +14,7 @@ public class GameHub : Hub
         _gameService = gameService;
     }
     
-    public async Task JoinGame(string uuid)
+    public async Task JoinGroup(string uuid)
     {
         var game = _gameService.JoinGame(Context.ConnectionId, uuid);
 
@@ -32,7 +32,7 @@ public class GameHub : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, uuid);
     }
     
-    public async Task SendMove(Models.Schemas.Cell cell, string uuid)
+    public async Task SendMove(string uuid, Models.Schemas.Cell cell)
     {
         await Clients.Group(uuid).SendAsync("SendMove", cell);
     }

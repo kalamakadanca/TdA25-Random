@@ -36,7 +36,7 @@ public partial class OnlineGame : ComponentBase
         
         await InvokeAsync(StateHasChanged);
 
-        _signalRService.JoinGroup(Uuid);
+        await _signalRService.JoinGroup(Uuid);
 
         _signalRService.HubConnection.On<Models.Schemas.Cell>("SendMove", (cell) =>
         {
