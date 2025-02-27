@@ -14,7 +14,6 @@ public partial class Game : ComponentBase
     [Inject] private NavigationManager _navigationManager { get; set; } = default!;
     [Inject] private GameService _gameService { get; set; } = default!;
     [Inject] private GamesController _gamesController { get; set; } = default!;
-    [Inject] private SignalRService _signalRService { get; set; }
     
     private HubConnection _hubConnection { get; set; }
 
@@ -72,14 +71,7 @@ public partial class Game : ComponentBase
         }
         else
         {
-            _signalRService.StartAsync();
-
-            _signalRService.HubConnection.On<Models.Schemas.Cell>("SendMove", (cell) =>
-            {
-                _gameService.UpdateBoard(cell);
-            });
-            
-            _game = _gameService.GameExists() ? _gameService.CreateGame() : _gameService.GetGame();
+            _game = _gameService.CreateGame();
         }
     }
 

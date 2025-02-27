@@ -19,7 +19,7 @@ namespace TourDeApp.Services
 
         public Game GetGame() => _game;
 
-        public bool GameExists() => _game is null;
+        public bool GameExists() => _game is not null;
         
         public void UpdateBoard(Models.Schemas.Cell cell)
         {

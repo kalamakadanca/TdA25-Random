@@ -13,6 +13,11 @@ public class GameHub : Hub
     {
         _gameService = gameService;
     }
+
+    public async override Task OnDisconnectedAsync(Exception exception)
+    {
+        Console.WriteLine($"{Context.ConnectionId} has disconnected");
+    }
     
     public async Task JoinGroup(string uuid)
     {

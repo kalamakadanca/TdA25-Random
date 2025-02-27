@@ -7,7 +7,6 @@
     [Parameter, EditorRequired] public required Models.Schemas.Cell CellInstance { get; set; }
     
     [Inject] private GameService _gameService { get; set; }
-    [Inject] private SignalRService _signalRService { get; set; }
 
     protected override void OnInitialized()
     {
@@ -17,11 +16,6 @@
     private void ReRender()
     {
         InvokeAsync(StateHasChanged);
-    }
-    
-    private async Task MakeMove()
-    {
-        await _signalRService.HubConnection.InvokeAsync("SendMove", CellInstance);
     }
     
     private async Task HandleClick()

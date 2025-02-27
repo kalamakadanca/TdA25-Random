@@ -16,8 +16,8 @@
                     var cell = new TourDeApp.Models.Schemas.Cell()
                     {
                         CellID = [row, column],
-                        State = CellStateConverter.ToEnum(_game.Board[row][column]),
-                        WinningCell = _game.WinningLine.Any(x => x[0] == row && x[1] == column)
+                        State = CellStateConverter.ToEnum(Game.Board[row][column]),
+                        WinningCell = Game.WinningLine.Any(x => x[0] == row && x[1] == column)
                     };
 
                     <td class="game_cell">
@@ -33,31 +33,30 @@
 @code {
     [Inject] private GameService _gameService { get; set; }
 
-    private Game _game { get; set; }
+    [Parameter] public Game Game { get; set; }
     
     protected override void OnInitialized()
     {
         _gameService.SubscribeMove(OnMove);
-        _game = _gameService.GetGame();
     }
 
     private void OnMove()
     {
-        _game = _gameService.GetGame();
+        Game = _gameService.GetGame();
         InvokeAsync(StateHasChanged);
     }
     
     private void ChangeCellState(Models.Schemas.Cell cell)
     {
-        if (cell.State != CellState.Empty || _game.Winner != null) return;
+        if (cell.State != CellState.Empty || Game.Winner != null) return;
 
-        GameState gameState = _game.GameState;
+        GameState gameState = Game.GameState;
 
         _gameService.UpdateBoard(cell);
 
-        if (_game.CheckWinAndSetGameState())
+        if (Game.CheckWinAndSetGameState())
         {
-            foreach (var id in _game.WinningLine)
+            foreach (var id in Game.WinningLine)
             {
                 Console.WriteLine($"{id[0]}, {id[1]}");
             }

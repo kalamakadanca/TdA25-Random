@@ -54,7 +54,7 @@ builder.Services.AddIdentityCore<User>()
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 
-builder.Services.AddSingleton<GameService>();
+builder.Services.AddScoped<GameService>();
 builder.Services.AddSingleton<OnlineGameService>();
 builder.Services.AddScoped<SignalRService>();
 
