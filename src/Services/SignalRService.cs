@@ -18,7 +18,7 @@ public class SignalRService
     public async Task StartAsync()
     {
         HubConnection = new HubConnectionBuilder()
-            .WithUrl(_navigationManager.ToAbsoluteUri("/gamehub"))
+            .WithUrl("https://ca3512f4.app.deploy.tourde.app/gamehub")
             .Build();
 
         await HubConnection.StartAsync();
