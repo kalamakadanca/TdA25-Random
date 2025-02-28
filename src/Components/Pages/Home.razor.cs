@@ -65,7 +65,7 @@ public partial class Home : ComponentBase
 
     private async Task JoinFriend()
     {
-        // TODO
+        string uuid
     }
 
     private string GenerateFriendCode() => random.Next(100000, 999999).ToString();

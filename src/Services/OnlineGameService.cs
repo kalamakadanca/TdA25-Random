@@ -18,6 +18,20 @@ public class OnlineGameService
         return game;
     }
 
+    public string CreateGameWithCode()
+    {
+        Random random = new Random();
+        int code = random.Next(10000, 100000);
+
+        if (!_games.Any(p => p.FriendCode == code.ToString()))
+        {
+            var game = new OnlineGame("Hra s kamarádem", DifficultyType.Beginner) {FriendCode = code.ToString()};
+            return game.Uuid;
+        }
+
+        return null;
+    }
+
     public OnlineGame JoinGame(string player2Id, string uuid)
     {
         var game = _games.Find(p => p.Uuid == uuid);
@@ -28,6 +42,10 @@ public class OnlineGameService
             {
                 game.Player2Id = player2Id;
                 return game;
+            }
+            else if (game.Player1Id is null)
+            {
+                game.Player1Id = player2Id;
             }
         }
 

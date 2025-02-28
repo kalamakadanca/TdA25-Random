@@ -7,10 +7,11 @@ public class OnlineGame : Game
     public string Player1Id { get; set; }
     public string Player2Id { get; set; }
     public string CurrentPlayerId { get; set; }
+    public string FriendCode { get; set; }
     public event Action OnMove;
     public event Action OnWin;
 
-    public OnlineGame(string name, DifficultyType difficulty, string player1Id) : base(name, difficulty)
+    public OnlineGame(string name, DifficultyType difficulty, string? player1Id = null) : base(name, difficulty)
     {
         Player1Id = player1Id;
         CurrentPlayerId = Player1Id;
